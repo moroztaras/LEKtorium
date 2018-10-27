@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\Entity\Article;
+use App\Form\ArticleType;
 use App\Services\ArticleService;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
@@ -12,7 +13,7 @@ use Symfony\Component\Routing\Annotation\Route;
 class ArticleController extends Controller
 {
     /**
-     * @Route("/", methods={"GET","POST"})
+     * @Route("/", methods={"GET","POST"}, name="index")
      */
     public function indexAction(Request $request, ArticleService $articleService)
     {
@@ -34,7 +35,7 @@ class ArticleController extends Controller
     }
 
     /**
-     * @Route("/show", methods={"GET"})
+     * @Route("/show", methods={"GET"}, name="show")
      */
     public function showAction()
     {
@@ -48,5 +49,28 @@ class ArticleController extends Controller
         return new Response(
           "<html><body><ul>$html</ul></body></html>"
         );
+    }
+
+    /**
+     * @Route("/new", name="new_article")
+     */
+    public function newAction(Request $request)
+    {
+        $article = new Article();
+
+        $form = $this->createForm(ArticleType::class, $article);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid())
+        {
+            $this->getDoctrine()->getManager()->persist($article);
+            $this->getDoctrine()->getManager()->flush();
+
+            return $this->redirectToRoute("show");
+        }
+
+        return $this->render('Article/new.html.twig',[
+          'new_article_form' => $form->createView()
+        ]);
     }
 }

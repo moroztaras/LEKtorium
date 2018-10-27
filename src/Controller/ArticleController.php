@@ -26,10 +26,10 @@ class ArticleController extends Controller
             $article->setText($text);
             $article->setAuthor('Moroz Taras');
 
-            $this->getDoctrine()->getManager()->persist($article);//зверни увагу
-            $this->getDoctrine()->getManager()->flush();//запиши в базу
-
+            $this->getDoctrine()->getManager()->persist($article);
+            $this->getDoctrine()->getManager()->flush();
         }
+
         return new Response("<html><body><h1>".$article->getText()."</h1></body></html>");
     }
 

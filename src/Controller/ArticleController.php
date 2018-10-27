@@ -22,7 +22,9 @@ class ArticleController extends Controller
         if($request->getMethod()==Request::METHOD_GET){
             $article = new Article();
 
+            $article->setTitle('Title article');
             $article->setText($text);
+            $article->setAuthor('Moroz Taras');
 
             $this->getDoctrine()->getManager()->persist($article);//зверни увагу
             $this->getDoctrine()->getManager()->flush();//запиши в базу

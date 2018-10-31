@@ -69,7 +69,7 @@ class ArticleController extends Controller
             return $this->redirectToRoute("show");
         }
 
-        return $this->render('Article/new.html.twig',[
+        return $this->render('article/new.html.twig',[
           'new_article_form' => $form->createView()
         ]);
     }

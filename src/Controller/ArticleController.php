@@ -34,7 +34,7 @@ class ArticleController extends Controller
     }
 
     /**
-     * @Route("/show", methods={"GET"}, name="show")
+     * @Route("/article/show", methods={"GET"}, name="show")
      */
     public function showAction()
     {
@@ -46,25 +46,26 @@ class ArticleController extends Controller
     }
 
     /**
-     * @Route("/new", name="new_article")
+     * @param Request $request
+     * @Route("/article/new", methods={"GET", "POST"}, name="new_article")
+     * @return \Symfony\Component\HttpFoundation\Response
      */
-    public function newAction(Request $request)
+    public function newArticleAction(Request $request)
     {
         $article = new Article();
-
         $form = $this->createForm(ArticleType::class, $article);
-        $form->handleRequest($request);
 
-        if ($form->isSubmitted() && $form->isValid())
-        {
-            $this->getDoctrine()->getManager()->persist($article);
-            $this->getDoctrine()->getManager()->flush();
+        if ($request->getMethod() == Request::METHOD_POST) {
+            $form->handleRequest($request);
+            $em = $this->getDoctrine()->getManager();
+            $em->persist($article);
+            $em->flush();
 
             return $this->redirectToRoute("show");
         }
 
-        return $this->render('article/new.html.twig',[
-          'new_article_form' => $form->createView()
+        return $this->render('article/new.html.twig', [
+          'form' => $form->createView(),
         ]);
     }
 }

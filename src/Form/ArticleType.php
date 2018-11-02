@@ -21,14 +21,16 @@ class ArticleType extends AbstractType
         $builder->add('author', TextType::class, [
           'label' => 'author'
         ]);
-        $builder->add('submit', SubmitType::class, [
-          'label' => 'Add'
+        $builder->add('save', SubmitType::class, [
+          'label' => 'Save'
         ]);
     }
 
-    public function configureOptions(OptionsResolver $resolver) {
-        $resolver->setDefaults([
-          'data_class' => Article::class
-        ]);
+    public function configureOptions(OptionsResolver $resolver)
+    {
+        $resolver->setDefaults(array(
+          'data_class' => Article::class,
+          'attr' => ['novalidate' => 'novalidate'],
+        ));
     }
 }

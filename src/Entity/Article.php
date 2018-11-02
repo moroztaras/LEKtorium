@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
+
 /**
  * @ORM\Entity
  * @ORM\Table(name="article")
@@ -17,12 +19,16 @@ class Article
     private $id;
 
     /**
-     * @ORM\Column(type="string")
+     * @Assert\NotBlank()
+     * @Assert\Length(max="50", min="3", maxMessage="Too much", minMessage="Not enough")
+     * @ORM\Column(type="string", length=50)
      */
     private $title;
 
     /**
-     * @ORM\Column(type="string")
+     * @Assert\NotBlank()
+     * @Assert\Length(max="50", min="3", maxMessage="Too much", minMessage="Not enough")
+     * @ORM\Column(type="string", length=256)
      */
     private $text;
 

@@ -12,6 +12,6 @@ class ArticleService
 
         $article = $faker->realText(100);
 
-        return "Super cool article written by ".$name."<br>".$article;
+        return "Super cool article written by ".$name." ".$article;
     }
 }

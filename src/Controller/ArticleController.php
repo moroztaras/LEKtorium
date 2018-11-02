@@ -7,22 +7,20 @@ use App\Form\ArticleType;
 use App\Services\ArticleService;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
 class ArticleController extends Controller
 {
     /**
-     * @Route("/", methods={"GET","POST"}, name="index")
+     * @Route("/", methods={"GET", "POST"}, name="index")
      */
     public function indexAction(Request $request, ArticleService $articleService)
     {
         $name = $request->query->get('name');
-        $text=$articleService->handleArticle($name);
+        $text = $articleService->handleArticle($name);
 
-        if($request->getMethod()==Request::METHOD_GET){
+        if ($request->getMethod() === Request::METHOD_GET) {
             $article = new Article();
-
             $article->setTitle('Title article');
             $article->setText($text);
             $article->setAuthor('Moroz Taras');
@@ -30,8 +28,9 @@ class ArticleController extends Controller
             $this->getDoctrine()->getManager()->persist($article);
             $this->getDoctrine()->getManager()->flush();
         }
-
-        return new Response("<html><body><h1>".$article->getText()."</h1></body></html>");
+        return $this->render('article/article.html.twig', [
+          'text' => $text,
+        ]);
     }
 
     /**
@@ -41,14 +40,9 @@ class ArticleController extends Controller
     {
         $articles = $this->getDoctrine()->getRepository(Article::class)->findAll();
 
-        $html = '';
-        /* @var Article $article */
-        foreach ($articles as $article) {
-            $html .= "<li>{$article->getText()}</li>";
-        }
-        return new Response(
-          "<html><body><ul>$html</ul></body></html>"
-        );
+        return $this->render('article/articles.html.twig', [
+          'articles' => $articles
+        ]);
     }
 
     /**

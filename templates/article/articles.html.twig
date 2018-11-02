@@ -1,13 +1,42 @@
 {% extends 'base.html.twig' %}
 {% block title %}
-    Articles
+    Articles list
 {% endblock %}
 
 {% block body %}
-    <ul>
+    <h1>Article index</h1>
+
+    <table class="table">
+        <thead>
+        <tr>
+            <th>Id</th>
+            <th>Title</th>
+            <th>Text</th>
+            <th>Author</th>
+            <th>Created</th>
+            <th>actions</th>
+        </tr>
+        </thead>
+        <tbody>
         {% for article in articles %}
-            <li>{{ article.id }}</li>
-            <li>{{ article.text | title}}</li>
+            <tr>
+                <td>{{ article.id }}</td>
+                <td>{{ article.title }}</td>
+                <td>{{ article.text }}</td>
+                <td>{{ article.author }}</td>
+                <td>{{ article.created ? article.created|date('Y-m-d H:i:s') : '' }}</td>
+                <td>
+                    <a href="#">show</a>
+                    <a href="#">edit</a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="6">no articles found!</td>
+            </tr>
         {% endfor %}
-    </ul>
+        </tbody>
+    </table>
+
+    <a href="{{ path('new_article') }}">Create new</a>
 {% endblock %}

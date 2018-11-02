@@ -34,9 +34,9 @@ class ArticleController extends Controller
     }
 
     /**
-     * @Route("/article/show", methods={"GET"}, name="show")
+     * @Route("/article/list", methods={"GET"}, name="list_articles")
      */
-    public function showAction()
+    public function listArticleAction()
     {
         $articles = $this->getDoctrine()->getRepository(Article::class)->findAll();
 
@@ -61,7 +61,7 @@ class ArticleController extends Controller
             $em->persist($article);
             $em->flush();
 
-            return $this->redirectToRoute("show");
+            return $this->redirectToRoute("list_articles");
         }
 
         return $this->render('article/new.html.twig', [

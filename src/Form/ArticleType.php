@@ -13,13 +13,13 @@ class ArticleType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options) {
         $builder->add('title', TextType::class, [
-          'label' => 'title'
+          'label' => 'Title'
         ]);
         $builder->add('text', TextType::class, [
-          'label' => 'text'
+          'label' => 'Text'
         ]);
         $builder->add('author', TextType::class, [
-          'label' => 'author'
+          'label' => 'Author'
         ]);
         $builder->add('save', SubmitType::class, [
           'label' => 'Save'

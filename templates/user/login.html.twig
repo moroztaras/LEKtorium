@@ -1,0 +1,9 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <h1>Login</h1>
+
+    {{ form(user_login) }}
+
+    <a href="{{ path('user_register') }}">Register</a>
+{% endblock %}

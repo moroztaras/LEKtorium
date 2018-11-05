@@ -40,11 +40,11 @@ class Article
     /**
      * @ORM\Column(type="datetime")
      */
-    private $created;
+    private $createdAt;
 
     public function __construct()
     {
-        $this->created = new \DateTime();
+        $this->createdAt = new \DateTime();
     }
 
     /**
@@ -53,14 +53,6 @@ class Article
     public function getId()
     {
         return $this->id;
-    }
-
-    /**
-     * @param mixed $id
-     */
-    public function setId($id): void
-    {
-        $this->id = $id;
     }
 
     /**
@@ -114,16 +106,16 @@ class Article
     /**
      * @return mixed
      */
-    public function getCreated()
+    public function getCreatedAt()
     {
-        return $this->created;
+        return $this->createdAt;
     }
 
     /**
-     * @param mixed $created
+     * @param mixed $createdAt
      */
-    public function setCreated($created): void
+    public function setCreated($createdAt): void
     {
-        $this->created = $created;
+        $this->createdAt = $createdAt;
     }
 }

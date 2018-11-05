@@ -21,7 +21,7 @@
             <th>Title</th>
             <th>Text</th>
             <th>Author</th>
-            <th>Created</th>
+            <th>CreatedAt</th>
             <th>actions</th>
         </tr>
         </thead>
@@ -32,7 +32,7 @@
                 <td>{{ article.title }}</td>
                 <td>{{ article.text }}</td>
                 <td>{{ article.author }}</td>
-                <td>{{ article.created ? article.created|date('Y-m-d H:i:s') : '' }}</td>
+                <td>{{ article.createdAt ? article.createdAt|date('Y-m-d H:i:s') : '' }}</td>
                 <td>
                     <a href="#">show</a>
                     <a href="#">edit</a>

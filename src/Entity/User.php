@@ -63,11 +63,11 @@ class User
     /**
      * @ORM\Column(type="datetime")
      */
-    private $created;
+    private $createdAt;
 
     public function __construct()
     {
-        $this->created = new \DateTime();
+        $this->createdAt = new \DateTime();
     }
 
     /**
@@ -166,25 +166,25 @@ class User
     }
 
     /**
-     * Get created
+     * Get createdAt
      *
      * @return \DateTime
      */
-    public function getCreated()
+    public function getCreatedAt()
     {
-        return $this->created;
+        return $this->createdAt;
     }
 
     /**
-     * Set created
+     * Set createdAt
      *
-     * @param \DateTime $created
+     * @param \DateTime $createdAt
      *
      * @return User
      */
-    public function setCreated($created)
+    public function setCreatedAt($createdAt)
     {
-        $this->created = $created;
+        $this->createdAt = $createdAt;
 
         return $this;
     }

@@ -33,7 +33,7 @@ class ArticleController extends Controller
             $this->getDoctrine()->getManager()->persist($article);
             $this->getDoctrine()->getManager()->flush();
         }
-        return $this->render('article/article.html.twig', [
+        return $this->render('article/index.html.twig', [
           'text' => $text,
         ]);
     }
@@ -45,7 +45,7 @@ class ArticleController extends Controller
     {
         $articles = $this->getDoctrine()->getRepository(Article::class)->findAll();
 
-        return $this->render('article/articles.html.twig', [
+        return $this->render('article/list.html.twig', [
           'articles' => $articles
         ]);
     }

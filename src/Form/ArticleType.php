@@ -16,7 +16,7 @@ class ArticleType extends AbstractType
         $builder->add('title', TextType::class, [
           'label' => 'Title'
         ]);
-        $builder->add('text', TextareaType::class, [
+        $builder->add('text', TextareaType::git class, [
           'label' => 'Text'
         ]);
         $builder->add('author', TextType::class, [

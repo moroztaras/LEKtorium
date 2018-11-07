@@ -51,7 +51,7 @@ class ArticleController extends Controller
     }
 
     /**
-     * @Route("/article/new", methods={"GET", "POST"}, name="article_new")
+     * @Route("/new", methods={"GET", "POST"}, name="article_new")
      */
     public function newAction(Request $request)
     {

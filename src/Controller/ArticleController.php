@@ -9,6 +9,11 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
 
+/**
+ * Class UserController.
+ *
+ * @Route("/article")
+ */
 class ArticleController extends Controller
 {
     /**
@@ -34,9 +39,9 @@ class ArticleController extends Controller
     }
 
     /**
-     * @Route("/article/list", methods={"GET"}, name="list_articles")
+     * @Route("/list", methods={"GET"}, name="article_list")
      */
-    public function listArticleAction()
+    public function listAction()
     {
         $articles = $this->getDoctrine()->getRepository(Article::class)->findAll();
 
@@ -46,22 +51,20 @@ class ArticleController extends Controller
     }
 
     /**
-     * @param Request $request
-     * @Route("/article/new", methods={"GET", "POST"}, name="new_article")
-     * @return \Symfony\Component\HttpFoundation\Response
+     * @Route("/article/new", methods={"GET", "POST"}, name="article_new")
      */
-    public function newArticleAction(Request $request)
+    public function newAction(Request $request)
     {
         $article = new Article();
         $form = $this->createForm(ArticleType::class, $article);
+        $form->handleRequest($request);
 
-        if ($request->getMethod() == Request::METHOD_POST) {
-            $form->handleRequest($request);
+        if ($form->isSubmitted() && $form->isValid()) {
             $em = $this->getDoctrine()->getManager();
             $em->persist($article);
             $em->flush();
 
-            return $this->redirectToRoute("list_articles");
+            return $this->redirectToRoute("article_list");
         }
 
         return $this->render('article/new.html.twig', [

@@ -79,7 +79,7 @@ class User
     }
 
     /**
-     * Get email
+     * Get email.
      *
      * @return string
      */
@@ -89,7 +89,7 @@ class User
     }
 
     /**
-     * Set email
+     * Set email.
      *
      * @param string $email
      *
@@ -142,7 +142,6 @@ class User
         return $this;
     }
 
-
     /**
      * @return string
      */
@@ -152,7 +151,7 @@ class User
     }
 
     /**
-     * Set password
+     * Set password.
      *
      * @param string $password
      *
@@ -166,7 +165,7 @@ class User
     }
 
     /**
-     * Get createdAt
+     * Get createdAt.
      *
      * @return \DateTime
      */
@@ -176,7 +175,7 @@ class User
     }
 
     /**
-     * Set createdAt
+     * Set createdAt.
      *
      * @param \DateTime $createdAt
      *

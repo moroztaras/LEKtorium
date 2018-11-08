@@ -2,8 +2,6 @@
 
 namespace App\Services;
 
-use function Symfony\Component\Console\Tests\Command\createClosure;
-
 class ArticleService
 {
     public function handleArticle($name)
@@ -12,6 +10,6 @@ class ArticleService
 
         $article = $faker->realText(100);
 
-        return "Super cool article written by ".$name." ".$article;
+        return 'Super cool article written by '.$name.' '.$article;
     }
 }

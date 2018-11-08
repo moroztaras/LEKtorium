@@ -14,33 +14,34 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 
 class RegistrationType extends AbstractType
 {
-    public function buildForm(FormBuilderInterface $builder, array $options) {
-        $builder->add('email',  EmailType::class, [
-          'label' => 'Email'
+    public function buildForm(FormBuilderInterface $builder, array $options)
+    {
+        $builder->add('email', EmailType::class, [
+          'label' => 'Email',
         ]);
         $builder->add('firstName', TextType::class, [
-          'label' => 'FirstName'
+          'label' => 'FirstName',
         ]);
         $builder->add('lastName', TextType::class, [
-          'label' => 'lastName'
+          'label' => 'lastName',
         ]);
-        $builder->add('password', RepeatedType::class, array(
+        $builder->add('password', RepeatedType::class, [
           'type' => PasswordType::class,
           'invalid_message' => 'The password fields must match.',
           'required' => true,
-          'first_options'  => array('label' => 'Password'),
-          'second_options' => array('label' => 'Repeat password'),
-        ));
+          'first_options' => ['label' => 'Password'],
+          'second_options' => ['label' => 'Repeat password'],
+        ]);
         $builder->add('register', SubmitType::class, [
-          'label' => 'Register'
+          'label' => 'Register',
         ]);
     }
 
     public function configureOptions(OptionsResolver $resolver)
     {
-        $resolver->setDefaults(array(
+        $resolver->setDefaults([
           'data_class' => User::class,
           'attr' => ['novalidate' => 'novalidate'],
-        ));
+        ]);
     }
 }

@@ -11,20 +11,21 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 
 class LoginType extends AbstractType
 {
-    public function buildForm(FormBuilderInterface $builder, array $options) {
-        $builder->add('email',  EmailType::class, [
-          'label' => 'Email'
+    public function buildForm(FormBuilderInterface $builder, array $options)
+    {
+        $builder->add('email', EmailType::class, [
+          'label' => 'Email',
         ]);
         $builder->add('password', PasswordType::class, [
-          'label' => 'Password'
+          'label' => 'Password',
         ]);
     }
 
     public function configureOptions(OptionsResolver $resolver)
     {
-        $resolver->setDefaults(array(
+        $resolver->setDefaults([
           'data_class' => User::class,
           'attr' => ['novalidate' => 'novalidate'],
-        ));
+        ]);
     }
 }

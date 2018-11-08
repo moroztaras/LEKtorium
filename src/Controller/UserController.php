@@ -27,6 +27,7 @@ class UserController extends Controller
           'user_login' => $form->createView(),
         ]);
     }
+
     /**
      * @Route("/registration", methods={"GET", "POST"}, name="user_registration")
      */
@@ -41,7 +42,7 @@ class UserController extends Controller
             $em->persist($user);
             $em->flush();
 
-            return $this->redirectToRoute("list_articles");
+            return $this->redirectToRoute('list_articles');
         }
 
         return $this->render('user/register.html.twig', [

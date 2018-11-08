@@ -24,7 +24,7 @@ class ArticleController extends Controller
         $name = $request->query->get('name');
         $text = $articleService->handleArticle($name);
 
-        if ($request->getMethod() === Request::METHOD_GET) {
+        if (Request::METHOD_GET === $request->getMethod()) {
             $article = new Article();
             $article->setTitle('Title article');
             $article->setText($text);
@@ -33,6 +33,7 @@ class ArticleController extends Controller
             $this->getDoctrine()->getManager()->persist($article);
             $this->getDoctrine()->getManager()->flush();
         }
+
         return $this->render('article/index.html.twig', [
           'text' => $text,
         ]);
@@ -46,7 +47,7 @@ class ArticleController extends Controller
         $articles = $this->getDoctrine()->getRepository(Article::class)->findAll();
 
         return $this->render('article/list.html.twig', [
-          'articles' => $articles
+          'articles' => $articles,
         ]);
     }
 
@@ -64,7 +65,7 @@ class ArticleController extends Controller
             $em->persist($article);
             $em->flush();
 
-            return $this->redirectToRoute("article_list");
+            return $this->redirectToRoute('article_list');
         }
 
         return $this->render('article/new.html.twig', [

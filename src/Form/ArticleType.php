@@ -12,26 +12,27 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 
 class ArticleType extends AbstractType
 {
-    public function buildForm(FormBuilderInterface $builder, array $options) {
+    public function buildForm(FormBuilderInterface $builder, array $options)
+    {
         $builder->add('title', TextType::class, [
-          'label' => 'Title'
+          'label' => 'Title',
         ]);
         $builder->add('text', TextareaType::class, [
-          'label' => 'Text'
+          'label' => 'Text',
         ]);
         $builder->add('author', TextType::class, [
-          'label' => 'Author'
+          'label' => 'Author',
         ]);
         $builder->add('save', SubmitType::class, [
-          'label' => 'Save'
+          'label' => 'Save',
         ]);
     }
 
     public function configureOptions(OptionsResolver $resolver)
     {
-        $resolver->setDefaults(array(
+        $resolver->setDefaults([
           'data_class' => Article::class,
           'attr' => ['novalidate' => 'novalidate'],
-        ));
+        ]);
     }
 }

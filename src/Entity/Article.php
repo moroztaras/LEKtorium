@@ -20,15 +20,15 @@ class Article
 
     /**
      * @Assert\NotBlank()
-     * @Assert\Length(max="50", min="3", maxMessage="Too much", minMessage="Not enough")
-     * @ORM\Column(type="string", length=50)
+     * @Assert\Length(min="3", minMessage="Not enough")
+     * @ORM\Column(type="string")
      */
     private $title;
 
     /**
      * @Assert\NotBlank()
-     * @Assert\Length(max="50", min="3", maxMessage="Too much", minMessage="Not enough")
-     * @ORM\Column(type="string", length=256)
+     * @Assert\Length(min="3", minMessage="Not enough")
+     * @ORM\Column(type="text")
      */
     private $text;
 

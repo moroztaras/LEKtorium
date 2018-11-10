@@ -4,6 +4,7 @@ namespace App\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Security\Core\User\UserInterface;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\UserRepository")
@@ -18,6 +19,8 @@ class User implements UserInterface
     private $id;
 
     /**
+     * @var string
+     * @Assert\NotBlank()
      * @ORM\Column(type="string", length=180, unique=true)
      */
     private $email;
@@ -29,9 +32,44 @@ class User implements UserInterface
 
     /**
      * @var string The hashed password
+     * @Assert\NotBlank()
      * @ORM\Column(type="string")
      */
     private $password;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(type="string", length=45)
+     * @Assert\NotBlank()
+     * @Assert\Length(
+     *      min="1",
+     *      minMessage="First name can not be less than {{ limit }} character"
+     *     )
+     */
+    protected $firstName;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(type="string", length=45)
+     * @Assert\NotBlank()
+     * @Assert\Length(
+     *     min="1",
+     *     minMessage="Last name can not be less than {{ limit }} character"
+     *     )
+     */
+    private $lastName;
+
+    /**
+     * @ORM\Column(type="datetime")
+     */
+    private $createdAt;
+
+    public function __construct()
+    {
+        $this->createdAt = new \DateTime();
+    }
 
     public function getId(): ?int
     {
@@ -109,5 +147,69 @@ class User implements UserInterface
     {
         // If you store any temporary, sensitive data on the user, clear it here
         // $this->plainPassword = null;
+    }
+
+    /**
+     * @return string
+     */
+    public function getFirstName()
+    {
+        return $this->firstName;
+    }
+
+    /**
+     * @param $firstName
+     *
+     * @return $this
+     */
+    public function setFirstName($firstName)
+    {
+        $this->firstName = $firstName;
+
+        return $this;
+    }
+
+    /**
+     * @return string
+     */
+    public function getLastName()
+    {
+        return $this->lastName;
+    }
+
+    /**
+     * @param $lastName
+     *
+     * @return $this
+     */
+    public function setLastName($lastName)
+    {
+        $this->lastName = $lastName;
+
+        return $this;
+    }
+
+    /**
+     * Get createdAt.
+     *
+     * @return \DateTime
+     */
+    public function getCreatedAt()
+    {
+        return $this->createdAt;
+    }
+
+    /**
+     * Set createdAt.
+     *
+     * @param \DateTime $createdAt
+     *
+     * @return User
+     */
+    public function setCreatedAt($createdAt)
+    {
+        $this->createdAt = $createdAt;
+
+        return $this;
     }
 }

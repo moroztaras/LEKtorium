@@ -1,0 +1,26 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    {% block header %}
+        <header>
+            <div style="text-align: right">
+                {% if is_granted("IS_AUTHENTICATED_REMEMBERED") %}
+                    <a href="{{ path('app_logout') }}">Logout</a>
+                {% else %}
+                    <a href="{{ path('app_login') }}">Log in</a> |
+                    <a href="{{ path('app_registration') }}">Registration</a>
+                {% endif %}
+            </div>
+        </header>
+    {% endblock %}
+    {% block content %}
+
+    {% endblock %}
+    {% block footer %}
+        <footer role="contentinfo">
+            <div class="block block-copyright">
+                Copyright &copy; 2018. Lektorium Blog. All right reserved.
+            </div>
+        </footer>
+    {% endblock %}
+{% endblock %}

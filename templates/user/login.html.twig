@@ -4,9 +4,9 @@
     <h1>Login</h1>
 
     {{ form_start(user_login) }}
-    {{ form_widget(user_login) }}
-    <button type="submit" class="btn btn-default">Login</button>
+        {{ form_widget(user_login) }}
+        <button type="submit" class="btn btn-default">Login</button>
     {{ form_end(user_login) }}
 
-    <a href="{{ path('user_registration') }}">Register</a>
+    <a href="{{ path('article_list') }}">back to list</a>
 {% endblock %}

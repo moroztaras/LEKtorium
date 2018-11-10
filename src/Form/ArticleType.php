@@ -23,9 +23,6 @@ class ArticleType extends AbstractType
         $builder->add('author', TextType::class, [
           'label' => 'Author',
         ]);
-        $builder->add('save', SubmitType::class, [
-          'label' => 'Save',
-        ]);
     }
 
     public function configureOptions(OptionsResolver $resolver)

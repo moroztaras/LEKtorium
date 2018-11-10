@@ -32,9 +32,6 @@ class RegistrationType extends AbstractType
           'first_options' => ['label' => 'Password'],
           'second_options' => ['label' => 'Repeat password'],
         ]);
-        $builder->add('register', SubmitType::class, [
-          'label' => 'Register',
-        ]);
     }
 
     public function configureOptions(OptionsResolver $resolver)

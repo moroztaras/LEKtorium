@@ -6,6 +6,8 @@ use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
 
 /**
+ * Article
+ *
  * @ORM\Entity
  * @ORM\Table(name="article")
  */
@@ -19,6 +21,7 @@ class Article
     private $id;
 
     /**
+     * @var string
      * @Assert\NotBlank()
      * @Assert\Length(min="3", minMessage="Not enough")
      * @ORM\Column(type="string")
@@ -33,11 +36,15 @@ class Article
     private $text;
 
     /**
+     * @var string
+     * @Assert\NotBlank()
+     * @Assert\Length(min="3")
      * @ORM\Column(type="string")
      */
     private $author;
 
     /**
+     * @var \DateTime
      * @ORM\Column(type="datetime")
      */
     private $createdAt;
@@ -48,7 +55,9 @@ class Article
     }
 
     /**
-     * @return mixed
+     * Get id.
+     *
+     * @return int
      */
     public function getId()
     {
@@ -56,7 +65,9 @@ class Article
     }
 
     /**
-     * @return mixed
+     * Get title.
+     *
+     * @return string
      */
     public function getTitle()
     {
@@ -64,15 +75,23 @@ class Article
     }
 
     /**
-     * @param mixed $title
+     * Set title.
+     *
+     * @param string $title
+     *
+     * @return $this
      */
-    public function setTitle($title): void
+    public function setTitle($title)
     {
         $this->title = $title;
+
+        return $this;
     }
 
     /**
-     * @return mixed
+     * Get text.
+     *
+     * @return string
      */
     public function getText()
     {
@@ -80,15 +99,23 @@ class Article
     }
 
     /**
-     * @param mixed $text
+     * Set text.
+     *
+     * @param string $text
+     *
+     * @return $this
      */
-    public function setText($text): void
+    public function setText($text)
     {
         $this->text = $text;
+
+        return $this;
     }
 
     /**
-     * @return mixed
+     * Get author.
+     *
+     * @return string
      */
     public function getAuthor()
     {
@@ -96,15 +123,23 @@ class Article
     }
 
     /**
-     * @param mixed $author
+     * Set author.
+     *
+     * @param string $author
+     *
+     * @return $this
      */
-    public function setAuthor($author): void
+    public function setAuthor($author)
     {
         $this->author = $author;
+
+        return $this;
     }
 
     /**
-     * @return mixed
+     * Get createdAt.
+     *
+     * @return \DateTime
      */
     public function getCreatedAt()
     {
@@ -112,10 +147,16 @@ class Article
     }
 
     /**
-     * @param mixed $createdAt
+     * Set createdAt.
+     *
+     * @param \DateTime $createdAt
+     *
+     * @return $this
      */
-    public function setCreated($createdAt): void
+    public function setCreatedAt($createdAt)
     {
         $this->createdAt = $createdAt;
+
+        return $this;
     }
 }

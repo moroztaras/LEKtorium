@@ -3,161 +3,91 @@
 namespace App\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
-use Symfony\Component\Validator\Constraints as Assert;
-use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
+use Symfony\Component\Security\Core\User\UserInterface;
 
 /**
- * @ORM\Entity
- * @ORM\Table(name="user")
- * @UniqueEntity("email")
+ * @ORM\Entity(repositoryClass="App\Repository\UserRepository")
  */
-class User
+class User implements UserInterface
 {
     /**
-     * @ORM\Id
-     * @ORM\GeneratedValue(strategy="AUTO")
+     * @ORM\Id()
+     * @ORM\GeneratedValue()
      * @ORM\Column(type="integer")
      */
     private $id;
 
     /**
-     * @var string
-     *
-     * @ORM\Column(type="string", length=150, unique=true)
-     * @Assert\Email(message="Email address is not a valid")
-     * @Assert\Length(min="8",max="150")
+     * @ORM\Column(type="string", length=180, unique=true)
      */
     private $email;
 
     /**
-     * @var string
-     *
-     * @ORM\Column(type="string", length=45)
-     * @Assert\NotBlank()
-     * @Assert\Length(
-     *      min="1",
-     *      minMessage="First name can not be less than {{ limit }} character"
-     *     )
+     * @ORM\Column(type="json")
      */
-    protected $firstName;
+    private $roles = [];
 
     /**
-     * @var string
-     *
-     * @ORM\Column(type="string", length=45)
-     * @Assert\NotBlank()
-     * @Assert\Length(
-     *     min="1",
-     *     minMessage="Last name can not be less than {{ limit }} character"
-     *     )
+     * @var string The hashed password
+     * @ORM\Column(type="string")
      */
-    private $lastName;
+    private $password;
 
-    /**
-     * @var string
-     *
-     * @ORM\Column(type="string", length=100)
-     */
-    protected $password;
-
-    /**
-     * @ORM\Column(type="datetime")
-     */
-    private $createdAt;
-
-    public function __construct()
-    {
-        $this->createdAt = new \DateTime();
-    }
-
-    /**
-     * @return mixed
-     */
-    public function getId()
+    public function getId(): ?int
     {
         return $this->id;
     }
 
-    /**
-     * Get email.
-     *
-     * @return string
-     */
-    public function getEmail()
+    public function getEmail(): ?string
     {
         return $this->email;
     }
 
-    /**
-     * Set email.
-     *
-     * @param string $email
-     *
-     * @return User
-     */
-    public function setEmail($email)
+    public function setEmail(string $email): self
     {
-        $this->email = strtolower($email);
+        $this->email = $email;
 
         return $this;
     }
 
     /**
-     * @return string
+     * A visual identifier that represents this user.
+     *
+     * @see UserInterface
      */
-    public function getFirstName()
+    public function getUsername(): string
     {
-        return $this->firstName;
+        return (string) $this->email;
     }
 
     /**
-     * @param $firstName
-     *
-     * @return $this
+     * @see UserInterface
      */
-    public function setFirstName($firstName)
+    public function getRoles(): array
     {
-        $this->firstName = $firstName;
+        $roles = $this->roles;
+        // guarantee every user at least has ROLE_USER
+        $roles[] = 'ROLE_USER';
+
+        return array_unique($roles);
+    }
+
+    public function setRoles(array $roles): self
+    {
+        $this->roles = $roles;
 
         return $this;
     }
 
     /**
-     * @return string
+     * @see UserInterface
      */
-    public function getLastName()
+    public function getPassword(): string
     {
-        return $this->lastName;
+        return (string) $this->password;
     }
 
-    /**
-     * @param $lastName
-     *
-     * @return $this
-     */
-    public function setLastName($lastName)
-    {
-        $this->lastName = $lastName;
-
-        return $this;
-    }
-
-    /**
-     * @return string
-     */
-    public function getPassword()
-    {
-        return $this->password;
-    }
-
-    /**
-     * Set password.
-     *
-     * @param string $password
-     *
-     * @return User
-     */
-    public function setPassword($password)
+    public function setPassword(string $password): self
     {
         $this->password = $password;
 
@@ -165,26 +95,19 @@ class User
     }
 
     /**
-     * Get createdAt.
-     *
-     * @return \DateTime
+     * @see UserInterface
      */
-    public function getCreatedAt()
+    public function getSalt()
     {
-        return $this->createdAt;
+        // not needed when using the "bcrypt" algorithm in security.yaml
     }
 
     /**
-     * Set createdAt.
-     *
-     * @param \DateTime $createdAt
-     *
-     * @return User
+     * @see UserInterface
      */
-    public function setCreatedAt($createdAt)
+    public function eraseCredentials()
     {
-        $this->createdAt = $createdAt;
-
-        return $this;
+        // If you store any temporary, sensitive data on the user, clear it here
+        // $this->plainPassword = null;
     }
 }

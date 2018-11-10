@@ -1,3 +1,6 @@
 #index:
 #    path: /
 #    controller: App\Controller\ArticleController::indexAction
+
+app_logout:
+  path: /logout

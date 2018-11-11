@@ -4,8 +4,8 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "983810757c64444cbf347c97c794ed65",
-    "content-hash": "ee50c60edc1170717352c6b0fffb16e8",
+    "hash": "2cb4be48a2921d73648a059928a6c35c",
+    "content-hash": "4614b36026cfc2d05ec1acd70daa3fb2",
     "packages": [
         {
             "name": "composer/semver",
@@ -5987,7 +5987,7 @@
         },
         {
             "name": "symfony/phpunit-bridge",
-            "version": "v4.1.6",
+            "version": "v4.1.7",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/phpunit-bridge.git",

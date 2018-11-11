@@ -48,4 +48,14 @@ class SecurityController extends AbstractController
           'user_registration' => $form->createView(),
         ]);
     }
+
+    /**
+     * @Route("/admin", methods={"GET"}, name="app_admin")
+     */
+    public function adminAction()
+    {
+        return $this->render('base.html.twig', [
+          'message' => 'Welcome admin page!'
+        ]);
+    }
 }

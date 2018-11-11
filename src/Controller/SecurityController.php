@@ -36,7 +36,7 @@ class SecurityController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $user->setPassword($passwordEncoder->encodePassword($user,$user->getPassword()));
+            $user->setPassword($passwordEncoder->encodePassword($user, $user->getPassword()));
             $em = $this->getDoctrine()->getManager();
             $em->persist($user);
             $em->flush();
@@ -55,7 +55,7 @@ class SecurityController extends AbstractController
     public function adminAction()
     {
         return $this->render('base.html.twig', [
-          'message' => 'Welcome admin page!'
+          'message' => 'Welcome admin page!',
         ]);
     }
 }

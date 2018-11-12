@@ -4,8 +4,8 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "2cb4be48a2921d73648a059928a6c35c",
-    "content-hash": "4614b36026cfc2d05ec1acd70daa3fb2",
+    "hash": "89cbeea8e2501872f9b96a7d0cd0811b",
+    "content-hash": "02ad4d6a17a9dcc249df75976f1808f7",
     "packages": [
         {
             "name": "composer/semver",
@@ -5533,7 +5533,7 @@
         },
         {
             "name": "symfony/browser-kit",
-            "version": "v4.1.6",
+            "version": "v4.1.7",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/browser-kit.git",
@@ -5590,7 +5590,7 @@
         },
         {
             "name": "symfony/css-selector",
-            "version": "v4.1.6",
+            "version": "v4.1.7",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/css-selector.git",

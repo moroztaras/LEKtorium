@@ -5,39 +5,22 @@
 {% endblock %}
 
 {% block content %}
-    <h1>Articles</h1>
-
-    <table class="table">
-        <thead>
-        <tr>
-            <th>Id</th>
-            <th>Title</th>
-            <th>Text</th>
-            <th>Author</th>
-            <th>CreatedAt</th>
-            <th>Actions</th>
-        </tr>
-        </thead>
-        <tbody>
+    <div align="center">
+        <h1>Articles</h1>
         {% for article in articles %}
-            <tr>
-                <td>{{ article.id }}</td>
-                <td>{{ article.title }}</td>
-                <td>{{ article.text }}</td>
-                <td>{{ article.author }}</td>
-                <td>{{ article.createdAt ? article.createdAt|date('Y-m-d H:i:s') : '' }}</td>
-                <td>
-                    <a href="#">show</a>
-                    <a href="#">edit</a>
-                </td>
-            </tr>
+            <div>
+                <h1><a href="#">{{ article.title }}</a></h1>
+                <div>
+                    Author: {{ article.author }} | CreatedAt: {{ article.createdAt ? article.createdAt|date('Y-m-d H:i:s') : '' }}
+                </div>
+                <p>
+                    {{ article.text }}
+                </p>
+                <hr align="center" width="100%" size="1" color="#C0C0C0" />
+            </div>
         {% else %}
-            <tr>
-                <td colspan="6">no articles found!</td>
-            </tr>
+            <p>no articles found!</p>
         {% endfor %}
-        </tbody>
-    </table>
-
+    </div>
     <a href="{{ path('article_new') }}">Create new</a>
 {% endblock %}

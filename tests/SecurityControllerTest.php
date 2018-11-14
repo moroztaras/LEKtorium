@@ -17,6 +17,19 @@ class SecurityControllerTest extends WebTestCase
         $this->assertEquals('Please sign in', $text);
     }
 
+    public function testLoginFields()
+    {
+        $client = static::createClient();
+        $crawler = $client->request('GET', '/login');
+        $this->assertEquals(200, $client->getResponse()->getStatusCode());
+        $this->assertGreaterThan(
+          0,
+          $crawler->filter('html:contains("Email")')->count());
+        $this->assertGreaterThan(
+          0,
+          $crawler->filter('html:contains("Password")')->count());
+    }
+
     public function testLoginSendForm()
     {
         $client = static::createClient();

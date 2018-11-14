@@ -8,6 +8,22 @@ use Symfony\Component\HttpFoundation\Response;
 
 class ArticleControllerTest extends WebTestCase
 {
+    public function testLoginFields()
+    {
+        $client = static::createClient();
+        $crawler = $client->request('GET', '/article/new');
+        $this->assertEquals(Response::HTTP_OK, $client->getResponse()->getStatusCode());
+        $this->assertGreaterThan(
+          0,
+          $crawler->filter('html:contains("Title")')->count());
+        $this->assertGreaterThan(
+          0,
+          $crawler->filter('html:contains("Text")')->count());
+        $this->assertGreaterThan(
+          0,
+          $crawler->filter('html:contains("Author")')->count());
+    }
+
     public function testArticleListNotAllowed()
     {
         $client = static::createClient();

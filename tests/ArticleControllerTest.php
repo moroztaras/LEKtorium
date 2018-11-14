@@ -8,7 +8,21 @@ use Symfony\Component\HttpFoundation\Response;
 
 class ArticleControllerTest extends WebTestCase
 {
-    public function testLoginFields()
+    public function testArticleListNotAllowed()
+    {
+        $client = static::createClient();
+        $client->request(Request::METHOD_POST, '/article/list');
+        $this->assertEquals(Response::HTTP_METHOD_NOT_ALLOWED, $client->getResponse()->getStatusCode());
+    }
+
+    public function testArticleNew()
+    {
+        $client = static::createClient();
+        $client->request(Request::METHOD_GET, '/article/new');
+        $this->assertEquals(Response::HTTP_OK, $client->getResponse()->getStatusCode());
+    }
+
+    public function testArticleFields()
     {
         $client = static::createClient();
         $crawler = $client->request('GET', '/article/new');
@@ -24,13 +38,6 @@ class ArticleControllerTest extends WebTestCase
           $crawler->filter('html:contains("Author")')->count());
     }
 
-    public function testArticleListNotAllowed()
-    {
-        $client = static::createClient();
-        $client->request(Request::METHOD_POST, '/article/list');
-        $this->assertEquals(Response::HTTP_METHOD_NOT_ALLOWED, $client->getResponse()->getStatusCode());
-    }
-
     public function testArticleNewGet()
     {
         $client = static::createClient();
@@ -44,21 +51,6 @@ class ArticleControllerTest extends WebTestCase
     {
         $client = static::createClient();
         $client->request(Request::METHOD_POST, '/article/new');
-        $this->assertEquals(200, $client->getResponse()->getStatusCode());
-    }
-
-    public function testArticleNewPostSendForm()
-    {
-        $client = static::createClient();
-        $client->request(
-          Request::METHOD_POST,
-          '/article/new',
-          [
-            'title' => 'Title for article',
-            'text' => 'Text for article',
-            'author' => 'Moroz Taras',
-          ]
-        );
         $this->assertEquals(200, $client->getResponse()->getStatusCode());
     }
 

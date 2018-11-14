@@ -1,17 +1,21 @@
 {% extends 'base.html.twig' %}
 
+{% block stylesheets %}
+    <link rel="stylesheet" type="text/css" href="{{ asset('css/base_style.css') }}">
+    <link rel="stylesheet" type="text/css" href="https://stackpath.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+ {% endblock %}
+
 {% block body %}
     {% block header %}
-        <header>
-            <div style="text-align: right">
-                {% if is_granted("IS_AUTHENTICATED_REMEMBERED") %}
-                    <a href="{{ path('app_logout') }}">Logout</a>
-                {% else %}
-                    <a href="{{ path('app_login') }}">Log in</a> |
-                    <a href="{{ path('app_registration') }}">Registration</a>
-                {% endif %}
-            </div>
-        </header>
+        <div id="header">
+            {% if is_granted("IS_AUTHENTICATED_REMEMBERED") %}
+                <a href="{{ path('app_logout') }}">Logout</a> |
+                <a href="{{ path('article_new') }}">New article</a>
+            {% else %}
+                <a href="{{ path('app_login') }}">Log in</a> |
+                <a href="{{ path('app_registration') }}">Registration</a>
+            {% endif %}
+        </div>
     {% endblock %}
     {% block content %}
 

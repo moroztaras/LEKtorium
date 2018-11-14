@@ -8,6 +8,13 @@ use Symfony\Component\HttpFoundation\Response;
 
 class SecurityControllerTest extends WebTestCase
 {
+    public function testLoginAction()
+    {
+        $client = static::createClient();
+        $client->request('GET', '/login');
+        $this->assertEquals(200, $client->getResponse()->getStatusCode());
+    }
+
     public function testLogin()
     {
         $client = static::createClient();
@@ -17,18 +24,17 @@ class SecurityControllerTest extends WebTestCase
         $this->assertEquals('Please sign in', $text);
     }
 
-    public function testLoginSendForm()
+    public function testLoginFields()
     {
         $client = static::createClient();
-        $client->request(
-          Request::METHOD_GET,
-          '/login',
-          [
-            'email' => 'moroztaras@i.ua',
-            'password' => 'moroztaras@i.ua',
-          ]
-        );
-        $this->assertEquals(Response::HTTP_OK, $client->getResponse()->getStatusCode());
+        $crawler = $client->request('GET', '/login');
+        $this->assertEquals(200, $client->getResponse()->getStatusCode());
+        $this->assertGreaterThan(
+          0,
+          $crawler->filter('html:contains("Email")')->count());
+        $this->assertGreaterThan(
+          0,
+          $crawler->filter('html:contains("Password")')->count());
     }
 
     public function testRegistrationFields()
@@ -65,6 +71,8 @@ class SecurityControllerTest extends WebTestCase
         $client->request('PUT', '/registration');
         $this->assertEquals(Response::HTTP_METHOD_NOT_ALLOWED, $client->getResponse()->getStatusCode());
     }
+
+
 
     public function testPageAccessDenied()
     {

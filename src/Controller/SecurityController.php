@@ -11,6 +11,9 @@ use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Security\Http\Authentication\AuthenticationUtils;
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 
+/**
+ * Class SecurityController.
+ */
 class SecurityController extends AbstractController
 {
     /**
@@ -24,38 +27,5 @@ class SecurityController extends AbstractController
         $lastUsername = $authenticationUtils->getLastUsername();
 
         return $this->render('security/login.html.twig', ['last_username' => $lastUsername, 'error' => $error]);
-    }
-
-    /**
-     * @Route("/registration", methods={"GET", "POST"}, name="app_registration")
-     */
-    public function registrationAction(Request $request, UserPasswordEncoderInterface $passwordEncoder)
-    {
-        $user = new User();
-        $form = $this->createForm(RegistrationType::class, $user);
-        $form->handleRequest($request);
-
-        if ($form->isSubmitted() && $form->isValid()) {
-            $user->setPassword($passwordEncoder->encodePassword($user, $user->getPassword()));
-            $em = $this->getDoctrine()->getManager();
-            $em->persist($user);
-            $em->flush();
-
-            return $this->redirectToRoute('article_list');
-        }
-
-        return $this->render('security/registration.html.twig', [
-          'user_registration' => $form->createView(),
-        ]);
-    }
-
-    /**
-     * @Route("/admin", methods={"GET"}, name="app_admin")
-     */
-    public function adminAction()
-    {
-        return $this->render('base.html.twig', [
-          'message' => 'Welcome admin page!',
-        ]);
     }
 }

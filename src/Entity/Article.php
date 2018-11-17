@@ -14,6 +14,7 @@ use Symfony\Component\Validator\Constraints as Assert;
 class Article
 {
     /**
+     * @var int
      * @ORM\Id
      * @ORM\GeneratedValue(strategy="AUTO")
      * @ORM\Column(type="integer")
@@ -29,6 +30,7 @@ class Article
     private $title;
 
     /**
+     * @var string
      * @Assert\NotBlank()
      * @Assert\Length(min="3", minMessage="Not enough")
      * @ORM\Column(type="text")

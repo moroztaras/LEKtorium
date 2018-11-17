@@ -1,13 +1,15 @@
 {% extends 'base.html.twig' %}
 
 {% block stylesheets %}
-    <link rel="stylesheet" type="text/css" href="{{ asset('css/base.css') }}">
-    <link rel="stylesheet" type="text/css" href="https://stackpath.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
- {% endblock %}
+    <link rel="stylesheet" type="text/css" href="/public/css/base.css">
+    <link rel="stylesheet" href="/public/css/components/header.css">
+    {#<link rel="stylesheet" href="{{ asset('css/base.css') }}">#}
+{% endblock %}
 
 {% block body %}
     {% block header %}
         <div id="header">
+            <a href="{{ path('index') }}">Home</a> |
             {% if is_granted("IS_AUTHENTICATED_REMEMBERED") %}
                 <a href="{{ path('app_logout') }}">Logout</a> |
                 <a href="{{ path('article_new') }}">New article</a>
@@ -22,9 +24,7 @@
     {% endblock %}
     {% block footer %}
         <footer role="contentinfo">
-            <div  align="center">
-                Copyright &copy; 2018. Lektorium Blog. All right reserved.
-            </div>
+            <span class="copyright_block">&copy; 2018{% if 2018 < 'now'|date('Y') %} {{ '- ' ~ 'now'|date('Y') }} {% endif %} All right reserved. Lektorium Blog</span>
         </footer>
     {% endblock %}
 {% endblock %}

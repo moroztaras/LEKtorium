@@ -17,7 +17,7 @@ use Symfony\Component\Routing\Annotation\Route;
 class ArticleController extends Controller
 {
     /**
-     * @Route("/", methods={"GET", "POST"}, name="index")
+     * @Route("/", methods={"GET", "POST"}, name="article_index")
      */
     public function indexAction(Request $request, ArticleService $articleService)
     {

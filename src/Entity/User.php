@@ -33,10 +33,14 @@ class User implements UserInterface
 
     /**
      * @var string The hashed password
-     * @Assert\NotBlank()
-     * @ORM\Column(type="string")
+     * @ORM\Column(type="string", length=150, nullable=true)
      */
     private $password;
+
+    /**
+     * @var string
+     */
+    protected $plainPassword;
 
     /**
      * @var string
@@ -131,6 +135,26 @@ class User implements UserInterface
     public function setPassword(string $password): self
     {
         $this->password = $password;
+
+        return $this;
+    }
+
+    /**
+     * @return string
+     */
+    public function getPlainPassword()
+    {
+        return (string) $this->plainPassword;
+    }
+
+    /**
+     * @param string $plainPassword
+     *
+     * @return $this
+     */
+    public function setPlainPassword($plainPassword)
+    {
+        $this->plainPassword = $plainPassword;
 
         return $this;
     }

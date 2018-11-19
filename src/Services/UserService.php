@@ -18,7 +18,7 @@ class UserService
      */
     private $passwordEncoder;
 
-    public function __construct(ManagerRegistry $doctrine,  UserPasswordEncoderInterface $passwordEncoder)
+    public function __construct(ManagerRegistry $doctrine, UserPasswordEncoderInterface $passwordEncoder)
     {
         $this->doctrine = $doctrine;
         $this->passwordEncoder = $passwordEncoder;

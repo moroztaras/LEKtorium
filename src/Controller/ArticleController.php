@@ -62,6 +62,7 @@ class ArticleController extends Controller
 
         if ($form->isSubmitted() && $form->isValid()) {
             $articleService->save($article);
+
             return $this->redirectToRoute('article_list');
         }
 

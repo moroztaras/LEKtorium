@@ -30,6 +30,7 @@ class ArticleService
     {
         $this->doctrine->getManager()->persist($article);
         $this->doctrine->getManager()->flush();
+
         return $article;
     }
 }

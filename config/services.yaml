@@ -33,3 +33,8 @@ services:
     App\EventListener\RequestListener:
         tags:
             - {name: kernel.event_listener, event: kernel.request}
+
+    App\EventSubscriber\FlashListener:
+        arguments: ["@session"]
+        tags:
+            - {name: kernel.event_subscriber}

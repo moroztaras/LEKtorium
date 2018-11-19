@@ -5,6 +5,8 @@ namespace App\Controller;
 use App\Entity\Article;
 use App\Form\ArticleType;
 use App\Services\ArticleService;
+use App\AppEvents;
+use App\Event\ArticleEvent;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
@@ -62,6 +64,10 @@ class ArticleController extends Controller
 
         if ($form->isSubmitted() && $form->isValid()) {
             $articleService->save($article);
+
+            $dispatcher = $this->get('event_dispatcher');
+            $event = new ArticleEvent($article);
+            $dispatcher->dispatch(AppEvents::ARTICLE_CREATED,$event);
 
             return $this->redirectToRoute('article_list');
         }

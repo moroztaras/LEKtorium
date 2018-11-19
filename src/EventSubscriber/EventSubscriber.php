@@ -11,9 +11,10 @@ class EventSubscriber implements EventSubscriberInterface
     public static function getSubscribedEvents()
     {
         return [
-          KernelEvents::REQUEST => [['onRequest', 10]]
+          KernelEvents::REQUEST => [['onRequest', 10]],
         ];
     }
+
     public function onRequest(GetResponseEvent $event)
     {
         $request = $event->getRequest();

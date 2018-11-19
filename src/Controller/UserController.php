@@ -30,7 +30,7 @@ class UserController extends Controller
 
             $dispatcher = $this->get('event_dispatcher');
             $event = new UserEvent($user);
-            $dispatcher->dispatch(AppEvents::USER_CREATED,$event);
+            $dispatcher->dispatch(AppEvents::USER_CREATED, $event);
 
             return $this->redirectToRoute('app_login');
         }

@@ -16,19 +16,21 @@ class FlashListener implements EventSubscriberInterface
     {
         $this->session = $session;
     }
+
     public static function getSubscribedEvents()
     {
         return [
           AppEvents::ARTICLE_CREATED => 'onArticleFlash',
-          AppEvents::USER_CREATED => 'onUserFlash'
+          AppEvents::USER_CREATED => 'onUserFlash',
         ];
     }
+
     public function onArticleFlash(ArticleEvent $event)
     {
         $article = $event->getArticle();
         $this->session->getFlashBag()->add(
           'success',
-          sprintf('New article "%s" successfully added!',$article->getTitle())
+          sprintf('New article "%s" successfully added!', $article->getTitle())
         );
     }
 
@@ -37,7 +39,7 @@ class FlashListener implements EventSubscriberInterface
         $user = $event->getUser();
         $this->session->getFlashBag()->add(
           'success',
-          sprintf('New user %s %s successfully added!',$user->getFirstName(),$user->getLastName())
+          sprintf('New user %s %s successfully added!', $user->getFirstName(), $user->getLastName())
         );
     }
 }

@@ -67,7 +67,7 @@ class ArticleController extends Controller
 
             $dispatcher = $this->get('event_dispatcher');
             $event = new ArticleEvent($article);
-            $dispatcher->dispatch(AppEvents::ARTICLE_CREATED,$event);
+            $dispatcher->dispatch(AppEvents::ARTICLE_CREATED, $event);
 
             return $this->redirectToRoute('article_list');
         }

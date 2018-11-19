@@ -5,14 +5,16 @@ namespace App\Controller;
 use App\Entity\User;
 use App\Form\RegistrationType;
 use App\Services\UserService;
-use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use App\AppEvents;
+use App\Event\UserEvent;
+use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
 
 /**
  * Class UserController.
  */
-class UserController extends AbstractController
+class UserController extends Controller
 {
     /**
      * @Route("/registration", methods={"GET", "POST"}, name="app_registration")
@@ -25,6 +27,10 @@ class UserController extends AbstractController
 
         if ($form->isSubmitted() && $form->isValid()) {
             $userService->save($user);
+
+            $dispatcher = $this->get('event_dispatcher');
+            $event = new UserEvent($user);
+            $dispatcher->dispatch(AppEvents::USER_CREATED,$event);
 
             return $this->redirectToRoute('app_login');
         }

@@ -10,7 +10,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
 
 /**
- * Class UserController.
+ * Class ArticleController.
  *
  * @Route("/article")
  */
@@ -54,16 +54,14 @@ class ArticleController extends Controller
     /**
      * @Route("/new", methods={"GET", "POST"}, name="article_new")
      */
-    public function newAction(Request $request)
+    public function newAction(Request $request, ArticleService $articleService)
     {
         $article = new Article();
         $form = $this->createForm(ArticleType::class, $article);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $em = $this->getDoctrine()->getManager();
-            $em->persist($article);
-            $em->flush();
+            $articleService->save($article);
 
             return $this->redirectToRoute('article_list');
         }

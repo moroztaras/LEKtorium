@@ -1,10 +1,12 @@
 {% extends 'page.html.twig' %}
 
 {% block content %}
-    <h1>Registration user</h1>
+    <div id="app_registration">
+        <h1>Registration user</h1>
 
-    {{ form_start(user_registration) }}
-        {{ form_widget(user_registration) }}
-        <input type="submit" class="btn-success" value="submit" name="submit" />
-    {{ form_end(user_registration) }}
+        {{ form_start(user_registration) }}
+            {{ form_widget(user_registration) }}
+            <input type="submit" class="btn-success" value="submit" name="submit" />
+        {{ form_end(user_registration) }}
+    </div>
 {% endblock %}

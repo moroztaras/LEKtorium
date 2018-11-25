@@ -1,0 +1,26 @@
+{% extends 'page.html.twig' %}
+
+{% block title %}
+    {{ article.title }}
+{% endblock %}
+
+{% block content %}
+    <div class="block block-article-view">
+        <div class="block-content">
+            <h2 class="field field-title">{{ article.title }}</h2>
+            <div class="field field-info">Author: {{ article.author }} | CreatedAt: {{ article.createdAt ? article.createdAt|date('Y-m-d H:i') : '' }}</div>
+            <div class="field field-body">{{ article.text }}</div>
+            <div class="field field-comments">
+                <div class="comment-preview">
+                    {{ include('comment/lists.html.twig', {'comments' : article.comments}) }}
+                    <h2 class="comment-title">Add comment</h2>
+                    {% if is_granted("IS_AUTHENTICATED_REMEMBERED") %}
+                        {{ include('comment/form.html.twig') }}
+                    {% else %}
+                        <p>To add comments, you must <a href="{{ path('app_login') }}">Log in</a> or <a href="{{ path('app_registration') }}">Registration</a></p>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

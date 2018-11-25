@@ -3,8 +3,11 @@
 namespace App\Controller;
 
 use App\Entity\Article;
+use App\Entity\Comment;
 use App\Form\ArticleType;
+use App\Form\CommentType;
 use App\Services\ArticleService;
+use App\Services\CommentService;
 use App\AppEvents;
 use App\Event\ArticleEvent;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
@@ -18,28 +21,28 @@ use Symfony\Component\Routing\Annotation\Route;
  */
 class ArticleController extends Controller
 {
-    /**
-     * @Route("/", methods={"GET", "POST"}, name="article_index")
-     */
-    public function indexAction(Request $request, ArticleService $articleService)
-    {
-        $name = $request->query->get('name');
-        $text = $articleService->handleArticle($name);
-
-        if (Request::METHOD_GET === $request->getMethod()) {
-            $article = new Article();
-            $article->setTitle('Title article');
-            $article->setText($text);
-            $article->setAuthor('Moroz Taras');
-
-            $this->getDoctrine()->getManager()->persist($article);
-            $this->getDoctrine()->getManager()->flush();
-        }
-
-        return $this->render('article/index.html.twig', [
-          'text' => $text,
-        ]);
-    }
+//    /**
+//     * @Route("/", methods={"GET", "POST"}, name="article_index")
+//     */
+//    public function indexAction(Request $request, ArticleService $articleService)
+//    {
+//        $name = $request->query->get('name');
+//        $text = $articleService->handleArticle($name);
+//
+//        if (Request::METHOD_GET === $request->getMethod()) {
+//            $article = new Article();
+//            $article->setTitle('Title article');
+//            $article->setText($text);
+//            $article->setAuthor('Moroz Taras');
+//
+//            $this->getDoctrine()->getManager()->persist($article);
+//            $this->getDoctrine()->getManager()->flush();
+//        }
+//
+//        return $this->render('article/index.html.twig', [
+//          'text' => $text,
+//        ]);
+//    }
 
     /**
      * @Route("/list", methods={"GET"}, name="article_list")
@@ -50,6 +53,28 @@ class ArticleController extends Controller
 
         return $this->render('article/list.html.twig', [
           'articles' => $articles,
+        ]);
+    }
+
+    /**
+     * @Route("/{id}", methods={"GET", "POST"}, name="article_view", requirements={"id"})
+     */
+    public function viewAction(Request $request, Article $article, CommentService $commentService)
+    {
+        $form = $this->createForm(CommentType::class);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            /** @var Comment $comment */
+            $comment = $form->getData();
+            $commentService->save($comment, $article);
+
+            return $this->redirectToRoute('article_view', ['id' => $article->getId()]);
+        }
+
+        return $this->render('article/view.html.twig', [
+          'article' => $article,
+          'form_comment' => $form->createView(),
         ]);
     }
 

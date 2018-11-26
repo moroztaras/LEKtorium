@@ -61,13 +61,14 @@ class ArticleController extends Controller
      */
     public function viewAction(Request $request, Article $article, CommentService $commentService)
     {
+        $user= $this->getUser();
         $form = $this->createForm(CommentType::class);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
             /** @var Comment $comment */
             $comment = $form->getData();
-            $commentService->save($comment, $article);
+            $commentService->save($user, $comment, $article);
 
             return $this->redirectToRoute('article_view', ['id' => $article->getId()]);
         }
@@ -84,11 +85,12 @@ class ArticleController extends Controller
     public function newAction(Request $request, ArticleService $articleService)
     {
         $article = new Article();
+        $user = $this->getUser();
         $form = $this->createForm(ArticleType::class, $article);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $articleService->save($article);
+            $articleService->save($user, $article);
 
             $dispatcher = $this->get('event_dispatcher');
             $event = new ArticleEvent($article);

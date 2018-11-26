@@ -3,6 +3,7 @@
 namespace App\Services;
 
 use App\Entity\Article;
+use App\Entity\User;
 use Doctrine\Common\Persistence\ManagerRegistry;
 
 class ArticleService
@@ -26,8 +27,9 @@ class ArticleService
         return 'Super cool article written by '.$name.' '.$article;
     }
 
-    public function save(Article $article)
+    public function save(User $user, Article $article)
     {
+        $article->setUser($user);
         $this->doctrine->getManager()->persist($article);
         $this->doctrine->getManager()->flush();
 

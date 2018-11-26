@@ -8,7 +8,7 @@
     <div class="block block-article-view">
         <div class="block-content">
             <h2 class="field field-title">{{ article.title }}</h2>
-            <div class="field field-info">Author: {{ article.author }} | CreatedAt: {{ article.createdAt ? article.createdAt|date('Y-m-d H:i') : '' }}</div>
+            <div class="field field-info">Author: {{ article.user.lastName }} {{ article.user.firstName }} | CreatedAt: {{ article.createdAt ? article.createdAt|date('Y-m-d H:i') : '' }}</div>
             <div class="field field-body">{{ article.text }}</div>
             <div class="field field-comments">
                 <div class="comment-preview">

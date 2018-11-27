@@ -47,9 +47,9 @@ class ArticleController extends Controller
     /**
      * @Route("/list", methods={"GET"}, name="article_list")
      */
-    public function listAction()
+    public function listAction(Request $request, ArticleService $articleService)
     {
-        $articles = $this->getDoctrine()->getRepository(Article::class)->findAll();
+        $articles = $articleService->list($request);
 
         return $this->render('article/list.html.twig', [
           'articles' => $articles,
@@ -61,7 +61,7 @@ class ArticleController extends Controller
      */
     public function viewAction(Request $request, Article $article, CommentService $commentService)
     {
-        $user= $this->getUser();
+        $user = $this->getUser();
         $form = $this->createForm(CommentType::class);
         $form->handleRequest($request);
 

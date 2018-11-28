@@ -10,13 +10,11 @@ class ArticleFixtures extends Fixture
 {
     public function load(ObjectManager $manager)
     {
-        for ($i = 1; $i <= 20; ++$i) {
-            $article = new Article();
-            $article->setTitle('Doctrine Fixtures Bundle'.$i);
-            $article->setText('Fixtures are used to load a "fake" set of data into a database that can then be used for testing or to help give you some interesting data while you\'re developing your application.');
+        $article = new Article();
+        $article->setTitle('Doctrine Fixtures Bundle');
+        $article->setText('Fixtures are used to load a "fake" set of data into a database that can then be used for testing or to help give you some interesting data while you\'re developing your application.');
 
-            $manager->persist($article);
-        }
+        $manager->persist($article);
         $manager->flush();
     }
 }

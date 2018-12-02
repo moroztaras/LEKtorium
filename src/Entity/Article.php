@@ -2,6 +2,8 @@
 
 namespace App\Entity;
 
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
 
@@ -38,12 +40,22 @@ class Article
     private $text;
 
     /**
-     * @var string
-     * @Assert\NotBlank()
-     * @Assert\Length(min="3")
-     * @ORM\Column(type="string")
+     * @ORM\ManyToOne(targetEntity="User")
+     * @ORM\JoinColumn(name="user_id", referencedColumnName="id")
      */
-    private $author;
+    private $user;
+
+    /**
+     * @ORM\OneToMany(targetEntity="Comment", mappedBy="article", cascade={"persist", "remove"})
+     * @ORM\OrderBy({"id" = "DESC"})
+     */
+    private $comments;
+
+    /**
+     * @ORM\OneToMany(targetEntity="ArticleLike", mappedBy="article", cascade={"persist", "remove"})
+     * @ORM\OrderBy({"id" = "DESC"})
+     */
+    private $likes;
 
     /**
      * @var \DateTime
@@ -54,6 +66,8 @@ class Article
     public function __construct()
     {
         $this->createdAt = new \DateTime();
+        $this->comments = new ArrayCollection();
+        $this->likes = new ArrayCollection();
     }
 
     /**
@@ -115,30 +129,6 @@ class Article
     }
 
     /**
-     * Get author.
-     *
-     * @return string
-     */
-    public function getAuthor()
-    {
-        return $this->author;
-    }
-
-    /**
-     * Set author.
-     *
-     * @param string $author
-     *
-     * @return $this
-     */
-    public function setAuthor($author)
-    {
-        $this->author = $author;
-
-        return $this;
-    }
-
-    /**
      * Get createdAt.
      *
      * @return \DateTime
@@ -158,6 +148,90 @@ class Article
     public function setCreatedAt($createdAt)
     {
         $this->createdAt = $createdAt;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Comment[]
+     */
+    public function getComments(): Collection
+    {
+        return $this->comments;
+    }
+
+    public function addComment(Comment $comment): self
+    {
+        if (!$this->comments->contains($comment)) {
+            $this->comments[] = $comment;
+            $comment->setArticle($this);
+        }
+
+        return $this;
+    }
+
+    public function removeComment(Comment $comment): self
+    {
+        if ($this->comments->contains($comment)) {
+            $this->comments->removeElement($comment);
+            // set the owning side to null (unless already changed)
+            if ($comment->getArticle() === $this) {
+                $comment->setArticle(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * Get user.
+     */
+    public function getUser(): ?User
+    {
+        return $this->user;
+    }
+
+    /**
+     * Set user.
+     *
+     * @param User $user
+     *
+     * @return $this
+     */
+    public function setUser(?User $user): self
+    {
+        $this->user = $user;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|ArticleLike[]
+     */
+    public function getLikes(): Collection
+    {
+        return $this->likes;
+    }
+
+    public function addLike(ArticleLike $like): self
+    {
+        if (!$this->likes->contains($like)) {
+            $this->likes[] = $like;
+            $like->setArticle($this);
+        }
+
+        return $this;
+    }
+
+    public function removeLike(ArticleLike $like): self
+    {
+        if ($this->likes->contains($like)) {
+            $this->likes->removeElement($like);
+            // set the owning side to null (unless already changed)
+            if ($like->getArticle() === $this) {
+                $like->setArticle(null);
+            }
+        }
 
         return $this;
     }

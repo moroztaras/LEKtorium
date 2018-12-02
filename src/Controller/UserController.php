@@ -24,7 +24,7 @@ class UserController extends AbstractController
     /**
      * @Route("/registration", methods={"GET", "POST"}, name="app_registration")
      */
-    public function registrationAction(Request $request, UserService $userService)
+    public function registrationAction(Request $request)
     {
         $user = new User();
         $form = $this->createForm(RegistrationType::class, $user);

@@ -10,8 +10,19 @@ use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 
 class UserService
 {
+    /**
+     * @var EventDispatcherInterface
+     */
     private $dispatcher;
+
+    /**
+     * @var ManagerRegistry
+     */
     private $doctrine;
+
+    /**
+     * @var PasswordListener
+     */
     private $listener;
 
     /**

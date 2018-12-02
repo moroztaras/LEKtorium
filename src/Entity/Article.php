@@ -52,6 +52,12 @@ class Article
     private $comments;
 
     /**
+     * @ORM\OneToMany(targetEntity="ArticleLike", mappedBy="article", cascade={"persist", "remove"})
+     * @ORM\OrderBy({"id" = "DESC"})
+     */
+    private $likes;
+
+    /**
      * @var \DateTime
      * @ORM\Column(type="datetime")
      */
@@ -61,6 +67,7 @@ class Article
     {
         $this->createdAt = new \DateTime();
         $this->comments = new ArrayCollection();
+        $this->likes = new ArrayCollection();
     }
 
     /**
@@ -194,6 +201,37 @@ class Article
     public function setUser(?User $user): self
     {
         $this->user = $user;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|ArticleLike[]
+     */
+    public function getLikes(): Collection
+    {
+        return $this->likes;
+    }
+
+    public function addLike(ArticleLike $like): self
+    {
+        if (!$this->likes->contains($like)) {
+            $this->likes[] = $like;
+            $like->setArticle($this);
+        }
+
+        return $this;
+    }
+
+    public function removeLike(ArticleLike $like): self
+    {
+        if ($this->likes->contains($like)) {
+            $this->likes->removeElement($like);
+            // set the owning side to null (unless already changed)
+            if ($like->getArticle() === $this) {
+                $like->setArticle(null);
+            }
+        }
 
         return $this;
     }

@@ -43,6 +43,23 @@ class UserControllerTest extends WebTestCase
         $this->assertEquals(Response::HTTP_METHOD_NOT_ALLOWED, $client->getResponse()->getStatusCode());
     }
 
+    public function testRegistration()
+    {
+        $client = static::createClient();
+        $crawler = $client->request('GET', '/registration');
+        $crawler->selectButton('submit');
+        $form = $crawler->selectButton('submit')->form();
+
+        $form['registration[email]'] = time().'moroztaras@i.ua';
+        $form['registration[firstName]'] = 'Moroz';
+        $form['registration[lastName]'] = 'Tatas';
+        $form['registration[plainPassword]'] = 'moroztaras';
+        $crawler = $client->submit($form);
+
+        $this->assertEquals(302, $client->getResponse()->getStatusCode());
+        $this->assertTrue($client->getResponse()->isRedirect());
+    }
+
     public function testPageAccessDenied()
     {
         $client = static::createClient();

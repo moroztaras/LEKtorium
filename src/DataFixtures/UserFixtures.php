@@ -23,7 +23,7 @@ class UserFixtures extends Fixture
         $admin
           ->setFirstName('Taras')
           ->setLastName('Moroz')
-          ->setRoles(['ROLE_ADMIN'])
+          ->setRoles(['ROLE_SUPER_ADMIN'])
           ->setEmail('moroztaras@i.ua')
           ->setPassword($encodedPassword);
         $manager->persist($admin);

@@ -1,8 +1,10 @@
 security:
     role_hierarchy:
         ROLE_USER: [ROLE_USER]
+        ROLE_BLOGGER: [ROLE_BLOGGER]
+        ROLE_READER: [ROLE_READER]
         ROLE_ADMIN: [ROLE_ADMIN]
-        ROLE_SUPER_ADMIN: [ROLE_ADMIN, ROLE_USER, ROLE_SUPER_ADMIN]
+        ROLE_SUPER_ADMIN: [ROLE_ADMIN, ROLE_USER, ROLE_BLOGGER, ROLE_READER, ROLE_SUPER_ADMIN]
 
     encoders:
         App\Entity\User:

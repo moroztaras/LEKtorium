@@ -24,11 +24,10 @@ class ArticleLikeService
 
     public function status(User $user, Article $article, ArticleLike $articleLike)
     {
-        $likeRepo = $this->doctrine->getRepository(ArticleLike::class);
-        $like = $likeRepo->findLikeArticle($user, $article);
+        $like = $this->doctrine->getRepository(ArticleLike::class)->findOneBy(['user' => $user, 'article' => $article]);
 
         if ($like) {
-            return $likeRepo->removeLikeArticle($user, $article);
+            return $this->remove($like);
         } else {
             return $this->add($user, $article, $articleLike);
         }
@@ -39,6 +38,14 @@ class ArticleLikeService
         $articleLike->setUser($user);
         $articleLike->setArticle($article);
         $this->doctrine->getManager()->persist($articleLike);
+        $this->doctrine->getManager()->flush();
+
+        return $articleLike;
+    }
+
+    public function remove(ArticleLike $articleLike)
+    {
+        $this->doctrine->getManager()->remove($articleLike);
         $this->doctrine->getManager()->flush();
 
         return $articleLike;

@@ -7,7 +7,7 @@ use Doctrine\ORM\Mapping as ORM;
 /**
  * ArticleLike.
  *
- * @ORM\Entity(repositoryClass="App\Repository\ArticleLikeRepository")
+ * @ORM\Entity()
  * @ORM\Table(name="article_like")
  */
 class ArticleLike

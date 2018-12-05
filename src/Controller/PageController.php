@@ -6,11 +6,11 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\Routing\Annotation\Route;
 
 /**
- * Class DefaultController.
+ * Class PageController.
  *
  * @Route("/")
  */
-class DefaultController extends Controller
+class PageController extends Controller
 {
     /**
      * @Route("/", methods={"GET"}, name="index")
@@ -18,5 +18,13 @@ class DefaultController extends Controller
     public function indexAction()
     {
         return $this->redirectToRoute('article_list');
+    }
+
+    public function user()
+    {
+        $user = $this->getUser();
+        return $this->render('page/user.html.twig',[
+          'user' => $user,
+        ]);
     }
 }

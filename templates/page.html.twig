@@ -12,7 +12,9 @@
             <a href="{{ path('index') }}">Home</a> |
             {% if is_granted("IS_AUTHENTICATED_REMEMBERED") %}
                 <a href="{{ path('app_logout') }}">Logout</a> |
-                <a href="{{ path('article_new') }}">New article</a>
+                <a href="{{ path('article_new') }}">New article</a> |
+                {{ render(controller('App\\Controller\\PageController::user')) }}
+                {% block user %}{% endblock %}
             {% else %}
                 <a href="{{ path('app_login') }}">Log in</a> |
                 <a href="{{ path('app_registration') }}">Registration</a>

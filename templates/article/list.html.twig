@@ -1,41 +1,59 @@
-{% extends 'page.html.twig' %}
+{% extends 'layout/layout-two-col-4-8.html.twig' %}
 
-{% block title %}
-    Articles list
-{% endblock %}
-
-{% block content %}
-    <div class="block block-page-list">
-        <div class="block block-page-message">
-            {% for type, messages in app.session.flashBag.all %}
-                {% for message in messages %}
-                    <div class="block-messages">
-                        {{ message }}
-                    </div>
-                {% endfor %}
-            {% endfor %}
-        </div>
+{% block regionRight %}
+    <div class="block block--article-list">
+        {{ include('block/message.html.twig') }}
         <div class="block-content">
-            <div class="list list-page-list">
+            <div class="list list--article-list">
                 {% for article in articles %}
-                    <div>
-                        <h1><a href="{{ path('article_view', {id:article.id}) }}">{{ article.title }}</a></h1>
-                        <div>Author: {{ article.user.lastName }} {{ article.user.firstName }} | CreatedAt: {{ article.createdAt ? article.createdAt|date('Y-m-d H:i') : '' }} | Comments: {{ article.comments | length }}</div>
-                        <p>
-                            {{ article.text }}
-                        </p>
-                        <div class="block block-like">
-                            <a href="{{ path('article_like_add', {id:article.id}) }}">like</a> ({{ article.likes |length }})
-                        </div>
-                        <hr align="center" width="100%" size="1" color="#C0C0C0" />
+                    <div class="list-item">
+                        {{ include('article/viewMode/teaser.html.twig', {'article' : article}) }}
                     </div>
                 {% else %}
                     <p>no  found articles!</p>
                 {% endfor %}
+                {{ include('block/pagination.html.twig', {'articles' : articles}) }}
             </div>
-        </div>
-        <div class="block-navigation">
-            {{ knp_pagination_render(articles) }}
         </div>
     </div>
 {% endblock %}
+
+{#{% block title %}#}
+    {#Articles list#}
+{#{% endblock %}#}
+
+{#{% block content %}#}
+    {#<div class="block block-page-list">#}
+        {#<div class="block block-page-message">#}
+            {#{% for type, messages in app.session.flashBag.all %}#}
+                {#{% for message in messages %}#}
+                    {#<div class="block-messages">#}
+                        {#{{ message }}#}
+                    {#</div>#}
+                {#{% endfor %}#}
+            {#{% endfor %}#}
+        {#</div>#}
+        {#<div class="block-content">#}
+            {#<div class="list list-page-list">#}
+                {#{% for article in articles %}#}
+                    {#<div>#}
+                        {#<h1><a href="{{ path('article_view', {id:article.id}) }}">{{ article.title }}</a></h1>#}
+                        {#<div>Author: {{ article.user.lastName }} {{ article.user.firstName }} | CreatedAt: {{ article.createdAt ? article.createdAt|date('Y-m-d H:i') : '' }} | Comments: {{ article.comments | length }}</div>#}
+                        {#<p>#}
+                            {#{{ article.text }}#}
+                        {#</p>#}
+                        {#<div class="block block-like">#}
+                            {#<a href="{{ path('article_like_add', {id:article.id}) }}">like</a> ({{ article.likes |length }})#}
+                        {#</div>#}
+                        {#<hr align="center" width="100%" size="1" color="#C0C0C0" />#}
+                    {#</div>#}
+                {#{% else %}#}
+                    {#<p>no  found articles!</p>#}
+                {#{% endfor %}#}
+            {#</div>#}
+        {#</div>#}
+        {#<div class="block-navigation">#}
+            {#{{ knp_pagination_render(articles) }}#}
+        {#</div>#}
+    {#</div>#}
+{#{% endblock %}#}

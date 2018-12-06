@@ -23,7 +23,8 @@ class PageController extends Controller
     public function user()
     {
         $user = $this->getUser();
-        return $this->render('page/user.html.twig',[
+
+        return $this->render('page/user.html.twig', [
           'user' => $user,
         ]);
     }

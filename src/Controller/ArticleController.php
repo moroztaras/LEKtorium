@@ -65,7 +65,7 @@ class ArticleController extends Controller
         $form = $this->createForm(CommentType::class);
         $form->handleRequest($request);
 
-        if (!$article){
+        if (!$article) {
             throw $this->createNotFoundException('Article not found');
         }
         if ($form->isSubmitted() && $form->isValid()) {

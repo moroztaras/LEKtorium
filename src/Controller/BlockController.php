@@ -23,4 +23,8 @@ class BlockController extends Controller
     {
         return $this->render('block/main-menu-footer.html.twig');
     }
+
+    public function category(){
+        return $this->render('block/category-list.html.twig');
+    }
 }

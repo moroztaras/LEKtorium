@@ -11,7 +11,7 @@
     {#{{ render(controller('App\\Controller\\BlockController::category')) }}#}
 {#{% endblock %}#}
 
-{#{% block footer_bottom %}#}
-    {#{{ include('block/copyright.html.twig') }}#}
-    {#{{ render(controller('App\\Controller\\BlockController::mainMenuFooter')) }}#}
-{#{% endblock %}#}
+{% block footer_bottom %}
+    {{ include('block/copyright.html.twig') }}
+    {{ render(controller('App\\Controller\\BlockController::mainMenuFooter')) }}
+{% endblock %}

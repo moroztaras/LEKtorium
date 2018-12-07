@@ -9,15 +9,18 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
  */
 class BlockController extends Controller
 {
-    public function logo(){
+    public function logo()
+    {
         return $this->render('block/logo.html.twig');
     }
 
-    public function mainMenu(){
+    public function mainMenu()
+    {
         return $this->render('block/main-menu.html.twig');
     }
 
-    public function mainMenuFooter(){
+    public function mainMenuFooter()
+    {
         return $this->render('block/main-menu-footer.html.twig');
     }
 }

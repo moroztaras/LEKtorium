@@ -8,5 +8,13 @@
         <li class="menu-item"><a href="#" class="active">Home</a></li>
         <li class="menu-item"><a href="#">Articles</a></li>
         <li class="menu-item"><a href="#">Contacts</a></li>
+        {% if is_granted("IS_AUTHENTICATED_REMEMBERED") %}
+            <li class="menu-item"><a href="{{ path('article_new') }}">New article</a></li>
+            {{ render(controller('App\\Controller\\PageController::user')) }}
+            <li class="menu-item"><a href="{{ path('app_logout') }}">Logout</a></li>
+        {% else %}
+            <li class="menu-item"><a href="{{ path('app_login') }}">Log in</a></li>
+            <li class="menu-item"><a href="{{ path('app_registration') }}">Registration</a></li>
+        {% endif %}
     </ul>
 {% endblock %}

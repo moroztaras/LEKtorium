@@ -19,3 +19,8 @@
 .block-category-list .menu-item:last-child { border-bottom-width: 0; }
 .block-category-list .menu a { position: relative; text-transform: uppercase; margin-left: 30px; font-size: 12px; }
 .block-category-list .menu a:before { position: absolute; content: ""; left: -20px; top: 0; width: 14px; height: 14px; margin-top: 1px; line-height: 14px; vertical-align: text-top; background-image: url('../../../images/glyphicons-halflings.png'); background-position: 0 -95px; }
+
+.article-view .fields-top { background-color: #ffffff; padding: 20px; }
+.article-view .fields-top .list-link { margin-top: 20px; display: -webkit-flex; display: flex; -webkit-flex-direction: row; flex-direction: row; -webkit-justify-content: flex-end; justify-content: flex-end; font-size: 12px; }
+.article-view .fields-top .list-link-article { margin-right: 10px; }
+.article-view .fields-top .list-link-article:last-child { margin-right: 0; }

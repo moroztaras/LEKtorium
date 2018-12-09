@@ -2,4 +2,8 @@
 
 {% block block_class %}logo{% endblock %}
 {% block block_title_wrap %}{% endblock %}
-{% block block_content %}<img src="images/logo_lektorium_blog.jpg" alt="Site logo">{% endblock %}
+{% block block_content %}
+    <a href="{{ path('index') }}">
+        <img src="images/logo_lektorium_blog.jpg" alt="Site logo">
+    </a>
+{% endblock %}

@@ -93,3 +93,25 @@
     }
   }
 }
+.article-view {
+  .fields{
+    &-top{
+      background-color: $white;
+      padding: 20px;
+      .list-link{
+        margin-top: 20px;
+        @include display-flex;
+        @include flex-direction(row);
+        @include justify-content(flex-end);
+        font-size: 12px;
+
+        &-article{
+          margin-right: 10px;
+          &:last-child{
+            margin-right: 0;
+          }
+        }
+      }
+    }
+  }
+}

@@ -27,4 +27,13 @@ class BlockController extends Controller
     public function category(){
         return $this->render('block/category-list.html.twig');
     }
+
+    public function user()
+    {
+        $user = $this->getUser();
+
+        return $this->render('block/user.html.twig', [
+          'user' => $user,
+        ]);
+    }
 }

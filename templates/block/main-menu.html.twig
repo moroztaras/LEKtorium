@@ -5,12 +5,12 @@
     <input type="checkbox" class="main-menu-input" id="main-menu-input">
     <label for="main-menu-input">Hamburger</label>
     <ul class="menu">
-        <li class="menu-item"><a href="#" class="active">Home</a></li>
-        <li class="menu-item"><a href="#">Articles</a></li>
+        <li class="menu-item"><a href="{{ path('index') }}" class="active">Home</a></li>
+        <li class="menu-item"><a href="{{ path('article_list') }}">Articles</a></li>
         <li class="menu-item"><a href="#">Contacts</a></li>
         {% if is_granted("IS_AUTHENTICATED_REMEMBERED") %}
             <li class="menu-item"><a href="{{ path('article_new') }}">New article</a></li>
-            {{ render(controller('App\\Controller\\PageController::user')) }}
+            {{ render(controller('App\\Controller\\BlockController::user')) }}
             <li class="menu-item"><a href="{{ path('app_logout') }}">Logout</a></li>
         {% else %}
             <li class="menu-item"><a href="{{ path('app_login') }}">Log in</a></li>

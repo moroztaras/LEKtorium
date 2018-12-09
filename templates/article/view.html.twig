@@ -8,10 +8,8 @@
     <article class="block block--article-view article-view">
         <div class="block-content">
             <div class="fields field-top">
-                <div class="list-link">
-                    <div class="list-link-article article-author">Author: {{ article.user.lastName }} {{ article.user.firstName }}</div> |
-                    <div class="list-link-article article-created">CreatedAt: {{ article.createdAt ? article.createdAt|date('Y-m-d H:i') : '' }}</div> |
-                    <div class="list-link-article article-comments">Comments: {{ article.comments | length }}</div>
+                <div class="field field-info">
+                    Author: {{ article.user.lastName }} {{ article.user.firstName }} | CreatedAt: {{ article.createdAt ? article.createdAt|date('Y-m-d H:i') : '' }} | Comments: {{ article.comments | length }}
                 </div>
                 <div class="field field-body">{{ article.text }}</div>
                 <div class="field field-like">

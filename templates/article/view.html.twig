@@ -20,6 +20,7 @@
             <div class="field field-comments">
                 <div class="comment-preview">
                     {{ include('comment/lists.html.twig', {'comments' : article.comments}) }}
+                    <h2 class="comment-title">Add comment</h2>
                     {% if is_granted("IS_AUTHENTICATED_REMEMBERED") %}
                         {{ include('comment/form.html.twig') }}
                     {% else %}

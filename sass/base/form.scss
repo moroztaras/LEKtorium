@@ -36,7 +36,9 @@ form{
       border:1px solid $gray_cc;
       padding: 3px;
       height: 30px;
-
+    }
+    textarea{
+      height: 100px;
     }
     input, textarea{
       @include input-placeholder{

@@ -8,6 +8,7 @@
   .main-wrap .main { -webkit-flex: none; flex: none; width: calc(67% - 15px ); margin-right: 30px; } }
 
 .block-title h2 { font-size: 24px; line-height: 40px; background: #f8f8f8; padding: 10px 5px; margin: 0; text-transform: uppercase; border-bottom: 1px dotted #a9a9a9; border-top: 1px dotted #a9a9a9; font-family: "Oswald", sans-serif; text-shadow: 1px 1px 0 #fdfdfd, 2px 2px 0 rgba(81, 81, 81, 0.5), 0 0 1px #fdfdfd; }
+.block-navigation { text-align: center; margin: 10px; }
 
 .sidebar .block { margin-bottom: 30px; }
 .sidebar .block-title { margin-bottom: 15px; }
@@ -24,3 +25,8 @@
 .article-view .fields-top .list-link { margin-top: 20px; display: -webkit-flex; display: flex; -webkit-flex-direction: row; flex-direction: row; -webkit-justify-content: flex-end; justify-content: flex-end; font-size: 12px; }
 .article-view .fields-top .list-link-article { margin-right: 10px; }
 .article-view .fields-top .list-link-article:last-child { margin-right: 0; }
+.article-view .fields-info { text-align: center; background: #f8f8f8; border-bottom: 1px dotted #a9a9a9; border-top: 1px dotted #a9a9a9; }
+
+.field-title { padding: 10px; }
+.field-body, .field-like { background-color: #ffffff; padding: 15px; }
+.field-title, .field-info { text-align: center; background: #f8f8f8; border-bottom: 1px dotted #a9a9a9; border-top: 1px dotted #a9a9a9; }

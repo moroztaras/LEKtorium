@@ -7,8 +7,8 @@
 {% block main %}
     <article class="block block--article-view article-view">
         <div class="block-content">
-            <div class="fields field-top">
-                <div class="field field-info">
+            <div class="fields fields-top">
+                <div class="field fields-info">
                     Author: {{ article.user.lastName }} {{ article.user.firstName }} | CreatedAt: {{ article.createdAt ? article.createdAt|date('Y-m-d H:i') : '' }} | Comments: {{ article.comments | length }}
                 </div>
                 <div class="field field-body">{{ article.text }}</div>

@@ -1,8 +1,7 @@
 {% extends 'page_default.html.twig' %}
 
-{% block page_title %}
-    {{ article.title }}
-{% endblock %}
+{% block title %}{{ article.title }}{% endblock %}
+{% block page_title %}{{ article.title }}{% endblock %}
 
 {% block main %}
     <article class="block block--article-view article-view">

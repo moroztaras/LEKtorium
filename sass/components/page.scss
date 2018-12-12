@@ -141,3 +141,31 @@
     border-top: 1px dotted $gray_a9;
   }
 }
+.action{
+  text-align: center;
+}
+.admin-link-action{
+  margin: 5px;
+  a{
+    margin: 0 5px 0 5px;
+    padding: 0 10px 0 10px;
+    color: $white;
+    background-color: $gray_22;
+    @include border-radius(3px);
+    &:hover{
+      color: $red;
+    }
+  }
+
+}
+.admin-list-article{
+  table{
+    width: 100%;
+    .list-title{
+      text-align: center;
+      background: $gray_f8;
+      border-bottom: 1px dotted $gray_a9;
+      border-top: 1px dotted $gray_a9;
+    }
+  }
+}

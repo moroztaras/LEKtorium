@@ -9,7 +9,7 @@
         <li class="menu-item"><a href="{{ path('article_list') }}">Articles</a></li>
         <li class="menu-item"><a href="#">Contacts</a></li>
         {% if is_granted("IS_AUTHENTICATED_REMEMBERED") %}
-            <li class="menu-item"><a href="{{ path('article_new') }}">New article</a></li>
+            <li class="menu-item"><a href="{{ path('admin') }}">Admin</a></li>
             {{ render(controller('App\\Controller\\BlockController::user')) }}
             <li class="menu-item"><a href="{{ path('app_logout') }}">Logout</a></li>
         {% else %}

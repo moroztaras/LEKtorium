@@ -52,7 +52,7 @@ class ArticleService
         $result = $pagenator->paginate(
           $query,
           $request->query->getInt('page', 1),
-          $request->query->getInt('limit', 5)
+          $request->query->getInt('limit', 10)
         );
 
         return $result;

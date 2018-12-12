@@ -21,9 +21,16 @@ class PageController extends Controller
         return $this->redirectToRoute('article_list');
     }
 
+    /**
+     * @Route("/admin", methods={"GET"}, name="admin")
+     */
+    public function adminAction()
+    {
+        return $this->redirectToRoute('admin_article_list');
+    }
+
     public function preview(Request $request)
     {
-        // replace this example code with whatever you need
         return $this->render('preview.html.twig');
     }
 }

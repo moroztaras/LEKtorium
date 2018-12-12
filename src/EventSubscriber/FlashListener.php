@@ -21,8 +21,18 @@ class FlashListener implements EventSubscriberInterface
     {
         return [
           AppEvents::ARTICLE_CREATED => 'onArticleFlash',
+          AppEvents::ARTICLE_EDIT => 'onArticleEditFlash',
           AppEvents::USER_CREATED => 'onUserFlash',
         ];
+    }
+
+    public function onArticleEditFlash(ArticleEvent $event)
+    {
+        $article = $event->getArticle();
+        $this->session->getFlashBag()->add(
+          'success',
+          sprintf('Article %s successfully edited!', $article->getTitle())
+        );
     }
 
     public function onArticleFlash(ArticleEvent $event)

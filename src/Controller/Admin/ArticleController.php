@@ -3,7 +3,6 @@
 namespace App\Controller\Admin;
 
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
-
 use App\Entity\Article;
 use App\Form\ArticleType;
 use App\AppEvents;
@@ -47,6 +46,32 @@ class ArticleController extends Controller
             $dispatcher = $this->get('event_dispatcher');
             $event = new ArticleEvent($article);
             $dispatcher->dispatch(AppEvents::ARTICLE_CREATED, $event);
+
+            return $this->redirectToRoute('admin_article_list');
+        }
+
+        return $this->render('admin/article/new.html.twig', [
+          'form_article' => $form->createView(),
+        ]);
+    }
+
+    /**
+     * @Route("/{id}/edit", methods={"GET", "POST"}, name="admin_article_edit", requirements={"id": "\d+"})
+     */
+    public function editAction($id, Request $request, ArticleService $articleService)
+    {
+        /** @var Article $article */
+        $article = $this->getDoctrine()->getRepository(Article::class)->find($id);
+        $user = $this->getUser();
+        $form = $this->createForm(ArticleType::class, $article);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $articleService->save($user, $article);
+
+            $dispatcher = $this->get('event_dispatcher');
+            $event = new ArticleEvent($article);
+            $dispatcher->dispatch(AppEvents::ARTICLE_EDIT, $event);
 
             return $this->redirectToRoute('admin_article_list');
         }

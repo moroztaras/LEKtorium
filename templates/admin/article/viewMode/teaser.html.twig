@@ -5,7 +5,7 @@
     <td>{{ article.createdAt ? article.createdAt|date('Y-m-d H:i') : '' }}</td>
     <td>
         <div class="admin-link-action action">
-            <a href="#">Edit</a>
+            <a href="{{ path('admin_article_edit', {id:article.id}) }}">Edit</a>
             <a href="#">Delete</a>
         </div>
     </td>

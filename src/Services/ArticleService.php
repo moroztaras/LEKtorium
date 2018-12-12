@@ -57,4 +57,12 @@ class ArticleService
 
         return $result;
     }
+
+    public function remove(Article $article)
+    {
+        $this->doctrine->getManager()->remove($article);
+        $this->doctrine->getManager()->flush();
+
+        return $article;
+    }
 }

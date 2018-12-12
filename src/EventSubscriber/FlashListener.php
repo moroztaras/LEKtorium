@@ -22,6 +22,7 @@ class FlashListener implements EventSubscriberInterface
         return [
           AppEvents::ARTICLE_CREATED => 'onArticleFlash',
           AppEvents::ARTICLE_EDIT => 'onArticleEditFlash',
+          AppEvents::ARTICLE_DELETE => 'onArticleDeleteFlash',
           AppEvents::USER_CREATED => 'onUserFlash',
         ];
     }
@@ -41,6 +42,14 @@ class FlashListener implements EventSubscriberInterface
         $this->session->getFlashBag()->add(
           'success',
           sprintf('New article "%s" successfully added!', $article->getTitle())
+        );
+    }
+
+    public function onArticleDeleteFlash()
+    {
+        $this->session->getFlashBag()->add(
+          'success',
+          sprintf('Article deleted successfully!')
         );
     }
 

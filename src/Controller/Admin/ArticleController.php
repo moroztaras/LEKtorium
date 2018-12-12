@@ -50,8 +50,9 @@ class ArticleController extends Controller
             return $this->redirectToRoute('admin_article_list');
         }
 
-        return $this->render('admin/article/new.html.twig', [
+        return $this->render('admin/article/form.html.twig', [
           'form_article' => $form->createView(),
+          'title' => 'Create new article',
         ]);
     }
 
@@ -60,6 +61,7 @@ class ArticleController extends Controller
      */
     public function editAction($id, Request $request, ArticleService $articleService)
     {
+        $referer = $request->headers->get('referer');
         /** @var Article $article */
         $article = $this->getDoctrine()->getRepository(Article::class)->find($id);
         $user = $this->getUser();
@@ -73,11 +75,28 @@ class ArticleController extends Controller
             $event = new ArticleEvent($article);
             $dispatcher->dispatch(AppEvents::ARTICLE_EDIT, $event);
 
-            return $this->redirectToRoute('admin_article_list');
+            return $this->redirect($referer);
         }
 
-        return $this->render('admin/article/new.html.twig', [
+        return $this->render('admin/article/form.html.twig', [
           'form_article' => $form->createView(),
+          'title' => 'Edit article',
         ]);
+    }
+
+    /**
+     * @Route("/{id}/delete", methods={"GET", "POST"}, name="admin_article_delete", requirements={"id": "\d+"})
+     */
+    public function deleteAction($id, Request $request, ArticleService $articleService)
+    {
+        /** @var Article $article */
+        $article = $this->getDoctrine()->getRepository(Article::class)->find($id);
+        $articleService->remove($article);
+
+        $dispatcher = $this->get('event_dispatcher');
+        $event = new ArticleEvent($article);
+        $dispatcher->dispatch(AppEvents::ARTICLE_DELETE, $event);
+
+        return $this->redirectToRoute('admin_article_list');
     }
 }

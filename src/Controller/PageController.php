@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\HttpFoundation\Request;
 
 /**
  * Class PageController.
@@ -20,11 +21,16 @@ class PageController extends Controller
         return $this->redirectToRoute('article_list');
     }
 
-    public function user()
+    /**
+     * @Route("/admin", methods={"GET"}, name="admin")
+     */
+    public function adminAction()
     {
-        $user = $this->getUser();
-        return $this->render('page/user.html.twig',[
-          'user' => $user,
-        ]);
+        return $this->redirectToRoute('admin_article_list');
+    }
+
+    public function preview(Request $request)
+    {
+        return $this->render('preview.html.twig');
     }
 }

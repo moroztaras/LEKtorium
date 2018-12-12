@@ -50,7 +50,7 @@ class UserService
 //            PasswordEnteringEvent::NAME,
 //            [$this->listener, 'onPasswordEnteringEvent']);
 //        $encodePassword = $this->dispatcher->dispatch(PasswordEnteringEvent::NAME, $event)->getUser()->getPassword();
-        $encodePassword = $this->passwordEncoder->encodePassword($user,$user->getPlainPassword());
+        $encodePassword = $this->passwordEncoder->encodePassword($user, $user->getPlainPassword());
         $user->setPassword($encodePassword);
         $this->doctrine->getManager()->persist($user);
         $this->doctrine->getManager()->flush();

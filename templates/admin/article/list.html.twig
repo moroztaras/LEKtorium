@@ -1,0 +1,39 @@
+{% extends 'page_default.html.twig' %}
+
+{% block title %}Admin Articles{% endblock %}
+{% block page_title %}Admin Articles{% endblock %}
+
+{% block main %}
+    <div class="block block--article-list">
+        <div class="block-content">
+            <div class="list list--page-list">
+                {{ include('block/message.html.twig') }}
+                <div class="admin-link-action">
+                    <a href="{{ path('admin_article_new') }}">New article</a>
+                </div>
+                <div class="admin-list-article">
+                    <table>
+                        <thead>
+                            <tr class="list-title">
+                                <th>Id</th>
+                                <th>Title</th>
+                                <th>CreatedAt</th>
+                                <th>Action</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                        {% for article in articles %}
+                            {{ include('admin/article/viewMode/teaser.html.twig', {'article' : article}) }}
+                        {% else %}
+                            <tr>
+                                <th colspan="4">Articles not found!</th>
+                            </tr>
+                        {% endfor %}
+                        </tbody>
+                    </table>
+                    {{ include('block/pagination.html.twig', {'articles' : articles}) }}
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

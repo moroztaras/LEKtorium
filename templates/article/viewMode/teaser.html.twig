@@ -1,0 +1,12 @@
+<div class="fields">
+    {% set path = path('article_view', {id:article.id}) %}
+    <h2 class="field field-title"><a href="{{ path }}">{{ article.title }}</a></h2>
+    <div class="field field-info">
+        Author: {{ article.user.lastName }} {{ article.user.firstName }} | CreatedAt: {{ article.createdAt ? article.createdAt|date('Y-m-d H:i') : '' }} | Comments: {{ article.comments | length }}
+    </div>
+    <div class="field field-body">{{ article.text }}</div>
+    <div class="field field-like">
+        <a href="{{ path('article_like_add', {id:article.id}) }}">like</a> ({{ article.likes |length }})
+    </div>
+    <hr align="center" width="100%" size="1" color="#C0C0C0" />
+</div>

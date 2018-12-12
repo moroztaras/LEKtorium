@@ -7,3 +7,7 @@ app_logout:
 
 login_check:
     path: /login_check
+
+app_preview:
+  path: /preview
+  controller: App\Controller\PageController::preview

@@ -52,9 +52,17 @@ class ArticleService
         $result = $pagenator->paginate(
           $query,
           $request->query->getInt('page', 1),
-          $request->query->getInt('limit', 5)
+          $request->query->getInt('limit', 10)
         );
 
         return $result;
+    }
+
+    public function remove(Article $article)
+    {
+        $this->doctrine->getManager()->remove($article);
+        $this->doctrine->getManager()->flush();
+
+        return $article;
     }
 }

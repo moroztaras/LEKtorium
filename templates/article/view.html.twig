@@ -1,18 +1,21 @@
-{% extends 'page.html.twig' %}
+{% extends 'page_default.html.twig' %}
 
-{% block title %}
-    {{ article.title }}
-{% endblock %}
+{% block title %}{{ article.title }}{% endblock %}
+{% block page_title %}{{ article.title }}{% endblock %}
 
-{% block content %}
-    <div class="block block-article-view">
+{% block main %}
+    <article class="block block--article-view article-view">
         <div class="block-content">
-            <h2 class="field field-title">{{ article.title }}</h2>
-            <div class="field field-info">Author: {{ article.user.lastName }} {{ article.user.firstName }} | CreatedAt: {{ article.createdAt ? article.createdAt|date('Y-m-d H:i') : '' }} | Comments: {{ article.comments | length }}</div>
-            <div class="field field-body">{{ article.text }}</div>
-            <div class="block block-like">
-                <a href="{{ path('article_like_add', {id:article.id}) }}">like</a> ({{ article.likes |length }})
+            <div class="fields fields-top">
+                <div class="field fields-info">
+                    Author: {{ article.user.lastName }} {{ article.user.firstName }} | CreatedAt: {{ article.createdAt ? article.createdAt|date('Y-m-d H:i') : '' }} | Comments: {{ article.comments | length }}
+                </div>
+                <div class="field field-body">{{ article.text }}</div>
+                <div class="field field-like">
+                    <a href="{{ path('article_like_add', {id:article.id}) }}">like</a> ({{ article.likes |length }})
+                </div>
             </div>
+
             <div class="field field-comments">
                 <div class="comment-preview">
                     {{ include('comment/lists.html.twig', {'comments' : article.comments}) }}
@@ -25,5 +28,5 @@
                 </div>
             </div>
         </div>
-    </div>
+    </article>
 {% endblock %}

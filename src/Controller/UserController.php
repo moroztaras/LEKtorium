@@ -4,32 +4,25 @@ namespace App\Controller;
 
 use App\Entity\User;
 use App\Form\RegistrationType;
-use App\Form\LoginType;
-use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use App\Services\UserService;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
 
 /**
  * Class UserController.
- *
- * @Route("/user")
  */
-class UserController extends Controller
+class UserController extends AbstractController
 {
-    /**
-     * @Route("/login", methods={"GET", "POST"}, name="user_login")
-     */
-    public function loginAction()
-    {
-        $form = $this->createForm(LoginType::class);
+    private $userService;
 
-        return $this->render('user/login.html.twig', [
-          'user_login' => $form->createView(),
-        ]);
+    public function __construct(UserService $userService)
+    {
+        $this->userService = $userService;
     }
 
     /**
-     * @Route("/registration", methods={"GET", "POST"}, name="user_registration")
+     * @Route("/registration", methods={"GET", "POST"}, name="app_registration")
      */
     public function registrationAction(Request $request)
     {
@@ -38,15 +31,23 @@ class UserController extends Controller
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $em = $this->getDoctrine()->getManager();
-            $em->persist($user);
-            $em->flush();
+            $this->userService->save($user);
 
-            return $this->redirectToRoute('article_list');
+            return $this->redirectToRoute('app_login');
         }
 
         return $this->render('user/registration.html.twig', [
           'user_registration' => $form->createView(),
+        ]);
+    }
+
+    /**
+     * @Route("/admin", methods={"GET"}, name="app_admin")
+     */
+    public function adminAction()
+    {
+        return $this->render('base.html.twig', [
+          'message' => 'Welcome admin page!',
         ]);
     }
 }

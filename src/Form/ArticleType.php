@@ -19,9 +19,6 @@ class ArticleType extends AbstractType
         $builder->add('text', TextareaType::class, [
           'label' => 'Text',
         ]);
-        $builder->add('author', TextType::class, [
-          'label' => 'Author',
-        ]);
     }
 
     public function configureOptions(OptionsResolver $resolver)

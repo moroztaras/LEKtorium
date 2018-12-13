@@ -1,0 +1,15 @@
+<div class="comment-preview">
+    <h2 class="comment-title">Comments</h2>
+    <div class="list-comments">
+        {% for comment in comments %}
+            <div class="list-comment">
+                <div class="fields">
+                    <div class="field field-comment-info">
+                        Author: {{ comment.user.lastName }} {{ comment.user.firstName }} | CreatedAt: {{ comment.createdAt ? comment.createdAt|date('Y-m-d H:i') : '' }}
+                    </div>
+                    <div class="field field-comment-text">{{ comment.comment }}</div>
+                </div>
+            </div>
+        {% endfor %}
+    </div>
+</div>

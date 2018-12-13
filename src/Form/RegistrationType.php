@@ -24,7 +24,7 @@ class RegistrationType extends AbstractType
         $builder->add('lastName', TextType::class, [
           'label' => 'lastName',
         ]);
-        $builder->add('password', RepeatedType::class, [
+        $builder->add('plainPassword', RepeatedType::class, [
           'type' => PasswordType::class,
           'invalid_message' => 'The password fields must match.',
           'required' => true,

@@ -61,7 +61,6 @@ class ArticleController extends Controller
      */
     public function editAction($id, Request $request, ArticleService $articleService)
     {
-        $referer = $request->headers->get('referer');
         /** @var Article $article */
         $article = $this->getDoctrine()->getRepository(Article::class)->find($id);
         $user = $this->getUser();
@@ -75,7 +74,7 @@ class ArticleController extends Controller
             $event = new ArticleEvent($article);
             $dispatcher->dispatch(AppEvents::ARTICLE_EDIT, $event);
 
-            return $this->redirect($referer);
+            return $this->redirectToRoute('admin_article_list');
         }
 
         return $this->render('admin/article/form.html.twig', [

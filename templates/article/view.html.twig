@@ -21,7 +21,7 @@
                     {{ include('comment/lists.html.twig', {'comments' : article.comments}) }}
                     <h2 class="comment-title">Add comment</h2>
                     {% if is_granted("IS_AUTHENTICATED_REMEMBERED") %}
-                        {{ include('comment/form.html.twig') }}
+                        {{ render(controller('App\\Controller\\CommentController::form')) }}
                     {% else %}
                         <p>To add comments, you must <a href="{{ path('app_login') }}">Log in</a> or <a href="{{ path('app_registration') }}">Registration</a></p>
                     {% endif %}

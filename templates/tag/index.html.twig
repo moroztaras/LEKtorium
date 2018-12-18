@@ -1,0 +1,22 @@
+{% extends 'page_default.html.twig' %}
+
+{% block title %}Articles{% endblock %}
+{% block page_title %}Articles{% endblock %}
+
+{% block main %}
+    <div class="block block--article-list">
+        <div class="block-content">
+            <div class="list list--page-list">
+                {{ include('block/message.html.twig') }}
+                {% for tag in tags %}
+                    <div class="list-item">
+                        {{ include('tag/viewMode/teaser.html.twig', {'tag' : tag}) }}
+                    </div>
+                {% else %}
+                    <p>The tag does not exist</p>
+                {% endfor %}
+                {#{{ include('block/pagination.html.twig', {'articles' : articles}) }}#}
+            </div>
+        </div>
+    </div>
+{% endblock %}

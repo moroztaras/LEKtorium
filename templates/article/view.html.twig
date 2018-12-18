@@ -8,12 +8,12 @@
         <div class="block-content">
             <div class="fields fields-top">
                 <div class="field fields-info">
-                    <span class="info-title">Author:</span> {{ article.user.lastName }} {{ article.user.firstName }} <span class="info-title">| CreatedAt:</span> {{ article.createdAt ? article.createdAt|date('Y-m-d H:i') : '' }} <span class="info-title">| Comments:<span class="info-title"> {{ article.comments | length }}
+                    <span class="info-title">Author:</span> {{ article.user.lastName }} {{ article.user.firstName }} <span class="info-title">| CreatedAt:</span> {{ article.createdAt ? article.createdAt|date('Y-m-d H:i') : '' }} <span class="info-title">| Comments:</span> {{ article.comments | length }}
                 </div>
                 <div class="field field-body">{{ article.text }}</div>
                 <div class="field field-like">
                     <a href="{{ path('article_like_add', {id:article.id}) }}">like</a> ({{ article.likes |length }}) |
-                    <span class="info-title">Tags:</span> {{ article.tags }}
+                    {{ include('tag/list.html.twig', {'tags' : article.tags}) }}
                 </div>
             </div>
 

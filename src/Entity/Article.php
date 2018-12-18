@@ -26,7 +26,12 @@ class Article implements \JsonSerializable
     /**
      * @var string
      * @Assert\NotBlank()
-     * @Assert\Length(min="3", minMessage="Not enough")
+     * @Assert\Length(
+     *      min = 5,
+     *      max = 255,
+     *      minMessage = "Article title must be at least {{ limit }} characters long",
+     *      maxMessage = "Article title cannot be longer than {{ limit }} characters"
+     * )
      * @ORM\Column(type="string")
      */
     private $title;
@@ -34,7 +39,12 @@ class Article implements \JsonSerializable
     /**
      * @var string
      * @Assert\NotBlank()
-     * @Assert\Length(min="3", minMessage="Not enough")
+     * @Assert\Length(
+     *      min = 10,
+     *      max = 1000,
+     *      minMessage = "Article text must be at least {{ limit }} characters long",
+     *      maxMessage = "Article text cannot be longer than {{ limit }} characters"
+     * )
      * @ORM\Column(type="text")
      */
     private $text;
@@ -58,12 +68,11 @@ class Article implements \JsonSerializable
     private $likes;
 
     /**
-     * @var string
-     * @Assert\NotBlank()
-     * @Assert\Length(min="3", minMessage="Not enough")
-     * @ORM\Column(type="text")
+     * @ORM\OneToMany(targetEntity="App\Entity\Tag", mappedBy="article")
      */
     private $tags;
+
+    private $tagsInput;
 
     /**
      * @var \DateTime
@@ -76,6 +85,7 @@ class Article implements \JsonSerializable
         $this->createdAt = new \DateTime();
         $this->comments = new ArrayCollection();
         $this->likes = new ArrayCollection();
+        $this->tags = new ArrayCollection();
     }
 
     /**
@@ -214,30 +224,6 @@ class Article implements \JsonSerializable
     }
 
     /**
-     * Get tags.
-     *
-     * @return string
-     */
-    public function getTags()
-    {
-        return $this->tags;
-    }
-
-    /**
-     * Set tags.
-     *
-     * @param string $tags
-     *
-     * @return $this
-     */
-    public function setTags($tags)
-    {
-        $this->tags = $tags;
-
-        return $this;
-    }
-
-    /**
      * @return Collection|ArticleLike[]
      */
     public function getLikes(): Collection
@@ -274,5 +260,48 @@ class Article implements \JsonSerializable
           'id' => $this->getId(),
           'text' => $this->getText(),
         ];
+    }
+
+    /**
+     * @return Collection|Tag[]
+     */
+    public function getTags(): Collection
+    {
+        return $this->tags;
+    }
+
+    public function addTag(Tag $tag): self
+    {
+        if (!$this->tags->contains($tag)) {
+            $this->tags[] = $tag;
+            $tag->setArticle($this);
+        }
+
+        return $this;
+    }
+
+    public function removeTag(Tag $tag): self
+    {
+        if ($this->tags->contains($tag)) {
+            $this->tags->removeElement($tag);
+            // set the owning side to null (unless already changed)
+            if ($tag->getArticle() === $this) {
+                $tag->setArticle(null);
+            }
+        }
+
+        return $this;
+    }
+
+    public function getTagsInput(): ?string
+    {
+        return $this->tagsInput;
+    }
+
+    public function setTagsInput(?string $tagsInput): self
+    {
+        $this->tagsInput = $tagsInput;
+
+        return $this;
     }
 }

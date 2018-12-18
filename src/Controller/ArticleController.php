@@ -18,29 +18,6 @@ use Symfony\Component\Routing\Annotation\Route;
  */
 class ArticleController extends Controller
 {
-//    /**
-//     * @Route("/", methods={"GET", "POST"}, name="article_index")
-//     */
-//    public function indexAction(Request $request, ArticleService $articleService)
-//    {
-//        $name = $request->query->get('name');
-//        $text = $articleService->handleArticle($name);
-//
-//        if (Request::METHOD_GET === $request->getMethod()) {
-//            $article = new Article();
-//            $article->setTitle('Title article');
-//            $article->setText($text);
-//            $article->setAuthor('Moroz Taras');
-//
-//            $this->getDoctrine()->getManager()->persist($article);
-//            $this->getDoctrine()->getManager()->flush();
-//        }
-//
-//        return $this->render('article/index.html.twig', [
-//          'text' => $text,
-//        ]);
-//    }
-
     /**
      * @Route("", methods={"GET"}, name="article_list")
      */

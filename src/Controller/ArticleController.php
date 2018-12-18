@@ -75,7 +75,6 @@ class ArticleController extends Controller
 
         return $this->render('article/view.html.twig', [
           'article' => $article,
-          'form_comment' => $form->createView(),
         ]);
     }
 }

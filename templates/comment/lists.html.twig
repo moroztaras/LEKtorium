@@ -7,7 +7,7 @@
                     <div class="field field-comment-info">
                         Author: {{ comment.user.lastName }} {{ comment.user.firstName }} | CreatedAt: {{ comment.createdAt ? comment.createdAt|date('Y-m-d H:i') : '' }}
                     </div>
-                    <div class="field field-comment-text">{{ comment.comment }}</div>
+                    <div class="field  field-comment-text">{{ comment.comment }}</div>
                 </div>
             </div>
         {% endfor %}

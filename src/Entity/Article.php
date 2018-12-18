@@ -58,6 +58,14 @@ class Article implements \JsonSerializable
     private $likes;
 
     /**
+     * @var string
+     * @Assert\NotBlank()
+     * @Assert\Length(min="3", minMessage="Not enough")
+     * @ORM\Column(type="text")
+     */
+    private $tags;
+
+    /**
      * @var \DateTime
      * @ORM\Column(type="datetime")
      */
@@ -201,6 +209,30 @@ class Article implements \JsonSerializable
     public function setUser(?User $user): self
     {
         $this->user = $user;
+
+        return $this;
+    }
+
+    /**
+     * Get tags.
+     *
+     * @return string
+     */
+    public function getTags()
+    {
+        return $this->tags;
+    }
+
+    /**
+     * Set tags.
+     *
+     * @param string $tags
+     *
+     * @return $this
+     */
+    public function setTags($tags)
+    {
+        $this->tags = $tags;
 
         return $this;
     }

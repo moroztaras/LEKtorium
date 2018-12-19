@@ -40,9 +40,6 @@ class BlockController extends Controller
         ]);
     }
 
-    /**
-     * @Route("/tag_list", methods={"GET"}, name="tag_lsit")
-     */
     public function sidebar(TagService $tagService)
     {
         $tags = $tagService->list();

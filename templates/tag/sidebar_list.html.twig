@@ -1,0 +1,10 @@
+<div class="block-title">
+    <h2>Tags</h2>
+</div>
+<div class="block-content">
+    <div class="sidebar-tags">
+        {% for tag in tags %}
+            <a href="{{ path('list_of_articles_by_tag', {'name':tag.name}) }}">{{ tag.name }}</a>,
+        {% endfor %}
+    </div>
+</div>

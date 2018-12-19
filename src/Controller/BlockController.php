@@ -2,7 +2,9 @@
 
 namespace App\Controller;
 
+use App\Services\TagService;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Component\Routing\Annotation\Route;
 
 /**
  * Class BlockController.
@@ -35,6 +37,15 @@ class BlockController extends Controller
 
         return $this->render('block/user.html.twig', [
           'user' => $user,
+        ]);
+    }
+
+    public function sidebar(TagService $tagService)
+    {
+        $tags = $tagService->list();
+
+        return $this->render('tag/sidebar_list.html.twig', [
+          'tags' => $tags,
         ]);
     }
 }

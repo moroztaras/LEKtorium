@@ -19,6 +19,9 @@ class ArticleType extends AbstractType
         $builder->add('text', TextareaType::class, [
           'label' => 'Text',
         ]);
+        $builder->add('tagsInput', TextType::class, [
+          'label' => 'Tags',
+        ]);
     }
 
     public function configureOptions(OptionsResolver $resolver)

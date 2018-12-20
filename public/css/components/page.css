@@ -39,3 +39,11 @@
 
 .admin-list-article table { width: 100%; }
 .admin-list-article table .list-title { text-align: center; background: #f8f8f8; border-bottom: 1px dotted #a9a9a9; border-top: 1px dotted #a9a9a9; }
+
+.field-comment-info { padding-left: 5px; background: #f8f8f8; border-bottom: 1px dotted #a9a9a9; border-top: 1px dotted #a9a9a9; }
+
+.field-comment-text { padding-left: 5px; background-color: #ffffff; }
+
+.list-comment { width: 500px; margin: 10px; }
+
+.info-title { color: #3B3B3B; }

@@ -3,19 +3,19 @@
 namespace App\Event;
 
 use App\Entity\User;
- use Symfony\Component\EventDispatcher\Event;
+use Symfony\Component\EventDispatcher\Event;
 
- class UserEvent extends Event
- {
-     private $user;
+class UserEvent extends Event
+{
+    private $user;
 
-     public function __construct(User $user)
-     {
-         $this->user = $user;
-     }
+    public function __construct(User $user)
+    {
+        $this->user = $user;
+    }
 
-     public function getUser()
-     {
-         return $this->user;
-     }
- }
+    public function getUser()
+    {
+        return $this->user;
+    }
+}

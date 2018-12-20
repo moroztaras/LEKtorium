@@ -1,0 +1,6 @@
+<span class="info-title">
+    Tags:
+    {% for tag in tags %}
+        <a href="{{ path('list_of_articles_by_tag', {'name' : tag.name}) }}">{{ tag.name }}</a>,
+    {% endfor %}
+</span>

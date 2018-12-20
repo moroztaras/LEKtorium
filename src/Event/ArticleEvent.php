@@ -3,19 +3,19 @@
 namespace App\Event;
 
 use App\Entity\Article;
- use Symfony\Component\EventDispatcher\Event;
+use Symfony\Component\EventDispatcher\Event;
 
- class ArticleEvent extends Event
- {
-     private $article;
+class ArticleEvent extends Event
+{
+    private $article;
 
-     public function __construct(Article $article)
-     {
-         $this->article = $article;
-     }
+    public function __construct(Article $article)
+    {
+        $this->article = $article;
+    }
 
-     public function getArticle()
-     {
-         return $this->article;
-     }
- }
+    public function getArticle()
+    {
+        return $this->article;
+    }
+}

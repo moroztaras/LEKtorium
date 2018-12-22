@@ -12,3 +12,5 @@ form .form-row input::-webkit-input-placeholder, form .form-row textarea::-webki
 form .type-birthday > div { display: -webkit-flex; display: flex; -webkit-flex-direction: row; flex-direction: row; }
 form .type-birthday > div > select { width: calc( ( 100% - 10px ) / 2 ); margin-right: 10px; }
 form .type-birthday > div > select:last-child { margin-right: 0; }
+
+.block-search form input { width: 274px; -moz-border-radius: 3px; -webkit-border-radius: 3px; border-radius: 3px; border: 1px solid #cccccc; padding: 3px; margin-right: 10px; height: 30px; }

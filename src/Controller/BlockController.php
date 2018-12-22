@@ -2,8 +2,10 @@
 
 namespace App\Controller;
 
+use App\Services\ArticleService;
 use App\Services\TagService;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
 
 /**
@@ -40,12 +42,35 @@ class BlockController extends Controller
         ]);
     }
 
-    public function sidebar(TagService $tagService)
+    public function sidebarTag(TagService $tagService)
     {
         $tags = $tagService->list();
 
         return $this->render('tag/sidebar_list.html.twig', [
           'tags' => $tags,
+        ]);
+    }
+
+    public function sidebarSearch()
+    {
+        return $this->render('block/search.html.twig');
+    }
+
+    /**
+     * @Route("/search", name="search")
+     */
+    public function searchAction(Request $request, ArticleService $articleService)
+    {
+        $articles = null;
+        if ($request->query->get('search')) {
+            $data = $request->query->get('search');
+            $articles = $this->getDoctrine()->getRepository('App:Article')->findByWord($data);
+            unset($request);
+        }
+
+        return $this->render(
+          'article/search.html.twig', [
+          'articles' => $articles,
         ]);
     }
 }

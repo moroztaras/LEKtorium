@@ -18,12 +18,21 @@ use Symfony\Component\Routing\Annotation\Route;
  */
 class ArticleController extends Controller
 {
+    public $articleService;
+    public $commentService;
+
+    public function __construct(ArticleService $articleService, CommentService $commentService)
+    {
+        $this->articleService = $articleService;
+        $this->commentService = $commentService;
+    }
+
     /**
      * @Route("", methods={"GET"}, name="article_list")
      */
-    public function listAction(Request $request, ArticleService $articleService)
+    public function listAction(Request $request)
     {
-        $articles = $articleService->list($request);
+        $articles = $this->articleService->list($request);
 
         return $this->render('article/list.html.twig', [
           'articles' => $articles,
@@ -33,7 +42,7 @@ class ArticleController extends Controller
     /**
      * @Route("/{id}", methods={"GET", "POST"}, name="article_view", requirements={"id"})
      */
-    public function viewAction(Request $request, Article $article, CommentService $commentService)
+    public function viewAction(Request $request, Article $article)
     {
         $user = $this->getUser();
         $form = $this->createForm(CommentType::class);
@@ -45,7 +54,7 @@ class ArticleController extends Controller
         if ($form->isSubmitted() && $form->isValid()) {
             /** @var Comment $comment */
             $comment = $form->getData();
-            $commentService->save($user, $comment, $article);
+            $this->commentService->save($user, $comment, $article);
 
             return $this->redirectToRoute('article_view', ['id' => $article->getId()]);
         }

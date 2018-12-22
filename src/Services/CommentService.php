@@ -3,8 +3,6 @@
 namespace App\Services;
 
 use App\Entity\Comment;
-use App\Entity\Article;
-use App\Entity\User;
 use Doctrine\Common\Persistence\ManagerRegistry;
 
 class CommentService
@@ -19,13 +17,28 @@ class CommentService
         $this->doctrine = $doctrine;
     }
 
-    public function save(User $user, Comment $comment, Article $article)
+    public function new($id, $user)
     {
-        $comment->setUser($user);
+        $comment = new Comment();
+        $article = $this->getArticle($id);
         $comment->setArticle($article);
+        $comment->setUser($user);
+
+        return $comment;
+    }
+
+    public function save(Comment $comment)
+    {
         $this->doctrine->getManager()->persist($comment);
         $this->doctrine->getManager()->flush();
 
         return $comment;
+    }
+
+    protected function getArticle($id)
+    {
+        $article = $this->doctrine->getManager()->getRepository('App:Article')->find($id);
+
+        return $article;
     }
 }

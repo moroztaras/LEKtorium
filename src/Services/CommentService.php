@@ -4,6 +4,7 @@ namespace App\Services;
 
 use App\Entity\Comment;
 use Doctrine\Common\Persistence\ManagerRegistry;
+use Knp\Component\Pager\PaginatorInterface;
 
 class CommentService
 {
@@ -12,9 +13,24 @@ class CommentService
      */
     private $doctrine;
 
-    public function __construct(ManagerRegistry $doctrine)
+    /**
+     * @var PaginatorInterface
+     */
+    private $paginator;
+
+    public function __construct(ManagerRegistry $doctrine, PaginatorInterface $paginator)
     {
         $this->doctrine = $doctrine;
+        $this->paginator = $paginator;
+    }
+
+    public function list($request)
+    {
+        return  $this->paginator->paginate(
+          $this->doctrine->getRepository(Comment::class)->findBy([], ['id' => 'DESC']),
+          $request->query->getInt('page', 1),
+          $request->query->getInt('limit', 10)
+        );
     }
 
     public function new($id, $user)

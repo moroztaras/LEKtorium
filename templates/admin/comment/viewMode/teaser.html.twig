@@ -1,0 +1,12 @@
+<tr class="list-article">
+    {% set path = path('article_view', {id:comment.article.id}) %}
+    <td>{{ comment.id }}</td>
+    <td><a href="{{ path }}#comment-{{ comment.id }}">{{ comment.comment }}</a></td>
+    <td>{{ comment.createdAt ? comment.createdAt|date('Y-m-d H:i') : '' }}</td>
+    <td>
+        <div class="admin-link-action action">
+            <a href="#">Edit</a>
+            <a href="#">Delete</a>
+        </div>
+    </td>
+</tr>

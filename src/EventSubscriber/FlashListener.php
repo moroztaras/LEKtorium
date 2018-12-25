@@ -24,6 +24,7 @@ class FlashListener implements EventSubscriberInterface
           AppEvents::ARTICLE_EDIT => 'onArticleEditFlash',
           AppEvents::ARTICLE_DELETE => 'onArticleDeleteFlash',
           AppEvents::USER_CREATED => 'onUserFlash',
+          AppEvents::COMMENT_EDIT => 'onCommentEditFlash',
           AppEvents::COMMENT_DELETE => 'onCommentDeleteFlash',
         ];
     }
@@ -60,6 +61,14 @@ class FlashListener implements EventSubscriberInterface
         $this->session->getFlashBag()->add(
           'success',
           sprintf('New user %s %s successfully added!', $user->getFirstName(), $user->getLastName())
+        );
+    }
+
+    public function onCommentEditFlash()
+    {
+        $this->session->getFlashBag()->add(
+          'success',
+          sprintf('Comment edited successfully!')
         );
     }
 

@@ -51,6 +51,14 @@ class CommentService
         return $comment;
     }
 
+    public function remove(Comment $comment)
+    {
+        $this->doctrine->getManager()->remove($comment);
+        $this->doctrine->getManager()->flush();
+
+        return $comment;
+    }
+
     protected function getArticle($id)
     {
         $article = $this->doctrine->getManager()->getRepository('App:Article')->find($id);

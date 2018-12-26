@@ -17,6 +17,16 @@ class ArticleModel
      */
     private $text;
 
+    /**
+     * @Assert\Image(
+     *     mimeTypes={"image/jpeg", "image/png", "image/jpg"},
+     *     maxSize="5Mi",
+     *     minHeight="100",
+     *     minWidth="100",
+     *     maxSizeMessage="Image file size exceeds 5Mb.",
+     *     mimeTypesMessage="Invalid file format. Allowed file formats: JPEG, PNG, JPG"
+     * )
+     */
     private $image;
 
     /**

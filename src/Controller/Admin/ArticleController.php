@@ -52,7 +52,7 @@ class ArticleController extends Controller
 //            $event = new ArticleEvent($articleModel);
 //            $dispatcher->dispatch(AppEvents::ARTICLE_CREATED, $event);
 
-//            return $this->redirectToRoute('admin_article_list');
+            return $this->redirectToRoute('admin_article_list');
         }
 
         return $this->render('admin/article/form.html.twig', [

@@ -2,9 +2,10 @@
 
 namespace App\Controller\Admin;
 
+use App\Form\Admin\Model\ArticleModel;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use App\Entity\Article;
-use App\Form\ArticleType;
+use App\Form\Admin\ArticleType;
 use App\AppEvents;
 use App\Event\ArticleEvent;
 use App\Services\ArticleService;
@@ -35,19 +36,23 @@ class ArticleController extends Controller
      */
     public function newAction(Request $request, ArticleService $articleService)
     {
-        $article = new Article();
+        $articleModel = new ArticleModel();
         $user = $this->getUser();
-        $form = $this->createForm(ArticleType::class, $article);
+        $form = $this->createForm(ArticleType::class, $articleModel,
+          [
+            'entity_manager' => $this->getDoctrine()->getManager()
+          ]);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $articleService->save($user, $article);
 
-            $dispatcher = $this->get('event_dispatcher');
-            $event = new ArticleEvent($article);
-            $dispatcher->dispatch(AppEvents::ARTICLE_CREATED, $event);
+            $articleService->save($user, $form->getData());
 
-            return $this->redirectToRoute('admin_article_list');
+//            $dispatcher = $this->get('event_dispatcher');
+//            $event = new ArticleEvent($articleModel);
+//            $dispatcher->dispatch(AppEvents::ARTICLE_CREATED, $event);
+
+//            return $this->redirectToRoute('admin_article_list');
         }
 
         return $this->render('admin/article/form.html.twig', [

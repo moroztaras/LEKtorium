@@ -7,6 +7,7 @@ use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
 
+
 /**
  * Article.
  *
@@ -60,6 +61,12 @@ class Article implements \JsonSerializable
      * @ORM\OrderBy({"id" = "DESC"})
      */
     private $comments;
+
+    /**
+     * @ORM\OneToOne(targetEntity="App\Entity\File\File", cascade={"persist", "remove"})
+     * @ORM\JoinColumn(name="image_fid", referencedColumnName="id")
+     */
+    private $image;
 
     /**
      * @ORM\OneToMany(targetEntity="ArticleLike", mappedBy="article", cascade={"persist", "remove"})
@@ -221,6 +228,30 @@ class Article implements \JsonSerializable
         $this->user = $user;
 
         return $this;
+    }
+
+    /**
+     * Set image.
+     *
+     * @param string $image
+     *
+     * @return $this
+     */
+    public function setImage($image)
+    {
+        $this->image = $image;
+
+        return $this;
+    }
+
+    /**
+     * Get image.
+     *
+     * @return string
+     */
+    public function getImage()
+    {
+        return $this->image;
     }
 
     /**

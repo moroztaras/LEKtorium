@@ -29,13 +29,6 @@ class ArticleType extends AbstractType
         ]);
     }
 
-//    public function configureOptions(OptionsResolver $resolver)
-//    {
-//        $resolver->setDefaults([
-//          'data_class' => Article::class,
-//          'attr' => ['novalidate' => 'novalidate'],
-//        ]);
-//    }
     public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setRequired('entity_manager');

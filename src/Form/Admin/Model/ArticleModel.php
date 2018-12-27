@@ -98,7 +98,4 @@ class ArticleModel
     {
         $this->tagsInput = $tagsInput;
     }
-
-
-
 }

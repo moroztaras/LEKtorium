@@ -5,6 +5,8 @@ namespace App\Services;
 use App\Entity\Article;
 use App\Entity\User;
 use App\Entity\Tag;
+use App\Form\Admin\Model\ArticleModel;
+use App\FileAssistant;
 use Doctrine\Common\Persistence\ManagerRegistry;
 use Knp\Component\Pager\PaginatorInterface;
 use Symfony\Component\DependencyInjection\ContainerInterface;
@@ -26,17 +28,39 @@ class ArticleService
      */
     private $paginator;
 
-    public function __construct(ManagerRegistry $doctrine, ContainerInterface $container, PaginatorInterface $paginator)
+    /**
+     * @var FileAssistant
+     */
+    private $fileAssistant;
+
+    public function __construct(ManagerRegistry $doctrine, ContainerInterface $container, PaginatorInterface $paginator, FileAssistant $fileAssistant)
     {
         $this->doctrine = $doctrine;
         $this->container = $container;
         $this->paginator = $paginator;
+        $this->fileAssistant = $fileAssistant;
     }
 
-    public function save(User $user, Article $article)
+    public function save(User $user, ArticleModel $articleModel)
     {
-        $tags = $this->generateTags($article->getTagsInput(), $article);
-        $article->setUser($user);
+        $article = new Article();
+
+        $article
+          ->setTitle($articleModel->getTitle())
+          ->setText($articleModel->getTitle())
+          ->setUser($user);
+
+        if($articleModel->getImage()){
+            $file = $this->fileAssistant->prepareUploadFile($articleModel->getImage(), 'article/'.$this->fileAssistant->getFolderMonthYear());
+            $file->setStatus(1);
+            $dataImage = $article->getImage();
+            if($dataImage){
+                $this->doctrine->getManager()->remove($dataImage);
+            }
+            $article->setImage($file);//id == null,
+        }
+
+        $tags = $this->generateTags($articleModel->getTagsInput(), $article);
         if (null !== $tags) {
             foreach ($tags as $tag) {
                 $this->doctrine->getManager()->persist($tag);
@@ -45,7 +69,7 @@ class ArticleService
         $this->doctrine->getManager()->persist($article);
         $this->doctrine->getManager()->flush();
 
-        return $article;
+        return $articleModel;
     }
 
     public function list($request)

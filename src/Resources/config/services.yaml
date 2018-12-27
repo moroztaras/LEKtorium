@@ -1,0 +1,16 @@
+services:
+  _defaults:
+    public: false
+    autoconfigure: true
+
+  App\FileAssistant:
+    autowire: true
+
+  uv.file.file_assistant:
+    alias: App\FileAssistant
+    public: true
+
+  App\Events\FileUploadSubscriber:
+    autowire: true
+    tags:
+      - { name: doctrine.event_subscriber }

@@ -6,13 +6,15 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
-
+use Symfony\Component\HttpFoundation\File\File;
+use Vich\UploaderBundle\Mapping\Annotation as Vich;
 
 /**
  * Article.
  *
  * @ORM\Entity(repositoryClass="App\Repository\ArticleRepository")
  * @ORM\Table(name="article")
+ * @Vich\Uploadable
  */
 class Article implements \JsonSerializable
 {
@@ -80,6 +82,20 @@ class Article implements \JsonSerializable
      * @ORM\Column(type="datetime")
      */
     private $createdAt;
+
+    /**
+     * @Vich\UploadableField(mapping="article_image", fileNameProperty="imageName")
+     *
+     * @var File
+     */
+    private $imageFile;
+
+    /**
+     * @ORM\Column(type="string", length=255)
+     *
+     * @var string
+     */
+    private $imageName;
 
     public function __construct()
     {
@@ -304,5 +320,29 @@ class Article implements \JsonSerializable
         $this->tagsInput = $tagsInput;
 
         return $this;
+    }
+
+    /**
+     * @param File|\Symfony\Component\HttpFoundation\File\UploadedFile $imageFile
+     */
+    public function setImageFile(?File $imageFile = null): void
+    {
+        $this->imageFile = $imageFile;
+
+    }
+
+    public function getImageFile(): ?File
+    {
+        return $this->imageFile;
+    }
+
+    public function setImageName(?string $imageName): void
+    {
+        $this->imageName = $imageName;
+    }
+
+    public function getImageName(): ?string
+    {
+        return $this->imageName;
     }
 }

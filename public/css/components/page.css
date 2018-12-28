@@ -30,11 +30,13 @@
 .field-title { padding: 10px; }
 .field-body, .field-like { background-color: #ffffff; padding: 15px; }
 .field-title, .field-info { text-align: center; background: #f8f8f8; border-bottom: 1px dotted #a9a9a9; border-top: 1px dotted #a9a9a9; }
+.field-image { margin: 5px; text-align: center; }
+.field-image img { max-width: 600px; -moz-border-radius: 3px; -webkit-border-radius: 3px; border-radius: 3px; }
 
 .action { text-align: center; }
 
 .admin-link-action { margin: 5px; }
-.admin-link-action a { margin: 0 5px 0 5px; padding: 0 10px 0 10px; color: #ffffff; background-color: #222; background: #222; -moz-border-radius: 3px; -webkit-border-radius: 3px; border-radius: 3px; }
+.admin-link-action a { margin: 0 5px 0 5px; padding: 0 10px 0 10px; color: #ffffff; background-color: #222; -moz-border-radius: 3px; -webkit-border-radius: 3px; border-radius: 3px; }
 .admin-link-action a:hover { color: #d8450b; }
 
 .admin-list-article table { width: 100%; }

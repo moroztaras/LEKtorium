@@ -5,8 +5,6 @@ namespace App\Services;
 use App\Entity\Article;
 use App\Entity\User;
 use App\Entity\Tag;
-use App\Form\Admin\Model\ArticleModel;
-use App\FileAssistant;
 use Doctrine\Common\Persistence\ManagerRegistry;
 use Knp\Component\Pager\PaginatorInterface;
 use Symfony\Component\DependencyInjection\ContainerInterface;
@@ -28,39 +26,21 @@ class ArticleService
      */
     private $paginator;
 
-    /**
-     * @var FileAssistant
-     */
-    private $fileAssistant;
-
-    public function __construct(ManagerRegistry $doctrine, ContainerInterface $container, PaginatorInterface $paginator, FileAssistant $fileAssistant)
+    public function __construct(ManagerRegistry $doctrine, ContainerInterface $container, PaginatorInterface $paginator)
     {
         $this->doctrine = $doctrine;
         $this->container = $container;
         $this->paginator = $paginator;
-        $this->fileAssistant = $fileAssistant;
     }
 
-    public function save(User $user, ArticleModel $articleModel)
+    public function save(User $user, Article $article)
     {
-        $article = new Article();
-
         $article
-          ->setTitle($articleModel->getTitle())
-          ->setText($articleModel->getTitle())
+          ->setTitle($article->getTitle())
+          ->setText($article->getTitle())
           ->setUser($user);
 
-        if($articleModel->getImage()){
-            $file = $this->fileAssistant->prepareUploadFile($articleModel->getImage(), 'article/'.$this->fileAssistant->getFolderMonthYear());
-            $file->setStatus(1);
-            $dataImage = $article->getImage();
-            if($dataImage){
-                $this->doctrine->getManager()->remove($dataImage);
-            }
-            $article->setImage($file);//id == null,
-        }
-
-        $tags = $this->generateTags($articleModel->getTagsInput(), $article);
+        $tags = $this->generateTags($article->getTagsInput(), $article);
         if (null !== $tags) {
             foreach ($tags as $tag) {
                 $this->doctrine->getManager()->persist($tag);
@@ -69,7 +49,7 @@ class ArticleService
         $this->doctrine->getManager()->persist($article);
         $this->doctrine->getManager()->flush();
 
-        return $articleModel;
+        return $article;
     }
 
     public function list($request)

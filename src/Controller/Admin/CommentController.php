@@ -13,7 +13,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
 
 /**
- * Class ArticleController.
+ * Class CommentController.
  *
  * @Route("/admin/comment")
  */

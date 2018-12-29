@@ -76,7 +76,7 @@ class BlockController extends Controller
     }
 
     public function sidebarLatestComments(){
-        $limit = 10;
+        $limit = 5;
         $comments = $this->getDoctrine()->getRepository(Comment::class)->getLatestComments($limit);
 
         return $this->render(

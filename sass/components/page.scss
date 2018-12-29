@@ -194,3 +194,23 @@
 .info-title{
   color: $gray_3b;
 }
+.latest-comment{
+  padding: 5px;
+  margin: 5px;
+  background: $gray_f8;
+  border: 1px dotted $gray_a9;
+  @include border-radius(3px);
+}
+
+.link-tag{
+  @include border-radius(3px);
+  &-sidebar, &-article {
+    a{
+      padding:0 5px 0 5px;
+      margin: 3px;
+      background-color: $gray_f8;
+      border: 1px dotted $gray_a9;
+      @include border-radius(3px);
+    }
+  }
+}

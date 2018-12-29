@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+use App\Entity\Comment;
 use App\Services\ArticleService;
 use App\Services\TagService;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
@@ -71,6 +72,16 @@ class BlockController extends Controller
         return $this->render(
           'article/search.html.twig', [
           'articles' => $articles,
+        ]);
+    }
+
+    public function sidebarLatestComments(){
+        $limit = 10;
+        $comments = $this->getDoctrine()->getRepository(Comment::class)->getLatestComments($limit);
+
+        return $this->render(
+          'block/latest_comments.html.twig', [
+          'comments' => $comments,
         ]);
     }
 }

@@ -49,3 +49,8 @@
 .list-comment { width: 500px; margin: 10px; }
 
 .info-title { color: #3B3B3B; }
+
+.latest-comment { padding: 5px; margin: 5px; background: #f8f8f8; border: 1px dotted #a9a9a9; -moz-border-radius: 3px; -webkit-border-radius: 3px; border-radius: 3px; }
+
+.link-tag { -moz-border-radius: 3px; -webkit-border-radius: 3px; border-radius: 3px; }
+.link-tag-sidebar a, .link-tag-article a { padding: 0 5px 0 5px; margin: 3px; background-color: #f8f8f8; border: 1px dotted #a9a9a9; -moz-border-radius: 3px; -webkit-border-radius: 3px; border-radius: 3px; }

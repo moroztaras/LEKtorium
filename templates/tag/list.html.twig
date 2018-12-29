@@ -1,6 +1,6 @@
-<span class="info-title">
-    Tags:
+Tags:
     {% for tag in tags %}
-        <a href="{{ path('list_of_articles_by_tag', {'name' : tag.name}) }}">{{ tag.name }}</a>,
+        <span class="link-tag-article">
+            <a href="{{ path('list_of_articles_by_tag', {'name' : tag.name}) }}">{{ tag.name }}</a>
+        </span>
     {% endfor %}
-</span>

@@ -52,7 +52,7 @@ class CommentController extends Controller
         $form = $this->createForm(CommentType::class, $comment);
         $form->handleRequest($request);
 
-        if ($form->isSubmitted() && $form->isValid()){
+        if ($form->isSubmitted() && $form->isValid()) {
             $this->commentService->save($comment);
 
             $dispatcher = $this->get('event_dispatcher');
@@ -68,7 +68,7 @@ class CommentController extends Controller
         ]);
     }
 
-        /**
+    /**
      * @Route("/{id}/delete", name="admin_comment_delete")
      * @Method({"GET", "DELETE"})
      */

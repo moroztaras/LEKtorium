@@ -35,13 +35,12 @@ class ArticleController extends Controller
      */
     public function newAction(Request $request, ArticleService $articleService)
     {
-        $article = new Article;
+        $article = new Article();
         $user = $this->getUser();
         $form = $this->createForm(ArticleType::class, $article);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-
             $articleService->save($user, $form->getData());
 
             $dispatcher = $this->get('event_dispatcher');

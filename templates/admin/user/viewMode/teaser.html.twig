@@ -5,7 +5,7 @@
     <td>
         <div class="admin-link-action action">
             <a href="#">Edit</a>
-            <a href="#">Delete</a>
+            <a href="{{ path('admin_user_delete', {'id': user.id}) }}">Delete</a>
         </div>
     </td>
 </tr>

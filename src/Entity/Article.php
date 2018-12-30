@@ -71,7 +71,7 @@ class Article implements \JsonSerializable
     private $likes;
 
     /**
-     * @ORM\OneToMany(targetEntity="App\Entity\Tag", mappedBy="article")
+     * @ORM\OneToMany(targetEntity="App\Entity\Tag", mappedBy="article", cascade={"persist", "remove"})
      */
     private $tags;
 
@@ -328,7 +328,6 @@ class Article implements \JsonSerializable
     public function setImageFile(?File $imageFile = null): void
     {
         $this->imageFile = $imageFile;
-
     }
 
     public function getImageFile(): ?File

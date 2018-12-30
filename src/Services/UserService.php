@@ -73,4 +73,12 @@ class UserService
           $request->query->getInt('limit', 10)
         );
     }
+
+    public function remove(User $user)
+    {
+        $this->doctrine->getManager()->remove($user);
+        $this->doctrine->getManager()->flush();
+
+        return $user;
+    }
 }

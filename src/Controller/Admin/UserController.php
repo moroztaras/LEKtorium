@@ -6,7 +6,7 @@ use App\Services\UserService;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use App\Entity\User;
 use App\AppEvents;
-use App\Event\ArticleEvent;
+use App\Event\UserEvent;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
@@ -50,9 +50,9 @@ class UserController extends Controller
         $user = $this->getDoctrine()->getRepository(User::class)->find($id);
         $this->userService->remove($user);
 
-//        $dispatcher = $this->get('event_dispatcher');
-//        $event = new ArticleEvent($article);
-//        $dispatcher->dispatch(AppEvents::ARTICLE_DELETE, $event);
+        $dispatcher = $this->get('event_dispatcher');
+        $event = new UserEvent($user);
+        $dispatcher->dispatch(AppEvents::USER_DELETE, $event);
 
         return $this->redirectToRoute('admin_user_list');
     }

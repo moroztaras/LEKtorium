@@ -23,7 +23,8 @@ class FlashListener implements EventSubscriberInterface
           AppEvents::ARTICLE_CREATED => 'onArticleFlash',
           AppEvents::ARTICLE_EDIT => 'onArticleEditFlash',
           AppEvents::ARTICLE_DELETE => 'onArticleDeleteFlash',
-          AppEvents::USER_CREATED => 'onUserFlash',
+          AppEvents::USER_CREATED => 'onUserCreateFlash',
+          AppEvents::USER_DELETE => 'onUserDeleteFlash',
           AppEvents::COMMENT_EDIT => 'onCommentEditFlash',
           AppEvents::COMMENT_DELETE => 'onCommentDeleteFlash',
         ];
@@ -55,7 +56,7 @@ class FlashListener implements EventSubscriberInterface
         );
     }
 
-    public function onUserFlash(UserEvent $event)
+    public function onUserCreateFlash(UserEvent $event)
     {
         $user = $event->getUser();
         $this->session->getFlashBag()->add(
@@ -77,6 +78,15 @@ class FlashListener implements EventSubscriberInterface
         $this->session->getFlashBag()->add(
           'success',
           sprintf('Comment deleted successfully!')
+        );
+    }
+
+    public function onUserDeleteFlash(UserEvent $event)
+    {
+        $user = $event->getUser();
+        $this->session->getFlashBag()->add(
+          'success',
+          sprintf('User %s %s deleted successfully!', $user->getFirstName(), $user->getLastName())
         );
     }
 }

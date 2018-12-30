@@ -5,6 +5,7 @@ namespace App\Controller\Admin;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use App\Entity\Article;
 use App\Form\Admin\ArticleType;
+use App\Form\Admin\ArticleEditType;
 use App\AppEvents;
 use App\Event\ArticleEvent;
 use App\Services\ArticleService;
@@ -64,7 +65,7 @@ class ArticleController extends Controller
         /** @var Article $article */
         $article = $this->getDoctrine()->getRepository(Article::class)->find($id);
         $user = $this->getUser();
-        $form = $this->createForm(ArticleType::class, $article);
+        $form = $this->createForm(ArticleEditType::class, $article);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {

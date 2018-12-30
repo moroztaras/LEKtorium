@@ -65,6 +65,14 @@ class UserService
         return $this;
     }
 
+    public function edit(User $user)
+    {
+        $this->doctrine->getManager()->persist($user);
+        $this->doctrine->getManager()->flush();
+
+        return $user;
+    }
+
     public function list($request)
     {
         return  $this->paginator->paginate(

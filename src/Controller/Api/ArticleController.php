@@ -41,7 +41,7 @@ class ArticleController extends Controller
     }
 
     /**
-     * @Route("/{article}", name="api_article_show")
+     * @Route("/{id}", name="api_article_show")
      * @Method({"GET"})
      */
     public function showArticle(Article $article)
@@ -60,17 +60,10 @@ class ArticleController extends Controller
     public function newArticle(Request $request)
     {
         $json = $request->getContent();
-        $user = $this->getUser();
 
-        /** @var Article $article */
         $article = $this->serializer->deserialize($json, Article::class, JsonEncoder::FORMAT);
-        $article->setUser($user);
 
-        $em = $this->getDoctrine()->getManager();
-        $em->persist($article);
-        $em->flush();
-
-        return $this->json(['article' => $article], Response::HTTP_OK, [], []);
+        return $this->json(['article' => $article]);
     }
 
     /**

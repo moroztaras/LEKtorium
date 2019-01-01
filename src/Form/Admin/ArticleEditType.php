@@ -28,8 +28,8 @@ class ArticleEditType extends AbstractType
           ->add('tags', CollectionType::class, [
             'entry_type' => TagType::class,
             'entry_options' => [
-              'label' => false
-            ]
+              'label' => false,
+            ],
           ]);
     }
 

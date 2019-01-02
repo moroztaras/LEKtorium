@@ -25,6 +25,7 @@ class FlashListener implements EventSubscriberInterface
           AppEvents::ARTICLE_DELETE => 'onArticleDeleteFlash',
           AppEvents::USER_CREATED => 'onUserCreateFlash',
           AppEvents::USER_EDIT => 'onUserEditFlash',
+          AppEvents::USER_CHANGE_ROLE => 'onUserChangeRoleFlash',
           AppEvents::USER_DELETE => 'onUserDeleteFlash',
           AppEvents::COMMENT_EDIT => 'onCommentEditFlash',
           AppEvents::COMMENT_DELETE => 'onCommentDeleteFlash',
@@ -88,6 +89,15 @@ class FlashListener implements EventSubscriberInterface
         $this->session->getFlashBag()->add(
           'success',
           sprintf('User %s %s successfully edit!', $user->getFirstName(), $user->getLastName())
+        );
+    }
+
+    public function onUserChangeRoleFlash(UserEvent $event)
+    {
+        $user = $event->getUser();
+        $this->session->getFlashBag()->add(
+          'success',
+          sprintf('Role user successfully changed!')
         );
     }
 

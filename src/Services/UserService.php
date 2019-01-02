@@ -89,4 +89,19 @@ class UserService
 
         return $user;
     }
+
+    public function userChangeRole($id, User $user, $role)
+    {
+        switch ($role) {
+            case 'reader':
+                $user->setRoles(['ROLE_READER']);
+                break;
+            case 'blogger':
+                $user->setRoles(['ROLE_BLOGGER']);
+                break;
+        }
+        $this->edit($user);
+
+        return $user;
+    }
 }

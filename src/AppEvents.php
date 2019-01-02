@@ -9,6 +9,7 @@ final class AppEvents
     const ARTICLE_DELETE = 'article.delete';
     const USER_CREATED = 'user.createdAt';
     const USER_EDIT = 'user.edit';
+    const USER_CHANGE_ROLE = 'user.change_role';
     const USER_DELETE = 'user.delete';
     const COMMENT_EDIT = 'comment.edit';
     const COMMENT_DELETE = 'comment.delete';

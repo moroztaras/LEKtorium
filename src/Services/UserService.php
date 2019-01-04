@@ -67,6 +67,16 @@ class UserService
 
     public function edit(User $user)
     {
+        if(!$user->getTempRoles()==''){
+            switch ($user->getTempRoles()) {
+                case 'ROLE_READER':
+                    $user->setRoles(['ROLE_READER']);
+                    break;
+                case 'ROLE_BLOGGER':
+                    $user->setRoles(['ROLE_BLOGGER']);
+                    break;
+            }
+        }
         $this->doctrine->getManager()->persist($user);
         $this->doctrine->getManager()->flush();
 
@@ -86,21 +96,6 @@ class UserService
     {
         $this->doctrine->getManager()->remove($user);
         $this->doctrine->getManager()->flush();
-
-        return $user;
-    }
-
-    public function userChangeRole($id, User $user, $role)
-    {
-        switch ($role) {
-            case 'reader':
-                $user->setRoles(['ROLE_READER']);
-                break;
-            case 'blogger':
-                $user->setRoles(['ROLE_BLOGGER']);
-                break;
-        }
-        $this->edit($user);
 
         return $user;
     }

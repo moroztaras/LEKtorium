@@ -36,6 +36,11 @@ class User implements UserInterface
     private $roles = [];
 
     /**
+     * @var string
+     */
+    protected $tempRoles;
+
+    /**
      * @var string The hashed password
      * @ORM\Column(type="string", length=150, nullable=true)
      */
@@ -317,6 +322,28 @@ class User implements UserInterface
                 $comment->setUser(null);
             }
         }
+
+        return $this;
+    }
+
+    /**
+     * Get TempRoles
+     * @var string
+     * @return string
+     */
+    public function getTempRoles()
+    {
+        return (string) $this->tempRoles;
+    }
+
+    /**
+     * Set TempRoles
+     * @param string $tempRoles
+     * @return $this
+     */
+    public function setTempRoles($tempRoles)
+    {
+        $this->tempRoles = $tempRoles;
 
         return $this;
     }

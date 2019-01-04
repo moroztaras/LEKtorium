@@ -53,7 +53,7 @@ class UserController extends Controller
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $this->userService->save($user);
+            $this->userService->edit($user);
 
             $dispatcher = $this->get('event_dispatcher');
             $event = new UserEvent($user);
@@ -67,23 +67,6 @@ class UserController extends Controller
           'user' => $user,
           'title' => 'Edit user',
         ]);
-    }
-
-    /**
-     * @Route("/{id}/change_role/{role}", name="admin_user_change_role", requirements={"id": "\d+"})
-     * @Method({"PUT"})
-     */
-    public function changeRoleAction($id, $role)
-    {
-        /** @var User $user */
-        $user = $this->getDoctrine()->getRepository(User::class)->find($id);
-        $this->userService->userChangeRole($id, $user, $role);
-
-        $dispatcher = $this->get('event_dispatcher');
-        $event = new UserEvent($user);
-        $dispatcher->dispatch(AppEvents::USER_CHANGE_ROLE, $event);
-
-        return $this->redirectToRoute('admin_user_edit', ['id' => $id]);
     }
 
     /**

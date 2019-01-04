@@ -54,7 +54,7 @@ class FlashListener implements EventSubscriberInterface
     {
         $this->session->getFlashBag()->add(
           'success',
-          sprintf('Article deleted successfully!')
+          sprintf('Article was successfully deleted!')
         );
     }
 
@@ -70,7 +70,7 @@ class FlashListener implements EventSubscriberInterface
     {
         $this->session->getFlashBag()->add(
           'success',
-          sprintf('Comment deleted successfully!')
+          sprintf('Comment was successfully deleted!')
         );
     }
 
@@ -106,7 +106,7 @@ class FlashListener implements EventSubscriberInterface
         $user = $event->getUser();
         $this->session->getFlashBag()->add(
           'success',
-          sprintf('User %s %s deleted successfully!', $user->getFirstName(), $user->getLastName())
+          sprintf('User %s %s was successfully deleted!', $user->getFirstName(), $user->getLastName())
         );
     }
 }

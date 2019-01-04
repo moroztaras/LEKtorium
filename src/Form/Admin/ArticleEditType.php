@@ -4,6 +4,7 @@ namespace App\Form\Admin;
 
 use App\Entity\Article;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
@@ -30,7 +31,14 @@ class ArticleEditType extends AbstractType
             'entry_options' => [
               'label' => false,
             ],
-          ]);
+          ])
+          ->add('approved', ChoiceType::class, [
+              'choices' => [
+              'enabled' => true,
+              'disable' => false,
+              ],
+              'multiple' => false, 'expanded' => true,
+           ]);
     }
 
     public function configureOptions(OptionsResolver $resolver)

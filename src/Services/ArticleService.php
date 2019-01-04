@@ -55,7 +55,16 @@ class ArticleService
     public function list($request)
     {
         return  $this->paginator->paginate(
-          $this->doctrine->getRepository(Article::class)->findBy([], ['id' => 'DESC']),
+          $this->doctrine->getRepository(Article::class)->getListArticles(),
+          $request->query->getInt('page', 1),
+          $request->query->getInt('limit', 10)
+        );
+    }
+
+    public function adminList($request)
+    {
+        return  $this->paginator->paginate(
+          $this->doctrine->getRepository(Article::class)->getAdminListArticles(),
           $request->query->getInt('page', 1),
           $request->query->getInt('limit', 10)
         );

@@ -28,4 +28,22 @@ class ArticleRepository extends ServiceEntityRepository
 
         return $query->getQuery()->getResult();
     }
+
+    public function getListArticles()
+    {
+        $query = $this->createQueryBuilder('a')
+          ->where('a.approved = :status')
+          ->orderBy('a.createdAt', 'DESC')
+          ->setParameter('status', true);
+
+        return $query->getQuery()->getResult();
+    }
+
+    public function getAdminListArticles()
+    {
+        $query = $this->createQueryBuilder('a')
+          ->orderBy('a.createdAt', 'DESC');
+
+        return $query->getQuery()->getResult();
+    }
 }

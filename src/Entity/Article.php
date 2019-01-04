@@ -59,18 +59,21 @@ class Article implements \JsonSerializable
     private $user;
 
     /**
+     * @var ArrayCollection
      * @ORM\OneToMany(targetEntity="Comment", mappedBy="article", cascade={"persist", "remove"})
      * @ORM\OrderBy({"id" = "DESC"})
      */
     private $comments;
 
     /**
+     * @var ArrayCollection
      * @ORM\OneToMany(targetEntity="ArticleLike", mappedBy="article", cascade={"persist", "remove"})
      * @ORM\OrderBy({"id" = "DESC"})
      */
     private $likes;
 
     /**
+     * @var ArrayCollection
      * @ORM\OneToMany(targetEntity="App\Entity\Tag", mappedBy="article", cascade={"persist", "remove"})
      */
     private $tags;
@@ -82,6 +85,12 @@ class Article implements \JsonSerializable
      * @ORM\Column(type="datetime")
      */
     private $createdAt;
+
+    /**
+     * @var bool
+     * @ORM\Column(type="boolean")
+     */
+    private $approved;
 
     /**
      * @Vich\UploadableField(mapping="article_image", fileNameProperty="imageName")
@@ -103,6 +112,7 @@ class Article implements \JsonSerializable
         $this->comments = new ArrayCollection();
         $this->likes = new ArrayCollection();
         $this->tags = new ArrayCollection();
+        $this->setApproved(true);
     }
 
     /**
@@ -343,5 +353,29 @@ class Article implements \JsonSerializable
     public function getImageName(): ?string
     {
         return $this->imageName;
+    }
+
+    /**
+     * Get approved.
+     *
+     * @return bool|null
+     */
+    public function getApproved(): ?bool
+    {
+        return $this->approved;
+    }
+
+    /**
+     * Set approved.
+     *
+     * @param bool $approved
+     *
+     * @return Article
+     */
+    public function setApproved(bool $approved): self
+    {
+        $this->approved = $approved;
+
+        return $this;
     }
 }

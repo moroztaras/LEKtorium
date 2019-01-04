@@ -24,7 +24,7 @@ class ArticleController extends Controller
      */
     public function listAction(Request $request, ArticleService $articleService)
     {
-        $articles = $articleService->list($request);
+        $articles = $articleService->adminList($request);
 
         return $this->render('admin/article/list.html.twig', [
           'articles' => $articles,

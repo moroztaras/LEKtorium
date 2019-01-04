@@ -20,7 +20,7 @@ class UserType extends AbstractType
           ->add('lastName', TextType::class, [
             'label' => 'LastName',
           ])
-          ->add('tempRoles',ChoiceType::class,
+          ->add('tempRoles', ChoiceType::class,
                 [
                   'label' => 'Roles',
                   'choices' => [
@@ -28,10 +28,10 @@ class UserType extends AbstractType
                     'role_blogger' => 'ROLE_BLOGGER',
                   ],
                   'attr' => [
-                    'class' =>'inline-radio'
+                    'class' => 'inline-radio',
                   ],
-                  'multiple'=> false,
-                  'expanded'=> true
+                  'multiple' => false,
+                  'expanded' => true,
                 ]
               )
         ;

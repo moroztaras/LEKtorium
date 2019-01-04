@@ -327,8 +327,10 @@ class User implements UserInterface
     }
 
     /**
-     * Get TempRoles
+     * Get TempRoles.
+     *
      * @var string
+     *
      * @return string
      */
     public function getTempRoles()
@@ -337,8 +339,10 @@ class User implements UserInterface
     }
 
     /**
-     * Set TempRoles
+     * Set TempRoles.
+     *
      * @param string $tempRoles
+     *
      * @return $this
      */
     public function setTempRoles($tempRoles)

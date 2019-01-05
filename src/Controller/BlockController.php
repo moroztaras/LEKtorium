@@ -34,6 +34,11 @@ class BlockController extends Controller
         return $this->render('block/category-list.html.twig');
     }
 
+    public function adminMenu()
+    {
+        return $this->render('block/admin-category-list.html.twig');
+    }
+
     public function user()
     {
         $user = $this->getUser();

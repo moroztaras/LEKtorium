@@ -5,12 +5,13 @@ namespace App\Controller\Admin;
 use App\Services\UserService;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use App\Entity\User;
-use App\AppEvents;
-use App\Event\UserEvent;
+//use App\AppEvents;
+//use App\Event\UserEvent;
 use App\Form\Admin\UserType;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
+use Symfony\Component\HttpFoundation\Session\Flash\FlashBagInterface;
 
 /**
  * Class UserController.
@@ -24,9 +25,15 @@ class UserController extends Controller
      */
     private $userService;
 
-    public function __construct(UserService $userService)
+    /**
+     * @var FlashBagInterface
+     */
+    private $flashBag;
+
+    public function __construct(UserService $userService, FlashBagInterface $flashBag)
     {
         $this->userService = $userService;
+        $this->flashBag = $flashBag;
     }
 
     /**
@@ -55,9 +62,10 @@ class UserController extends Controller
         if ($form->isSubmitted() && $form->isValid()) {
             $this->userService->edit($user);
 
-            $dispatcher = $this->get('event_dispatcher');
-            $event = new UserEvent($user);
-            $dispatcher->dispatch(AppEvents::USER_EDIT, $event);
+//            $dispatcher = $this->get('event_dispatcher');
+//            $event = new UserEvent($user);
+//            $dispatcher->dispatch(AppEvents::USER_EDIT, $event);
+            $this->flashBag->add('success', 'User '.$user->getLastName().' '.$user->getFirstName().' was edited');
 
             return $this->redirectToRoute('admin_user_list');
         }
@@ -79,9 +87,10 @@ class UserController extends Controller
         $user = $this->getDoctrine()->getRepository(User::class)->find($id);
         $this->userService->remove($user);
 
-        $dispatcher = $this->get('event_dispatcher');
-        $event = new UserEvent($user);
-        $dispatcher->dispatch(AppEvents::USER_DELETE, $event);
+//        $dispatcher = $this->get('event_dispatcher');
+//        $event = new UserEvent($user);
+//        $dispatcher->dispatch(AppEvents::USER_DELETE, $event);
+        $this->flashBag->add('error', 'User was deleted: '.$user->getLastName().' '.$user->getFirstName());
 
         return $this->redirectToRoute('admin_user_list');
     }

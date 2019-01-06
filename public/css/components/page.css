@@ -57,3 +57,8 @@
 
 .vich-image { margin: 5px; text-align: left; }
 .vich-image img { margin-right: 10px; max-width: 400px; -moz-border-radius: 3px; -webkit-border-radius: 3px; border-radius: 3px; }
+
+.messages .message { margin-bottom: 15px; background-color: #fcf8e3; border: 1px solid #fbeed5; color: #c09853; -moz-border-radius: 4px; -webkit-border-radius: 4px; border-radius: 4px; padding: 8px 14px; }
+.messages .message--error { color: #b94a48; background-color: #f2dede; border-color: #eed3d7; }
+.messages .message--success { color: #468847; background-color: #dff0d8; border-color: #d6e9c6; }
+.messages .message--help { color: #3a87ad; background-color: #d9edf7; border-color: #bce8f1; }

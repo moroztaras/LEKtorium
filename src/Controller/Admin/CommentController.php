@@ -4,13 +4,14 @@ namespace App\Controller\Admin;
 
 use App\Entity\Comment;
 use App\Services\CommentService;
-use App\AppEvents;
-use App\Event\CommentEvent;
+//use App\AppEvents;
+//use App\Event\CommentEvent;
 use App\Form\Admin\CommentType;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\HttpFoundation\Session\Flash\FlashBagInterface;
 
 /**
  * Class CommentController.
@@ -24,9 +25,15 @@ class CommentController extends Controller
      */
     private $commentService;
 
-    public function __construct(CommentService $commentService)
+    /**
+     * @var FlashBagInterface
+     */
+    private $flashBag;
+
+    public function __construct(CommentService $commentService, FlashBagInterface $flashBag)
     {
         $this->commentService = $commentService;
+        $this->flashBag = $flashBag;
     }
 
     /**
@@ -55,9 +62,10 @@ class CommentController extends Controller
         if ($form->isSubmitted() && $form->isValid()) {
             $this->commentService->save($comment);
 
-            $dispatcher = $this->get('event_dispatcher');
-            $event = new CommentEvent($comment);
-            $dispatcher->dispatch(AppEvents::COMMENT_EDIT, $event);
+//            $dispatcher = $this->get('event_dispatcher');
+//            $event = new CommentEvent($comment);
+//            $dispatcher->dispatch(AppEvents::COMMENT_EDIT, $event);
+            $this->flashBag->add('success', 'Comment was edited');
 
             return $this->redirectToRoute('admin_comment_list');
         }
@@ -77,9 +85,10 @@ class CommentController extends Controller
         $referer = $request->headers->get('referer');
         $this->commentService->remove($comment);
 
-        $dispatcher = $this->get('event_dispatcher');
-        $event = new CommentEvent($comment);
-        $dispatcher->dispatch(AppEvents::COMMENT_DELETE, $event);
+//        $dispatcher = $this->get('event_dispatcher');
+//        $event = new CommentEvent($comment);
+//        $dispatcher->dispatch(AppEvents::COMMENT_DELETE, $event);
+        $this->flashBag->add('error', 'Comment was deleted');
 
         return $this->redirect($referer);
     }

@@ -224,4 +224,28 @@
     @include border-radius(3px);
   }
 }
-
+.messages{
+  .message{
+    margin-bottom: 15px;
+    background-color: #fcf8e3;
+    border: 1px solid #fbeed5;
+    color: #c09853;
+    @include border-radius(4px);
+    padding: 8px 14px;
+    &--error{
+      color: #b94a48;
+      background-color: #f2dede;
+      border-color: #eed3d7;
+    }
+    &--success{
+      color: #468847;
+      background-color: #dff0d8;
+      border-color: #d6e9c6;
+    }
+    &--help{
+      color: #3a87ad;
+      background-color: #d9edf7;
+      border-color: #bce8f1;
+    }
+  }
+}

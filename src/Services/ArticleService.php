@@ -61,6 +61,15 @@ class ArticleService
         );
     }
 
+    public function addReviewForArticle(Article $article)
+    {
+        $article->setReviews($article->getReviews()+1);
+        $this->doctrine->getManager()->persist($article);
+        $this->doctrine->getManager()->flush();
+
+        return $this;
+    }
+
     public function adminList($request)
     {
         return  $this->paginator->paginate(

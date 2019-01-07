@@ -54,6 +54,7 @@ class ArticleController extends Controller
 
             return $this->redirectToRoute('article_list');
         }
+        $this->articleService->addReviewForArticle($article);
 
         return $this->render('article/view.html.twig', [
           'article' => $article,

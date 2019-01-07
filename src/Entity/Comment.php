@@ -44,9 +44,16 @@ class Comment
      */
     private $user;
 
+    /**
+     * @var bool
+     * @ORM\Column(type="boolean")
+     */
+    private $approved;
+
     public function __construct()
     {
         $this->createdAt = new \DateTime();
+        $this->setApproved(true);
     }
 
     /**
@@ -135,6 +142,30 @@ class Comment
     public function setUser(?User $user): self
     {
         $this->user = $user;
+
+        return $this;
+    }
+
+    /**
+     * Get approved.
+     *
+     * @return bool|null
+     */
+    public function getApproved(): ?bool
+    {
+        return $this->approved;
+    }
+
+    /**
+     * Set approved.
+     *
+     * @param bool $approved
+     *
+     * @return Comment
+     */
+    public function setApproved(bool $approved): self
+    {
+        $this->approved = $approved;
 
         return $this;
     }

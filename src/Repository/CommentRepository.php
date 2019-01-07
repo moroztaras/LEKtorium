@@ -30,4 +30,18 @@ class CommentRepository extends ServiceEntityRepository
 
         return $query->getQuery()->getResult();
     }
+
+    public function getCommentsForArticle($id, $approved = true)
+    {
+        $query = $this->createQueryBuilder('c')
+          ->select('c')
+          ->where('c.article = :id')
+          ->addOrderBy('c.id', 'DESC')
+          ->setParameter('id', $id);
+        if (false === is_null($approved))
+            $query->andWhere('c.approved = :approved')
+              ->setParameter('approved', $approved);
+
+        return $query->getQuery()->getResult();
+    }
 }

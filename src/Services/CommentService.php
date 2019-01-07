@@ -2,6 +2,7 @@
 
 namespace App\Services;
 
+use App\Entity\Article;
 use App\Entity\Comment;
 use Doctrine\Common\Persistence\ManagerRegistry;
 use Knp\Component\Pager\PaginatorInterface;
@@ -64,5 +65,12 @@ class CommentService
         $article = $this->doctrine->getManager()->getRepository('App:Article')->find($id);
 
         return $article;
+    }
+
+    public function getCommentsForArticle(Article $article)
+    {
+        $comments = $this->doctrine->getManager()->getRepository('App:Comment')->getCommentsForArticle($article->getId());
+
+        return $comments;
     }
 }

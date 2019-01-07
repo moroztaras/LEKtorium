@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use App\Entity\Article;
 use App\Services\ArticleService;
+use App\Services\CommentService;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
@@ -47,7 +48,7 @@ class ArticleController extends Controller
     /**
      * @Route("/{id}", methods={"GET", "POST"}, name="article_view", requirements={"id"})
      */
-    public function viewAction(Article $article)
+    public function viewAction(Article $article, CommentService $commentService)
     {
         if (!$article) {
             $this->flashBag->add('error', 'Article not found');
@@ -56,8 +57,10 @@ class ArticleController extends Controller
         }
         $this->articleService->addReviewForArticle($article);
 
+        $comments = $commentService->getCommentsForArticle($article);
         return $this->render('article/view.html.twig', [
           'article' => $article,
+          'comments' => $comments,
         ]);
     }
 }

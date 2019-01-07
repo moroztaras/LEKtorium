@@ -84,6 +84,8 @@ class ArticleController extends Controller
         /** @var Article $article */
         $article = $this->getDoctrine()->getRepository(Article::class)->find($id);
         if (!$article) {
+            $this->flashBag->add('error', 'Article not found');
+
             return $this->redirectToRoute('admin_article_list');
         }
         $this->denyAccessUnlessGranted(ArticleVoter::EDIT, $article);
@@ -116,6 +118,8 @@ class ArticleController extends Controller
         /** @var Article $article */
         $article = $this->getDoctrine()->getRepository(Article::class)->find($id);
         if (!$article) {
+            $this->flashBag->add('error', 'Article not found');
+
             return $this->redirectToRoute('admin_article_list');
         }
         $this->denyAccessUnlessGranted(ArticleVoter::EDIT, $article);

@@ -14,8 +14,16 @@ use Symfony\Component\Routing\Annotation\Route;
  */
 class CommentController extends Controller
 {
+    /**
+     * @var CommentService
+     */
     public $commentService;
 
+    /**
+     * CommentController constructor.
+     *
+     * @param CommentService $commentService
+     */
     public function __construct(CommentService $commentService)
     {
         $this->commentService = $commentService;

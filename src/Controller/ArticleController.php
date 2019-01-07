@@ -7,6 +7,7 @@ use App\Services\ArticleService;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\HttpFoundation\Session\Flash\FlashBagInterface;
 
 /**
  * Class ArticleController.
@@ -15,11 +16,20 @@ use Symfony\Component\Routing\Annotation\Route;
  */
 class ArticleController extends Controller
 {
+    /**
+     * @var ArticleService
+     */
     public $articleService;
 
-    public function __construct(ArticleService $articleService)
+    /**
+     * @var FlashBagInterface
+     */
+    private $flashBag;
+
+    public function __construct(ArticleService $articleService, FlashBagInterface $flashBag)
     {
         $this->articleService = $articleService;
+        $this->flashBag = $flashBag;
     }
 
     /**
@@ -40,7 +50,9 @@ class ArticleController extends Controller
     public function viewAction(Article $article)
     {
         if (!$article) {
-            throw $this->createNotFoundException('Article not found');
+            $this->flashBag->add('error', 'Article not found');
+
+            return $this->redirectToRoute('article_list');
         }
 
         return $this->render('article/view.html.twig', [

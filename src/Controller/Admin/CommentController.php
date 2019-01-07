@@ -58,6 +58,8 @@ class CommentController extends Controller
         /** @var Comment $comment */
         $comment = $this->getDoctrine()->getRepository(Comment::class)->find($id);
         if (!$comment) {
+            $this->flashBag->add('error', 'Comment not found');
+
             return $this->redirectToRoute('admin_comment_list');
         }
         $this->denyAccessUnlessGranted(CommentVoter::EDIT, $comment);
@@ -89,6 +91,8 @@ class CommentController extends Controller
     {
         $referer = $request->headers->get('referer');
         if (!$comment) {
+            $this->flashBag->add('error', 'Comment not found');
+
             return $this->redirectToRoute('admin_comment_list');
         }
         $this->denyAccessUnlessGranted(CommentVoter::EDIT, $comment);

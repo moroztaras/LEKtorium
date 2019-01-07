@@ -56,6 +56,11 @@ class UserController extends Controller
     {
         /** @var User $user */
         $user = $this->getDoctrine()->getRepository(User::class)->find($id);
+        if (!$user) {
+            $this->flashBag->add('error', 'User not found');
+
+            return $this->redirectToRoute('admin_user_list');
+        }
         $form = $this->createForm(UserType::class, $user);
         $form->handleRequest($request);
 
@@ -85,6 +90,11 @@ class UserController extends Controller
     {
         /** @var User $user */
         $user = $this->getDoctrine()->getRepository(User::class)->find($id);
+        if (!$user) {
+            $this->flashBag->add('error', 'User not found');
+
+            return $this->redirectToRoute('admin_user_list');
+        }
         $this->userService->remove($user);
 
 //        $dispatcher = $this->get('event_dispatcher');

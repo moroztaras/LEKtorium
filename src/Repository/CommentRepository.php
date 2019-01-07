@@ -19,11 +19,15 @@ class CommentRepository extends ServiceEntityRepository
         parent::__construct($registry, Comment::class);
     }
 
-    public function getLatestComments($limit = 10)
+    public function getLatestComments($limit = 10, $approved = true)
     {
         $query = $this->createQueryBuilder('c')
                 ->select('c')
                 ->addOrderBy('c.id', 'DESC');
+        if (false === is_null($approved)) {
+            $query->andWhere('c.approved = :approved')
+              ->setParameter('approved', $approved);
+        }
         if (false === is_null($limit)) {
             $query->setMaxResults($limit);
         }

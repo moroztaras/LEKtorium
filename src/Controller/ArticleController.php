@@ -23,13 +23,18 @@ class ArticleController extends Controller
     public $articleService;
 
     /**
+     * @var CommentService
+     */
+    public $commentService;
+    /**
      * @var FlashBagInterface
      */
     private $flashBag;
 
-    public function __construct(ArticleService $articleService, FlashBagInterface $flashBag)
+    public function __construct(ArticleService $articleService, CommentService $commentService, FlashBagInterface $flashBag)
     {
         $this->articleService = $articleService;
+        $this->commentService = $commentService;
         $this->flashBag = $flashBag;
     }
 
@@ -48,7 +53,7 @@ class ArticleController extends Controller
     /**
      * @Route("/{id}", methods={"GET", "POST"}, name="article_view", requirements={"id"})
      */
-    public function viewAction(Article $article, CommentService $commentService)
+    public function viewAction(Article $article)
     {
         if (!$article) {
             $this->flashBag->add('error', 'Article not found');
@@ -57,7 +62,8 @@ class ArticleController extends Controller
         }
         $this->articleService->addReviewForArticle($article);
 
-        $comments = $commentService->getCommentsForArticle($article);
+        $comments = $this->commentService->getCommentsForArticle($article);
+
         return $this->render('article/view.html.twig', [
           'article' => $article,
           'comments' => $comments,

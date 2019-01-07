@@ -38,9 +38,10 @@ class CommentRepository extends ServiceEntityRepository
           ->where('c.article = :id')
           ->addOrderBy('c.id', 'DESC')
           ->setParameter('id', $id);
-        if (false === is_null($approved))
+        if (false === is_null($approved)) {
             $query->andWhere('c.approved = :approved')
               ->setParameter('approved', $approved);
+        }
 
         return $query->getQuery()->getResult();
     }

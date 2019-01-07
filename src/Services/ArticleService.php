@@ -63,7 +63,7 @@ class ArticleService
 
     public function addReviewForArticle(Article $article)
     {
-        $article->setReviews($article->getReviews()+1);
+        $article->setReviews($article->getReviews() + 1);
         $this->doctrine->getManager()->persist($article);
         $this->doctrine->getManager()->flush();
 

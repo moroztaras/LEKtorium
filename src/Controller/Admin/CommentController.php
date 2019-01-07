@@ -4,6 +4,7 @@ namespace App\Controller\Admin;
 
 use App\Entity\Comment;
 use App\Services\CommentService;
+use App\Security\CommentVoter;
 //use App\AppEvents;
 //use App\Event\CommentEvent;
 use App\Form\Admin\CommentType;
@@ -56,6 +57,10 @@ class CommentController extends Controller
     {
         /** @var Comment $comment */
         $comment = $this->getDoctrine()->getRepository(Comment::class)->find($id);
+        if (!$comment) {
+            return $this->redirectToRoute('admin_comment_list');
+        }
+        $this->denyAccessUnlessGranted(CommentVoter::EDIT, $comment);
         $form = $this->createForm(CommentType::class, $comment);
         $form->handleRequest($request);
 
@@ -83,6 +88,10 @@ class CommentController extends Controller
     public function deleteAction(Request $request, Comment $comment)
     {
         $referer = $request->headers->get('referer');
+        if (!$comment) {
+            return $this->redirectToRoute('admin_comment_list');
+        }
+        $this->denyAccessUnlessGranted(CommentVoter::EDIT, $comment);
         $this->commentService->remove($comment);
 
 //        $dispatcher = $this->get('event_dispatcher');

@@ -93,18 +93,22 @@ class Article implements \JsonSerializable
     private $approved;
 
     /**
-     * @Vich\UploadableField(mapping="article_image", fileNameProperty="imageName")
-     *
      * @var File
+     * @Vich\UploadableField(mapping="article_image", fileNameProperty="imageName")
      */
     private $imageFile;
 
     /**
-     * @ORM\Column(type="string", length=255)
-     *
      * @var string
+     * @ORM\Column(type="string", length=255)
      */
     private $imageName;
+
+    /**
+     * @var int
+     * @ORM\Column(type="integer")
+     */
+    private $reviews;
 
     public function __construct()
     {
@@ -113,6 +117,7 @@ class Article implements \JsonSerializable
         $this->likes = new ArrayCollection();
         $this->tags = new ArrayCollection();
         $this->setApproved(true);
+        $this->reviews = 0;
     }
 
     /**
@@ -375,6 +380,30 @@ class Article implements \JsonSerializable
     public function setApproved(bool $approved): self
     {
         $this->approved = $approved;
+
+        return $this;
+    }
+
+    /**
+     * Get reviews.
+     *
+     * @return int
+     */
+    public function getReviews()
+    {
+        return $this->reviews;
+    }
+
+    /**
+     * Set reviews.
+     *
+     * @param int $reviews
+     *
+     * @return $this
+     */
+    public function setReviews($reviews)
+    {
+        $this->reviews = $reviews;
 
         return $this;
     }

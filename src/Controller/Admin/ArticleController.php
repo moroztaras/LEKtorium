@@ -115,6 +115,10 @@ class ArticleController extends Controller
     {
         /** @var Article $article */
         $article = $this->getDoctrine()->getRepository(Article::class)->find($id);
+        if (!$article) {
+            return $this->redirectToRoute('admin_article_list');
+        }
+        $this->denyAccessUnlessGranted(ArticleVoter::EDIT, $article);
         $this->articleService->remove($article);
 
 //        $dispatcher = $this->get('event_dispatcher');

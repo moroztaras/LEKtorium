@@ -5,6 +5,7 @@ namespace App\Controller\Admin;
 use App\Services\UserService;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use App\Entity\User;
+use App\Security\UserVoter;
 //use App\AppEvents;
 //use App\Event\UserEvent;
 use App\Form\Admin\UserType;
@@ -61,6 +62,7 @@ class UserController extends Controller
 
             return $this->redirectToRoute('admin_user_list');
         }
+        $this->denyAccessUnlessGranted(UserVoter::IS_SUPER_ADMIN, $user);
         $form = $this->createForm(UserType::class, $user);
         $form->handleRequest($request);
 
@@ -95,6 +97,7 @@ class UserController extends Controller
 
             return $this->redirectToRoute('admin_user_list');
         }
+        $this->denyAccessUnlessGranted(UserVoter::IS_SUPER_ADMIN, $user);
         $this->userService->remove($user);
 
 //        $dispatcher = $this->get('event_dispatcher');

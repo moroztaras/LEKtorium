@@ -2,7 +2,10 @@
     {% set path = path('article_view', {id:article.id}) %}
     <h2 class="field field-title"><a href="{{ path }}">{{ article.title }}</a></h2>
     <div class="field field-info">
-        <span class="info-title">Author:</span> {{ article.user.lastName }} {{ article.user.firstName }} <span class="info-title">| CreatedAt:</span> {{ article.createdAt ? article.createdAt|date('Y-m-d H:i') : '' }} <span class="info-title">| Comments:</span> {{ article.comments | length }}
+        <span class="info-title">Author:</span> {{ article.user.lastName }} {{ article.user.firstName }} <span class="info-title">| CreatedAt:</span> {{ article.createdAt ? article.createdAt|date('Y-m-d H:i') : '' }} <span class="info-title">| Comments:</span> {{ article.comments | length }} <span class="info-title">| Reviews:</span> {{ article.reviews }}
+    </div>
+    <div class="field field-image">
+        <img id="img-article" src="{{ asset('images/articles')}}/{{ article.imageName }}"/>
     </div>
     <div class="field field-body">{{ article.text }}</div>
     <div class="field field-like">

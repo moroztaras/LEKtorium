@@ -2,9 +2,9 @@
     <h2>Tags</h2>
 </div>
 <div class="block-content">
-    <div class="sidebar-tags">
+    <div class="link-tag-sidebar">
         {% for tag in tags %}
-            <a href="{{ path('list_of_articles_by_tag', {'name':tag.name}) }}">{{ tag.name }}</a>,
+                <a href="{{ path('list_of_articles_by_tag', {'name':tag.name}) }}">{{ tag.name }}</a>
         {% endfor %}
     </div>
 </div>

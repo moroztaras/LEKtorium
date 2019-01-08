@@ -1,0 +1,36 @@
+{% extends 'page_admin.html.twig' %}
+
+{% block title %}Admin Comments{% endblock %}
+{% block page_title %}Admin Comments{% endblock %}
+
+{% block main %}
+    <div class="block block--article-list">
+        <div class="block-content">
+            <div class="list list--page-list">
+                {{ include('block/message.html.twig') }}
+                <div class="admin-list-article">
+                    <table>
+                        <thead>
+                            <tr class="list-title">
+                                <th>Id</th>
+                                <th>Comment</th>
+                                <th>CreatedAt</th>
+                                <th>Action</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                        {% for comment in comments %}
+                            {{ include('admin/comment/viewMode/teaser.html.twig', {'comment' : comment}) }}
+                        {% else %}
+                            <tr>
+                                <th colspan="4">Comments not found!</th>
+                            </tr>
+                        {% endfor %}
+                        </tbody>
+                    </table>
+                    {{ include('block/comment/pagination.html.twig', {'comments' : comments}) }}
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

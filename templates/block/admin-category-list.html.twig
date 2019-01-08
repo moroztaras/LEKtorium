@@ -1,0 +1,10 @@
+{% extends "system/nav.html.twig" %}
+{% block block_class %}category-list{% endblock %}
+{% block block_title %}Menu{% endblock %}
+{% block block_content %}
+    <ul class="menu">
+        <li class="menu-item"><a href="{{ path('admin_article_list') }}">Articles</a></li>
+        <li class="menu-item"><a href="{{ path('admin_comment_list') }}">Comment</a></li>
+        <li class="menu-item"><a href="{{ path('admin_user_list') }}">User</a></li>
+    </ul>
+{% endblock %}

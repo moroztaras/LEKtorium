@@ -1,0 +1,26 @@
+{% extends 'page_default.html.twig' %}
+
+{% block title %}Articles{% endblock %}
+{% block page_title %}Search{% endblock %}
+
+{% block main %}
+    <div class="block block--article-list">
+        <div class="block-content">
+            <div class="list list--page-list">
+                {{ include('block/message.html.twig') }}
+                {{ include('block/form_search.html.twig') }}
+                <div class="field field-info">
+                    <span class="info-title">Results:</span> {{ articles | length }}
+                </div>
+                {% for article in articles %}
+                    <div class="list-item">
+                        {{ include('article/viewMode/teaser.html.twig', {'article' : article}) }}
+                    </div>
+                {% else %}
+                    <p>no  found articles!</p>
+                {% endfor %}
+                {#{{ include('block/pagination.html.twig', {'articles' : articles}) }}#}
+            </div>
+        </div>
+    </div>
+{% endblock %}

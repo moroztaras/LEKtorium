@@ -1,0 +1,36 @@
+{% extends 'page_admin.html.twig' %}
+
+{% block title %}Admin Articles{% endblock %}
+{% block page_title %}Admin Articles{% endblock %}
+
+{% block main %}
+    <div class="block block--article-list">
+        <div class="block-content">
+            <div class="list list--page-list">
+                {{ include('block/message.html.twig') }}
+                <div class="admin-list-article">
+                    <table>
+                        <thead>
+                            <tr class="list-title">
+                                <th>Id</th>
+                                <th>User</th>
+                                <th>CreatedAt</th>
+                                <th>Action</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                        {% for user in users %}
+                            {{ include('admin/user/viewMode/teaser.html.twig', {'user' : user}) }}
+                        {% else %}
+                            <tr>
+                                <th colspan="4">Users not found!</th>
+                            </tr>
+                        {% endfor %}
+                        </tbody>
+                    </table>
+                    {{ include('block/user/pagination.html.twig', {'users' : users}) }}
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

@@ -35,8 +35,12 @@ class ArticleService
 
     public function save(User $user, Article $article)
     {
+        $article
+          ->setTitle($article->getTitle())
+          ->setText($article->getTitle())
+          ->setUser($user);
+
         $tags = $this->generateTags($article->getTagsInput(), $article);
-        $article->setUser($user);
         if (null !== $tags) {
             foreach ($tags as $tag) {
                 $this->doctrine->getManager()->persist($tag);
@@ -51,7 +55,25 @@ class ArticleService
     public function list($request)
     {
         return  $this->paginator->paginate(
-          $this->doctrine->getRepository(Article::class)->findBy([], ['id' => 'DESC']),
+          $this->doctrine->getRepository(Article::class)->getListArticles(),
+          $request->query->getInt('page', 1),
+          $request->query->getInt('limit', 10)
+        );
+    }
+
+    public function addReviewForArticle(Article $article)
+    {
+        $article->setReviews($article->getReviews() + 1);
+        $this->doctrine->getManager()->persist($article);
+        $this->doctrine->getManager()->flush();
+
+        return $this;
+    }
+
+    public function adminList($request)
+    {
+        return  $this->paginator->paginate(
+          $this->doctrine->getRepository(Article::class)->getAdminListArticles(),
           $request->query->getInt('page', 1),
           $request->query->getInt('limit', 10)
         );

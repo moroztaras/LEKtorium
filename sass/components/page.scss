@@ -140,6 +140,14 @@
     border-bottom: 1px dotted $gray_a9;
     border-top: 1px dotted $gray_a9;
   }
+  &-image{
+    margin: 5px;
+    text-align: center;
+    img{
+      max-width: 600px;
+      @include border-radius(3px);
+    }
+  }
 }
 .action{
   text-align: center;
@@ -185,4 +193,59 @@
 }
 .info-title{
   color: $gray_3b;
+}
+.latest-comment{
+  padding: 5px;
+  margin: 5px;
+  background: $gray_f8;
+  border-top: 1px dotted $gray_a9;
+  border-bottom: 1px dotted $gray_a9;
+  @include border-radius(3px);
+}
+
+.link-tag{
+  @include border-radius(3px);
+  &-sidebar, &-article {
+    a{
+      padding:0 5px 0 5px;
+      margin: 3px;
+      background-color: $gray_f8;
+      border: 1px dotted $gray_a9;
+      @include border-radius(3px);
+    }
+  }
+}
+.vich-image{
+  margin: 5px;
+  text-align: left;
+  img{
+    margin-right: 10px;
+    max-width: 400px;
+    @include border-radius(3px);
+  }
+}
+.messages{
+  .message{
+    margin-bottom: 15px;
+    background-color: #fcf8e3;
+    border: 1px solid #fbeed5;
+    color: #c09853;
+    @include border-radius(4px);
+    padding: 8px 14px;
+    &--error{
+      color: #b94a48;
+      background-color: #f2dede;
+      border-color: #eed3d7;
+    }
+    &--success{
+      color: #468847;
+      background-color: #dff0d8;
+      border-color: #d6e9c6;
+    }
+    &--help{
+      color: #3a87ad;
+      background-color: #d9edf7;
+      border-color: #bce8f1;
+    }
+  }
 }

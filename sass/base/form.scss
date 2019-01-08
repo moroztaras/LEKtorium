@@ -60,3 +60,15 @@ form{
     }
   }
 }
+.block-search{
+  form{
+    input{
+      width: 274px;
+      @include border-radius(3px);
+      border:1px solid $gray_cc;
+      padding: 3px;
+      margin-right: 10px;
+      height: 30px;
+    }
+  }
+}

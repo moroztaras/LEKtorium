@@ -14,8 +14,16 @@ use Symfony\Component\Routing\Annotation\Route;
  */
 class UserController extends AbstractController
 {
+    /**
+     * @var UserService
+     */
     private $userService;
 
+    /**
+     * UserController constructor.
+     *
+     * @param UserService $userService
+     */
     public function __construct(UserService $userService)
     {
         $this->userService = $userService;
@@ -38,16 +46,6 @@ class UserController extends AbstractController
 
         return $this->render('user/registration.html.twig', [
           'user_registration' => $form->createView(),
-        ]);
-    }
-
-    /**
-     * @Route("/admin", methods={"GET"}, name="app_admin")
-     */
-    public function adminAction()
-    {
-        return $this->render('base.html.twig', [
-          'message' => 'Welcome admin page!',
         ]);
     }
 }

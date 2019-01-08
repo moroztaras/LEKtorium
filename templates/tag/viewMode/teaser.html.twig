@@ -4,6 +4,9 @@
     <div class="field field-info">
         <span class="info-title">Author:</span> {{ tag.article.user.lastName }} {{ tag.article.user.firstName }} <span class="info-title">| CreatedAt:</span> {{ tag.article.createdAt ? tag.article.createdAt|date('Y-m-d H:i') : '' }} <span class="info-title">| Comments:</span> {{ tag.article.comments | length }}
     </div>
+    <div class="field field-image">
+        <img id="img-article" src="{{ asset('images/articles')}}/{{ tag.article.imageName }}"/>
+    </div>
     <div class="field field-body">{{ tag.article.text }}</div>
     <div class="field field-like">
         <a href="{{ path('article_like_add', {id:tag.article.id}) }}">like</a> ({{ tag.article.likes |length }}) |

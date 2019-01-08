@@ -1,0 +1,15 @@
+{% extends 'page_admin.html.twig' %}
+
+{% block title %}{{ title }}{% endblock %}
+{% block page_title %}{{ title }}{% endblock %}
+
+{% block main %}
+    <div class="block block--article article-new">
+        <div class="block-content">
+            {{ form_start(form_comment) }}
+            {{ form_widget(form_comment) }}
+            <button type="submit" class="btn btn-default">Save</button>
+            {{ form_end(form_comment) }}
+        </div>
+    </div>
+{% endblock %}

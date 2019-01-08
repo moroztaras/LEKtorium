@@ -29,8 +29,8 @@ class PageController extends Controller
         return $this->redirectToRoute('admin_article_list');
     }
 
-    public function preview(Request $request)
-    {
-        return $this->render('preview.html.twig');
-    }
+//    public function preview(Request $request)
+//    {
+//        return $this->render('preview.html.twig');
+//    }
 }

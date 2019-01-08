@@ -1,9 +1,14 @@
-<div class="block block-page-message">
-    {% for type, messages in app.session.flashBag.all %}
-        {% for message in messages %}
-            <div class="block-messages">
-                {{ message }}
-            </div>
+{% extends "system/block.html.twig" %}
+{% block block_class %}messages{% endblock %}
+{% block block_title_wrap %}{% endblock %}
+{% block block_content %}
+    <div class="messages">
+        {% for label, messages in app.flashes(['success','warning', 'error' , 'help']) %}
+            {% for message in messages %}
+                <div class="message message--{{ label }}">
+                    {{ message }}
+                </div>
+            {% endfor %}
         {% endfor %}
-    {% endfor %}
-</div>
+    </div>
+{% endblock %}

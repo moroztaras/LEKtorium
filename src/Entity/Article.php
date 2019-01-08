@@ -6,12 +6,15 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
+use Symfony\Component\HttpFoundation\File\File;
+use Vich\UploaderBundle\Mapping\Annotation as Vich;
 
 /**
  * Article.
  *
- * @ORM\Entity
+ * @ORM\Entity(repositoryClass="App\Repository\ArticleRepository")
  * @ORM\Table(name="article")
+ * @Vich\Uploadable
  */
 class Article implements \JsonSerializable
 {
@@ -56,19 +59,22 @@ class Article implements \JsonSerializable
     private $user;
 
     /**
+     * @var ArrayCollection
      * @ORM\OneToMany(targetEntity="Comment", mappedBy="article", cascade={"persist", "remove"})
      * @ORM\OrderBy({"id" = "DESC"})
      */
     private $comments;
 
     /**
+     * @var ArrayCollection
      * @ORM\OneToMany(targetEntity="ArticleLike", mappedBy="article", cascade={"persist", "remove"})
      * @ORM\OrderBy({"id" = "DESC"})
      */
     private $likes;
 
     /**
-     * @ORM\OneToMany(targetEntity="App\Entity\Tag", mappedBy="article")
+     * @var ArrayCollection
+     * @ORM\OneToMany(targetEntity="App\Entity\Tag", mappedBy="article", cascade={"persist", "remove"})
      */
     private $tags;
 
@@ -80,12 +86,38 @@ class Article implements \JsonSerializable
      */
     private $createdAt;
 
+    /**
+     * @var bool
+     * @ORM\Column(type="boolean")
+     */
+    private $approved;
+
+    /**
+     * @var File
+     * @Vich\UploadableField(mapping="article_image", fileNameProperty="imageName")
+     */
+    private $imageFile;
+
+    /**
+     * @var string
+     * @ORM\Column(type="string", length=255)
+     */
+    private $imageName;
+
+    /**
+     * @var int
+     * @ORM\Column(type="integer")
+     */
+    private $reviews;
+
     public function __construct()
     {
         $this->createdAt = new \DateTime();
         $this->comments = new ArrayCollection();
         $this->likes = new ArrayCollection();
         $this->tags = new ArrayCollection();
+        $this->setApproved(true);
+        $this->reviews = 0;
     }
 
     /**
@@ -301,6 +333,77 @@ class Article implements \JsonSerializable
     public function setTagsInput(?string $tagsInput): self
     {
         $this->tagsInput = $tagsInput;
+
+        return $this;
+    }
+
+    /**
+     * @param File|\Symfony\Component\HttpFoundation\File\UploadedFile $imageFile
+     */
+    public function setImageFile(?File $imageFile = null): void
+    {
+        $this->imageFile = $imageFile;
+    }
+
+    public function getImageFile(): ?File
+    {
+        return $this->imageFile;
+    }
+
+    public function setImageName(?string $imageName): void
+    {
+        $this->imageName = $imageName;
+    }
+
+    public function getImageName(): ?string
+    {
+        return $this->imageName;
+    }
+
+    /**
+     * Get approved.
+     *
+     * @return bool|null
+     */
+    public function getApproved(): ?bool
+    {
+        return $this->approved;
+    }
+
+    /**
+     * Set approved.
+     *
+     * @param bool $approved
+     *
+     * @return Article
+     */
+    public function setApproved(bool $approved): self
+    {
+        $this->approved = $approved;
+
+        return $this;
+    }
+
+    /**
+     * Get reviews.
+     *
+     * @return int
+     */
+    public function getReviews()
+    {
+        return $this->reviews;
+    }
+
+    /**
+     * Set reviews.
+     *
+     * @param int $reviews
+     *
+     * @return $this
+     */
+    public function setReviews($reviews)
+    {
+        $this->reviews = $reviews;
 
         return $this;
     }

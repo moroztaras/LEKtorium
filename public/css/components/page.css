@@ -30,6 +30,8 @@
 .field-title { padding: 10px; }
 .field-body, .field-like { background-color: #ffffff; padding: 15px; }
 .field-title, .field-info { text-align: center; background: #f8f8f8; border-bottom: 1px dotted #a9a9a9; border-top: 1px dotted #a9a9a9; }
+.field-image { margin: 5px; text-align: center; }
+.field-image img { max-width: 600px; -moz-border-radius: 3px; -webkit-border-radius: 3px; border-radius: 3px; }
 
 .action { text-align: center; }
 
@@ -47,3 +49,16 @@
 .list-comment { width: 500px; margin: 10px; }
 
 .info-title { color: #3B3B3B; }
+
+.latest-comment { padding: 5px; margin: 5px; background: #f8f8f8; border-top: 1px dotted #a9a9a9; border-bottom: 1px dotted #a9a9a9; -moz-border-radius: 3px; -webkit-border-radius: 3px; border-radius: 3px; }
+
+.link-tag { -moz-border-radius: 3px; -webkit-border-radius: 3px; border-radius: 3px; }
+.link-tag-sidebar a, .link-tag-article a { padding: 0 5px 0 5px; margin: 3px; background-color: #f8f8f8; border: 1px dotted #a9a9a9; -moz-border-radius: 3px; -webkit-border-radius: 3px; border-radius: 3px; }
+
+.vich-image { margin: 5px; text-align: left; }
+.vich-image img { margin-right: 10px; max-width: 400px; -moz-border-radius: 3px; -webkit-border-radius: 3px; border-radius: 3px; }
+
+.messages .message { margin-bottom: 15px; background-color: #fcf8e3; border: 1px solid #fbeed5; color: #c09853; -moz-border-radius: 4px; -webkit-border-radius: 4px; border-radius: 4px; padding: 8px 14px; }
+.messages .message--error { color: #b94a48; background-color: #f2dede; border-color: #eed3d7; }
+.messages .message--success { color: #468847; background-color: #dff0d8; border-color: #d6e9c6; }
+.messages .message--help { color: #3a87ad; background-color: #d9edf7; border-color: #bce8f1; }

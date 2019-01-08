@@ -1,0 +1,16 @@
+{% extends 'page_admin.html.twig' %}
+
+{% block title %}{{ title }}{% endblock %}
+{% block page_title %}{{ title }}{% endblock %}
+
+{% block main %}
+    <div class="block block--article article-new">
+        <div class="block-content">
+            {{ include('block/message.html.twig') }}
+            {{ form_start(form_user) }}
+            {{ form_widget(form_user) }}
+                <button type="submit" class="btn btn-default">Save</button>
+            {{ form_end(form_user) }}
+        </div>
+    </div>
+{% endblock %}

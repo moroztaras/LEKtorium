@@ -23,7 +23,12 @@ class FlashListener implements EventSubscriberInterface
           AppEvents::ARTICLE_CREATED => 'onArticleFlash',
           AppEvents::ARTICLE_EDIT => 'onArticleEditFlash',
           AppEvents::ARTICLE_DELETE => 'onArticleDeleteFlash',
-          AppEvents::USER_CREATED => 'onUserFlash',
+          AppEvents::USER_CREATED => 'onUserCreateFlash',
+          AppEvents::USER_EDIT => 'onUserEditFlash',
+          AppEvents::USER_CHANGE_ROLE => 'onUserChangeRoleFlash',
+          AppEvents::USER_DELETE => 'onUserDeleteFlash',
+          AppEvents::COMMENT_EDIT => 'onCommentEditFlash',
+          AppEvents::COMMENT_DELETE => 'onCommentDeleteFlash',
         ];
     }
 
@@ -49,16 +54,59 @@ class FlashListener implements EventSubscriberInterface
     {
         $this->session->getFlashBag()->add(
           'success',
-          sprintf('Article deleted successfully!')
+          sprintf('Article was successfully deleted!')
         );
     }
 
-    public function onUserFlash(UserEvent $event)
+    public function onCommentEditFlash()
+    {
+        $this->session->getFlashBag()->add(
+          'success',
+          sprintf('Comment edited successfully!')
+        );
+    }
+
+    public function onCommentDeleteFlash()
+    {
+        $this->session->getFlashBag()->add(
+          'success',
+          sprintf('Comment was successfully deleted!')
+        );
+    }
+
+    public function onUserCreateFlash(UserEvent $event)
     {
         $user = $event->getUser();
         $this->session->getFlashBag()->add(
           'success',
           sprintf('New user %s %s successfully added!', $user->getFirstName(), $user->getLastName())
+        );
+    }
+
+    public function onUserEditFlash(UserEvent $event)
+    {
+        $user = $event->getUser();
+        $this->session->getFlashBag()->add(
+          'success',
+          sprintf('User %s %s successfully edit!', $user->getFirstName(), $user->getLastName())
+        );
+    }
+
+    public function onUserChangeRoleFlash(UserEvent $event)
+    {
+        $user = $event->getUser();
+        $this->session->getFlashBag()->add(
+          'success',
+          sprintf('Role user successfully changed!')
+        );
+    }
+
+    public function onUserDeleteFlash(UserEvent $event)
+    {
+        $user = $event->getUser();
+        $this->session->getFlashBag()->add(
+          'success',
+          sprintf('User %s %s was successfully deleted!', $user->getFirstName(), $user->getLastName())
         );
     }
 }

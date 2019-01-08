@@ -3,13 +3,12 @@
 namespace App\Controller;
 
 use App\Entity\Article;
-use App\Entity\Comment;
-use App\Form\CommentType;
 use App\Services\ArticleService;
 use App\Services\CommentService;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\HttpFoundation\Session\Flash\FlashBagInterface;
 
 /**
  * Class ArticleController.
@@ -19,11 +18,32 @@ use Symfony\Component\Routing\Annotation\Route;
 class ArticleController extends Controller
 {
     /**
+     * @var ArticleService
+     */
+    public $articleService;
+
+    /**
+     * @var CommentService
+     */
+    public $commentService;
+    /**
+     * @var FlashBagInterface
+     */
+    private $flashBag;
+
+    public function __construct(ArticleService $articleService, CommentService $commentService, FlashBagInterface $flashBag)
+    {
+        $this->articleService = $articleService;
+        $this->commentService = $commentService;
+        $this->flashBag = $flashBag;
+    }
+
+    /**
      * @Route("", methods={"GET"}, name="article_list")
      */
-    public function listAction(Request $request, ArticleService $articleService)
+    public function listAction(Request $request)
     {
-        $articles = $articleService->list($request);
+        $articles = $this->articleService->list($request);
 
         return $this->render('article/list.html.twig', [
           'articles' => $articles,
@@ -33,25 +53,20 @@ class ArticleController extends Controller
     /**
      * @Route("/{id}", methods={"GET", "POST"}, name="article_view", requirements={"id"})
      */
-    public function viewAction(Request $request, Article $article, CommentService $commentService)
+    public function viewAction(Article $article)
     {
-        $user = $this->getUser();
-        $form = $this->createForm(CommentType::class);
-        $form->handleRequest($request);
-
         if (!$article) {
-            throw $this->createNotFoundException('Article not found');
-        }
-        if ($form->isSubmitted() && $form->isValid()) {
-            /** @var Comment $comment */
-            $comment = $form->getData();
-            $commentService->save($user, $comment, $article);
+            $this->flashBag->add('error', 'Article not found');
 
-            return $this->redirectToRoute('article_view', ['id' => $article->getId()]);
+            return $this->redirectToRoute('article_list');
         }
+        $this->articleService->addReviewForArticle($article);
+
+        $comments = $this->commentService->getCommentsForArticle($article);
 
         return $this->render('article/view.html.twig', [
           'article' => $article,
+          'comments' => $comments,
         ]);
     }
 }

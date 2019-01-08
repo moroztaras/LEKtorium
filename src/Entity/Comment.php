@@ -53,7 +53,7 @@ class Comment
     public function __construct()
     {
         $this->createdAt = new \DateTime();
-        $this->setApproved(true);
+        $this->setApproved(false);
     }
 
     /**

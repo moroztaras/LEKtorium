@@ -291,7 +291,7 @@ class Article implements \JsonSerializable
         return [
           'id' => $this->getId(),
           'text' => $this->getText(),
-          'user' => $this->getUser()->getId()
+          'user' => $this->getUser()->getId(),
         ];
     }
 

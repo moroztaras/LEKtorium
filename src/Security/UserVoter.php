@@ -12,14 +12,16 @@ class UserVoter extends Voter
 
     protected function supports($attribute, $subject)
     {
-        if (!in_array($attribute, array( self::IS_SUPER_ADMIN))) {
+        if (!in_array($attribute, [self::IS_SUPER_ADMIN])) {
             return false;
         }
         if (!$subject instanceof User) {
             return false;
         }
+
         return true;
     }
+
     protected function voteOnAttribute($attribute, $subject, TokenInterface $token)
     {
         $user = $token->getUser();
@@ -27,7 +29,7 @@ class UserVoter extends Voter
             // the user must be logged in; if not, deny access
             return false;
         }
-        switch ($attribute){
+        switch ($attribute) {
             case self::IS_SUPER_ADMIN:
                 return $this->isSuperAdmin($user);
                 break;
@@ -35,7 +37,8 @@ class UserVoter extends Voter
         throw new \LogicException('This code should not be reached!');
     }
 
-    public function isSuperAdmin(User $user){
+    public function isSuperAdmin(User $user)
+    {
         return in_array('ROLE_SUPER_ADMIN', $user->getRoles());
     }
 }

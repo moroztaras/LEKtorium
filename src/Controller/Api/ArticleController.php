@@ -62,8 +62,9 @@ class ArticleController extends Controller
     public function showArticle(Article $article)
     {
         if (!$article) {
-            throw new NotFoundException(404, 'Not Found.');
+            throw new NotFoundException(Response::HTTP_NOT_FOUND, 'Not Found.');
         }
+
         return $this->json($article, Response::HTTP_OK);
     }
 
@@ -74,13 +75,13 @@ class ArticleController extends Controller
     public function newArticleAction(Request $request)
     {
         if (!$content = $request->getContent()) {
-            throw new JsonHttpException(400, 'Bad Request');
+            throw new JsonHttpException(Response::HTTP_BAD_REQUEST, 'Bad Request');
         }
         /** @var Article $article */
-        $article = $this->serializer->deserialize($request->getContent(),Article::class, JsonEncoder::FORMAT);
+        $article = $this->serializer->deserialize($request->getContent(), Article::class, JsonEncoder::FORMAT);
         $errors = $this->validator->validate($article);
         if (count($errors)) {
-            throw new JsonHttpException(400, 'Bad Request');
+            throw new JsonHttpException(Response::HTTP_BAD_REQUEST, 'Bad Request');
         }
         $this->getDoctrine()->getManager()->persist($article);
         $this->getDoctrine()->getManager()->flush();

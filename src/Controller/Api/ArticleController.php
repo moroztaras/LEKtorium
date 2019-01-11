@@ -3,7 +3,9 @@
 namespace App\Controller\Api;
 
 use App\Entity\Article;
+use App\Exception\JsonHttpException;
 use App\Exception\NotFoundException;
+use Symfony\Component\Routing\RouterInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
@@ -11,9 +13,10 @@ use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Serializer\Encoder\JsonEncoder;
 use Symfony\Component\Serializer\SerializerInterface;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
+use Symfony\Component\Validator\Validator\ValidatorInterface;
 
 /**
- * @Route("api/article")
+ * @Route("api/articles")
  */
 class ArticleController extends Controller
 {
@@ -22,13 +25,25 @@ class ArticleController extends Controller
      */
     private $serializer;
 
-    public function __construct(SerializerInterface $serializer)
+    /**
+     * @var ValidatorInterface
+     */
+    private $validator;
+
+    /**
+     * @var RouterInterface
+     */
+    private $router;
+
+    public function __construct(SerializerInterface $serializer, ValidatorInterface $validator, RouterInterface $router)
     {
         $this->serializer = $serializer;
+        $this->validator = $validator;
+        $this->router = $router;
     }
 
     /**
-     * @Route("", name="api_article_list")
+     * @Route("", name="api_articles_list")
      * @Method({"GET"})
      */
     public function listArticle()
@@ -41,29 +56,36 @@ class ArticleController extends Controller
     }
 
     /**
-     * @Route("/{id}", name="api_article_show")
+     * @Route("/{id}/show", name="api_articles_show")
      * @Method({"GET"})
      */
     public function showArticle(Article $article)
     {
         if (!$article) {
-            throw new NotFoundException(Response::HTTP_NOT_FOUND, 'Article Not Found.');
+            throw new NotFoundException(404, 'Not Found.');
         }
-
-        return $this->json(['article' => $article], Response::HTTP_OK);
+        return $this->json($article, Response::HTTP_OK);
     }
 
     /**
-     * @Route("", name="api_article_new")
+     * @Route("/new", name="api_articles_new")
      * @Method({"POST"})
      */
-    public function newArticle(Request $request)
+    public function newArticleAction(Request $request)
     {
-        $json = $request->getContent();
+        if (!$content = $request->getContent()) {
+            throw new JsonHttpException(400, 'Bad Request');
+        }
+        /** @var Article $article */
+        $article = $this->serializer->deserialize($request->getContent(),Article::class, JsonEncoder::FORMAT);
+        $errors = $this->validator->validate($article);
+        if (count($errors)) {
+            throw new JsonHttpException(400, 'Bad Request');
+        }
+        $this->getDoctrine()->getManager()->persist($article);
+        $this->getDoctrine()->getManager()->flush();
 
-        $article = $this->serializer->deserialize($json, Article::class, JsonEncoder::FORMAT);
-
-        return $this->json(['article' => $article]);
+        return $this->json($article);
     }
 
     /**

@@ -106,4 +106,14 @@ class ArticleService
 
         return $tags;
     }
+
+    public function countAdminListArticles()
+    {
+        return count($this->doctrine->getRepository(Article::class)->getAdminListArticles());
+    }
+
+    public function countPublishedArticles()
+    {
+        return count($this->doctrine->getRepository(Article::class)->getListArticles());
+    }
 }

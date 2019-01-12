@@ -10,7 +10,7 @@
                 {{ include('block/message.html.twig') }}
                 {{ include('block/form_search.html.twig') }}
                 <div class="field field-info">
-                    <span class="info-title">Results:</span> {{ articles | length }}
+                    <span class="info-title">Results:</span> {{ count_articles }}
                 </div>
                 {% for article in articles %}
                     <div class="list-item">

@@ -73,10 +73,12 @@ class BlockController extends Controller
             $articles = $this->getDoctrine()->getRepository('App:Article')->findByWord($data);
             unset($request);
         }
+        $count_articles = count($articles);
 
         return $this->render(
           'article/search.html.twig', [
           'articles' => $articles,
+          'count_articles' => $count_articles,
         ]);
     }
 

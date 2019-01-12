@@ -16,8 +16,8 @@ class CommentType extends AbstractType
           ->add('comment')
           ->add('approved', ChoiceType::class, [
             'choices' => [
-              'enabled' => true,
-              'disable' => false,
+              'Yes' => true,
+              'Not' => false,
             ],
             'multiple' => false, 'expanded' => true,
           ]);

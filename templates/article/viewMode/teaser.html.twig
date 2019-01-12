@@ -9,7 +9,7 @@
     </div>
     <div class="field field-body">{{ article.text }}</div>
     <div class="field field-like">
-        <a href="{{ path('article_like_add', {id:article.id}) }}">like</a> ({{ article.likes |length }}) |
+        <a href="{{ path('article_like_add', {id:article.id}) }}">like</a> ({{ article.likes | length }}) |
         {{ include('tag/list.html.twig', {'tags' : article.tags}) }}
     </div>
     <hr align="center" width="100%" size="1" color="#C0C0C0" />

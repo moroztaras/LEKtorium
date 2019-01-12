@@ -64,6 +64,7 @@ class UserFixtures extends Fixture
                 $comment
                   ->setUser($admin)
                   ->setComment('Comment '.$j.' for "Title article '.$i.'"')
+                  ->setApproved(true)
                   ->setArticle($article);
 
                 $manager->persist($comment);

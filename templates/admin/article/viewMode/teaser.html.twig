@@ -4,6 +4,13 @@
     <td><a href="{{ path }}">{{ article.title }}</a></td>
     <td>{{ article.createdAt ? article.createdAt|date('Y-m-d H:i') : '' }}</td>
     <td>
+        {% if article.approved == true %}
+            Yes
+        {% else %}
+            No
+        {% endif %}
+    </td>
+    <td>
         <div class="admin-link-action action">
             <a href="{{ path('admin_article_edit', {id:article.id}) }}">Edit</a>
             <a href="{{ path('admin_article_delete', {id:article.id}) }}">Delete</a>

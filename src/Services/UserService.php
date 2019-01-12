@@ -90,6 +90,11 @@ class UserService
         );
     }
 
+    public function countUsers()
+    {
+        return count($this->doctrine->getRepository(User::class)->findAll());
+    }
+
     public function remove(User $user)
     {
         $this->doctrine->getManager()->remove($user);

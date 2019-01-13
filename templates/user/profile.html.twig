@@ -1,0 +1,42 @@
+{% extends 'page_default.html.twig' %}
+
+{% block title %}Profile user{% endblock %}
+{% block page_title %}Profile {{ user.firstName }} {{ user.lastName }}{% endblock %}
+
+{% block main %}
+    <div class="block block--security-register security-user">
+        <div class="block-content">
+            <table>
+                <tr>
+                    <td>
+                        <div class="user-profile-avatar">
+                            <img id="img-user-avatar" src="{{ asset('images/users/avatars')}}/{{ user.avatarName }}"/>
+                        </div>
+                    </td>
+                    <td>
+                        <div class="user-profile-info">
+                            <div class="user-first-name">
+                                <span class="info-title">FirstName:</span> {{ user.firstName }}
+                            </div>
+                            <div class="user-last-name">
+                                <span class="info-title">LastName:</span> {{ user.lastName }}
+                            </div>
+                            <div class="user-last-email">
+                                <span class="info-title">Email:</span>
+                                <a href="mailto:{{ user.email }}">{{ user.email }}</a>
+                            </div>
+                            <div class="user-last-registration">
+                                <span class="info-title">Registration:</span> {{ user.createdAt ? user.createdAt|date('d-m-Y') : '' }}</div>
+                            <div class="user-last-region">
+                                <span class="info-title">Country:</span> {{ user.region }}
+                            </div>
+                        </div>
+                        <div class="admin-link-action">
+                            <a href="#">Edit</a>
+                        </div>
+                    </td>
+                </tr>
+            </table>
+        </div>
+    </div>
+{% endblock %}

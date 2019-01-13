@@ -249,3 +249,18 @@
     }
   }
 }
+.user-profile{
+  &-avatar{
+    padding-right: 15px;
+    vertical-align: top;
+    img{
+      max-width: 200px;
+      @include border-radius(3px);
+    }
+  }
+  &-info{
+    vertical-align: top;
+    margin-left: 5px;
+  }
+
+}

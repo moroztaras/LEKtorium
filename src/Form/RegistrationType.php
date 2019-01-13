@@ -8,6 +8,8 @@ use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\Extension\Core\Type\EmailType;
 use Symfony\Component\Form\Extension\Core\Type\PasswordType;
 use Symfony\Component\Form\Extension\Core\Type\RepeatedType;
+use Vich\UploaderBundle\Form\Type\VichImageType;
+use Symfony\Component\Form\Extension\Core\Type\CountryType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
@@ -30,6 +32,12 @@ class RegistrationType extends AbstractType
           'required' => true,
           'first_options' => ['label' => 'Password'],
           'second_options' => ['label' => 'Repeat password'],
+        ]);
+        $builder->add('region', CountryType::class, [
+          'label' => 'Country'
+        ]);
+        $builder->add('avatarFile', VichImageType::class, [
+           'label' => 'Upload Avatar',
         ]);
     }
 

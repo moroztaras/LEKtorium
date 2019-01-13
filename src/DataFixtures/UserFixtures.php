@@ -27,7 +27,10 @@ class UserFixtures extends Fixture
           ->setLastName('Moroz')
           ->setRoles(['ROLE_SUPER_ADMIN'])
           ->setEmail('moroztaras@i.ua')
-          ->setPassword($this->passwordEncoder->encodePassword($admin, 'moroztaras'));
+          ->setPassword($this->passwordEncoder->encodePassword($admin, 'moroztaras'))
+          ->setRegion('UA')
+          ->setAvatarName('user_avatar.png')
+        ;
 
         $manager->persist($admin);
 
@@ -37,7 +40,10 @@ class UserFixtures extends Fixture
           ->setLastName('ReaderLastName')
           ->setRoles(['ROLE_READER'])
           ->setEmail('reader@mail.ua')
-          ->setPassword($this->passwordEncoder->encodePassword($user_reader, 'reader'));
+          ->setPassword($this->passwordEncoder->encodePassword($user_reader, 'reader'))
+          ->setRegion('UA')
+          ->setAvatarName('user_avatar.png')
+        ;
 
         $manager->persist($user_reader);
 
@@ -47,7 +53,10 @@ class UserFixtures extends Fixture
           ->setLastName('BloggerLastName')
           ->setRoles(['ROLE_BLOGGER'])
           ->setEmail('blogger@mail.ua')
-          ->setPassword($this->passwordEncoder->encodePassword($user_blogger, 'blogger'));
+          ->setPassword($this->passwordEncoder->encodePassword($user_blogger, 'blogger'))
+          ->setRegion('UA')
+          ->setAvatarName('user_avatar.png')
+        ;
 
         $manager->persist($user_blogger);
 

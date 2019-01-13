@@ -65,15 +65,17 @@ class BlockController extends Controller
     /**
      * @Route("/search", name="search")
      */
-    public function searchAction(Request $request, ArticleService $articleService)
+    public function searchAction(Request $request)
     {
         $articles = null;
+        $count_articles = 0;
+
         if ($request->query->get('search')) {
             $data = $request->query->get('search');
             $articles = $this->getDoctrine()->getRepository('App:Article')->findByWord($data);
+            $count_articles = count($articles);
             unset($request);
         }
-        $count_articles = count($articles);
 
         return $this->render(
           'article/search.html.twig', [

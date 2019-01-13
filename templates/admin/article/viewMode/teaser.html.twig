@@ -2,7 +2,7 @@
     {% set path = path('article_view', {id:article.id}) %}
     <td>{{ article.id }}</td>
     <td><a href="{{ path }}">{{ article.title }}</a></td>
-    <td>{{ article.createdAt ? article.createdAt|date('Y-m-d H:i') : '' }}</td>
+    <td>{{ article.createdAt ? article.createdAt|date('d-m-Y H:i') : '' }}</td>
     <td>
         {% if article.approved == true %}
             Yes

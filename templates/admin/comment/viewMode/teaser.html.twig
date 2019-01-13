@@ -2,7 +2,7 @@
     {% set path = path('article_view', {id:comment.article.id}) %}
     <td>{{ comment.id }}</td>
     <td><a href="{{ path }}#comment-{{ comment.id }}">{{ comment.comment }}</a></td>
-    <td>{{ comment.createdAt ? comment.createdAt|date('Y-m-d H:i') : '' }}</td>
+    <td>{{ comment.createdAt ? comment.createdAt|date('d-m-Y H:i') : '' }}</td>
     <td>
         {% if comment.approved == true %}
             Yes

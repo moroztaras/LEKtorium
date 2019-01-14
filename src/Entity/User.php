@@ -262,7 +262,7 @@ class User implements UserInterface
     }
 
     /**
-     * Set region
+     * Set region.
      *
      * @param string $region
      *
@@ -274,8 +274,9 @@ class User implements UserInterface
 
         return $this;
     }
+
     /**
-     * Get region
+     * Get region.
      *
      * @return string
      */

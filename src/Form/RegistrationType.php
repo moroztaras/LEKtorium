@@ -34,7 +34,7 @@ class RegistrationType extends AbstractType
           'second_options' => ['label' => 'Repeat password'],
         ]);
         $builder->add('region', CountryType::class, [
-          'label' => 'Country'
+          'label' => 'Country',
         ]);
         $builder->add('avatarFile', VichImageType::class, [
            'label' => 'Upload Avatar',

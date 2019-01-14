@@ -63,12 +63,12 @@ class UserController extends AbstractController
     {
         /** @var User $user */
         $user = $this->getUser();
-#        $count_articles = count($user->getArticles());
+        $count_articles = count($user->getArticles());
 
         if ($user) {
             return $this->render('user/profile.html.twig', [
               'user' => $user,
-#              'count_articles' => $count_articles,
+              'count_articles' => $count_articles,
             ]);
         } else {
             $this->flashBag->add('error', 'User is not logged in');

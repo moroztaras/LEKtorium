@@ -9,9 +9,7 @@ use Symfony\Component\HttpKernel\Event\GetResponseForExceptionEvent;
 
 class JsonExceptionListener
 {
-    /**
-     * @var LoggerInterface
-     */
+    /** @var LoggerInterface */
     private $logger;
 
     public function __construct(LoggerInterface $logger)

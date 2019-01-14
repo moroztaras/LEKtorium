@@ -286,15 +286,6 @@ class Article implements \JsonSerializable
         return $this;
     }
 
-    public function jsonSerialize()
-    {
-        return [
-          'id' => $this->getId(),
-          'text' => $this->getText(),
-          'user' => $this->getUser()->getId(),
-        ];
-    }
-
     /**
      * @return Collection|Tag[]
      */
@@ -407,5 +398,17 @@ class Article implements \JsonSerializable
         $this->reviews = $reviews;
 
         return $this;
+    }
+
+    public function jsonSerialize()
+    {
+        return [
+          'id' => $this->getId(),
+          'title' => $this->getTitle(),
+          'text' => $this->getText(),
+          'createdAt' => $this->getCreatedAt(),
+          'approved' => $this->getApproved(),
+          'user' => $this->getUser()->getId(),
+        ];
     }
 }

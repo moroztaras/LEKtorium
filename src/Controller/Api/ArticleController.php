@@ -16,6 +16,8 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Symfony\Component\Validator\Validator\ValidatorInterface;
 
 /**
+ * Class ArticleController.
+ *
  * @Route("api/articles")
  */
 class ArticleController extends Controller
@@ -50,13 +52,13 @@ class ArticleController extends Controller
     {
         return $this->json(
         [
-          'articles' => $this->getDoctrine()->getRepository(Article::class)->findAll(),
+          'articles' => $this->getDoctrine()->getRepository(Article::class)->getListArticles(),
         ],
           Response::HTTP_OK);
     }
 
     /**
-     * @Route("/{id}/show", name="api_articles_show")
+     * @Route("/{id}", name="api_articles_show")
      * @Method({"GET"})
      */
     public function showArticle(Article $article)
@@ -79,10 +81,13 @@ class ArticleController extends Controller
         }
         /** @var Article $article */
         $article = $this->serializer->deserialize($request->getContent(), Article::class, JsonEncoder::FORMAT);
+
         $errors = $this->validator->validate($article);
+
         if (count($errors)) {
             throw new JsonHttpException(Response::HTTP_BAD_REQUEST, 'Bad Request');
         }
+
         $this->getDoctrine()->getManager()->persist($article);
         $this->getDoctrine()->getManager()->flush();
 

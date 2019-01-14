@@ -9,6 +9,7 @@ use Doctrine\Common\Persistence\ManagerRegistry;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 use Knp\Component\Pager\PaginatorInterface;
+use Symfony\Component\Security\Csrf\TokenGenerator\TokenGeneratorInterface;
 
 class UserService
 {
@@ -38,15 +39,21 @@ class UserService
     private $paginator;
 
     /**
+     * @var TokenGeneratorInterface
+     */
+    private $tokenGenerator;
+
+    /**
      * UserService constructor.
      */
-    public function __construct(EventDispatcherInterface $dispatcher, ManagerRegistry $doctrine, PasswordListener $listener, UserPasswordEncoderInterface $passwordEncoder, PaginatorInterface $paginator)
+    public function __construct(EventDispatcherInterface $dispatcher, ManagerRegistry $doctrine, PasswordListener $listener, UserPasswordEncoderInterface $passwordEncoder, PaginatorInterface $paginator, TokenGeneratorInterface $tokenGenerator)
     {
         $this->dispatcher = $dispatcher;
         $this->doctrine = $doctrine;
         $this->listener = $listener;
         $this->passwordEncoder = $passwordEncoder;
         $this->paginator = $paginator;
+        $this->tokenGenerator = $tokenGenerator;
     }
 
     public function save(User $user)
@@ -59,6 +66,7 @@ class UserService
 //        $encodePassword = $this->dispatcher->dispatch(PasswordEnteringEvent::NAME, $event)->getUser()->getPassword();
         $encodePassword = $this->passwordEncoder->encodePassword($user, $user->getPlainPassword());
         $user->setPassword($encodePassword);
+        $user->setApiToken($this->tokenGenerator->generateToken());
         $this->doctrine->getManager()->persist($user);
         $this->doctrine->getManager()->flush();
 

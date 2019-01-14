@@ -115,6 +115,12 @@ class User implements UserInterface
      */
     private $avatarName;
 
+    /**
+     * @var string
+     * @ORM\Column(type="string", length=255, unique=true, nullable=true)
+     */
+    private $apiToken;
+
     public function __construct()
     {
         $this->createdAt = new \DateTime();
@@ -418,5 +424,29 @@ class User implements UserInterface
     public function getAvatarName(): ?string
     {
         return $this->avatarName;
+    }
+
+    /**
+     * Get apiToken.
+     *
+     * @return null|string
+     */
+    public function getApiToken(): ?string
+    {
+        return $this->apiToken;
+    }
+
+    /**
+     * Set apiToken.
+     *
+     * @param string $apiToken
+     *
+     * @return User
+     */
+    public function setApiToken(string $apiToken): self
+    {
+        $this->apiToken = $apiToken;
+
+        return $this;
     }
 }

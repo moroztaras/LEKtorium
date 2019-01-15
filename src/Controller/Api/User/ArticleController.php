@@ -5,6 +5,7 @@ namespace App\Controller\Api\User;
 use App\Entity\Article;
 use App\Exception\JsonHttpException;
 use App\Exception\NotFoundException;
+use Knp\Component\Pager\PaginatorInterface;
 use Symfony\Component\Routing\RouterInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -37,22 +38,29 @@ class ArticleController extends Controller
      */
     private $router;
 
-    public function __construct(SerializerInterface $serializer, ValidatorInterface $validator, RouterInterface $router)
+    /**
+     * @var PaginatorInterface
+     */
+    private $paginator;
+
+    public function __construct(SerializerInterface $serializer, ValidatorInterface $validator, RouterInterface $router, PaginatorInterface $paginator)
     {
         $this->serializer = $serializer;
         $this->validator = $validator;
         $this->router = $router;
+        $this->paginator = $paginator;
     }
 
     /**
      * @Route("", name="api_articles_list")
      * @Method({"GET"})
      */
-    public function listArticle()
+    public function listArticle(Request $request, $limit=5)
     {
-        return $this->json(
-        [
-          'articles' => $this->getDoctrine()->getRepository(Article::class)->getListArticles(),
+        return $this->json([
+          'articles' => $this->paginator->paginate(
+            $this->getDoctrine()->getRepository(Article::class)->getListArticles(),
+            $request->query->getInt('page',1),$limit),
         ],
           Response::HTTP_OK);
     }
@@ -67,7 +75,7 @@ class ArticleController extends Controller
             throw new NotFoundException(Response::HTTP_NOT_FOUND, 'Not Found.');
         }
 
-        return $this->json($article, Response::HTTP_OK);
+        return $this->json(['article' => $article], Response::HTTP_OK);
     }
 
     /**

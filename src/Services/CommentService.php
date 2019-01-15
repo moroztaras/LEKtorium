@@ -73,4 +73,14 @@ class CommentService
 
         return $comments;
     }
+
+    public function countAdminListComments()
+    {
+        return count($this->doctrine->getRepository(Comment::class)->findAll());
+    }
+
+    public function countPublishedComments()
+    {
+        return count($this->doctrine->getRepository(Comment::class)->findBy(['approved' => true]));
+    }
 }

@@ -1,0 +1,18 @@
+{% extends 'page_default.html.twig' %}
+
+{% block title %}Page not found<{% endblock %}
+{% block page_title %}Page not found<{% endblock %}
+
+{% block main %}
+    <div class="block block--article-list">
+        <div class="block-content">
+            <div class="list list--page-list">
+                {{ include('block/message.html.twig') }}
+                <p>
+                    The requested page couldn't be located. Checkout for any URL
+                    misspelling or <a href="{{ path('index') }}">return to the homepage</a>.
+                </p>
+            </div>
+        </div>
+    </div>
+{% endblock %}

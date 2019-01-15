@@ -8,10 +8,13 @@ use Doctrine\ORM\Mapping as ORM;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Security\Core\User\UserInterface;
 use Symfony\Component\Validator\Constraints as Assert;
+use Symfony\Component\HttpFoundation\File\File;
+use Vich\UploaderBundle\Mapping\Annotation as Vich;
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\UserRepository")
  * @UniqueEntity("email")
+ * @Vich\Uploadable
  */
 class User implements UserInterface
 {
@@ -76,6 +79,12 @@ class User implements UserInterface
     private $lastName;
 
     /**
+     * @var string
+     * @ORM\Column(type="string")
+     */
+    private $region;
+
+    /**
      * @var \DateTime
      *
      * @ORM\Column(type="datetime")
@@ -93,6 +102,24 @@ class User implements UserInterface
      * @ORM\OrderBy({"id" = "DESC"})
      */
     private $comments;
+
+    /**
+     * @var File
+     * @Vich\UploadableField(mapping="user_avatar", fileNameProperty="avatarName")
+     */
+    private $avatarFile;
+
+    /**
+     * @var string
+     * @ORM\Column(type="string", length=255)
+     */
+    private $avatarName;
+
+    /**
+     * @var string
+     * @ORM\Column(type="string", length=255, unique=true, nullable=true)
+     */
+    private $apiToken;
 
     public function __construct()
     {
@@ -241,6 +268,30 @@ class User implements UserInterface
     }
 
     /**
+     * Set region.
+     *
+     * @param string $region
+     *
+     * @return $this
+     */
+    public function setRegion($region)
+    {
+        $this->region = $region;
+
+        return $this;
+    }
+
+    /**
+     * Get region.
+     *
+     * @return string
+     */
+    public function getRegion()
+    {
+        return $this->region;
+    }
+
+    /**
      * Get createdAt.
      *
      * @return \DateTime
@@ -348,6 +399,53 @@ class User implements UserInterface
     public function setTempRoles($tempRoles)
     {
         $this->tempRoles = $tempRoles;
+
+        return $this;
+    }
+
+    /**
+     * @param File|\Symfony\Component\HttpFoundation\File\UploadedFile $avatarFile
+     */
+    public function setAvatarFile(?File $avatarFile = null): void
+    {
+        $this->avatarFile = $avatarFile;
+    }
+
+    public function getAvatarFile(): ?File
+    {
+        return $this->avatarFile;
+    }
+
+    public function setAvatarName(?string $avatarName): void
+    {
+        $this->avatarName = $avatarName;
+    }
+
+    public function getAvatarName(): ?string
+    {
+        return $this->avatarName;
+    }
+
+    /**
+     * Get apiToken.
+     *
+     * @return null|string
+     */
+    public function getApiToken(): ?string
+    {
+        return $this->apiToken;
+    }
+
+    /**
+     * Set apiToken.
+     *
+     * @param string $apiToken
+     *
+     * @return User
+     */
+    public function setApiToken(string $apiToken): self
+    {
+        $this->apiToken = $apiToken;
 
         return $this;
     }

@@ -43,9 +43,13 @@ class ArticleController extends Controller
     public function listAction(Request $request)
     {
         $articles = $this->articleService->adminList($request);
+        $count_articles = $this->articleService->countAdminListArticles();
+        $count_published_articles = $this->articleService->countPublishedArticles();
 
         return $this->render('admin/article/list.html.twig', [
           'articles' => $articles,
+          'count_articles' => $count_articles,
+          'count_published_articles' => $count_published_articles,
         ]);
     }
 

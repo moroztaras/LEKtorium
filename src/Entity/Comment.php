@@ -11,7 +11,7 @@ use Symfony\Component\Validator\Constraints as Assert;
  * @ORM\Entity(repositoryClass="App\Repository\CommentRepository")
  * @ORM\Table(name="comment")
  */
-class Comment
+class Comment implements \JsonSerializable
 {
     /**
      * @ORM\Id()
@@ -168,5 +168,17 @@ class Comment
         $this->approved = $approved;
 
         return $this;
+    }
+
+    public function jsonSerialize()
+    {
+        return[
+          'id' => $this->getId(),
+          'comment' => $this->getComment(),
+          'article' => $this->getArticle(),
+          'createdAt' => $this->getCreatedAt(),
+          'approved' => $this->getApproved(),
+          'user' => $this->getUser()->getId(),
+        ];
     }
 }

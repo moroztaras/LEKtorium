@@ -2,7 +2,14 @@
     {% set path = path('article_view', {id:article.id}) %}
     <td>{{ article.id }}</td>
     <td><a href="{{ path }}">{{ article.title }}</a></td>
-    <td>{{ article.createdAt ? article.createdAt|date('Y-m-d H:i') : '' }}</td>
+    <td>{{ article.createdAt ? article.createdAt|date('d-m-Y H:i') : '' }}</td>
+    <td>
+        {% if article.approved == true %}
+            <div class="field-approved-yes">Yes</div>
+        {% else %}
+            <div class="field-approved-no">No</div>
+        {% endif %}
+    </td>
     <td>
         <div class="admin-link-action action">
             <a href="{{ path('admin_article_edit', {id:article.id}) }}">Edit</a>

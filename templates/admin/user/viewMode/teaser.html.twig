@@ -1,7 +1,7 @@
 <tr class="list-article">
     <td>{{ user.id }}</td>
     <td><a href="#">{{ user.firstName }} {{ user.lastName }}</a></td>
-    <td>{{ user.createdAt ? user.createdAt|date('Y-m-d H:i') : '' }}</td>
+    <td>{{ user.createdAt ? user.createdAt|date('d-m-Y H:i') : '' }}</td>
     <td>
         <div class="admin-link-action action">
             <a href="{{ path('admin_user_edit', {'id': user.id}) }}">Edit</a>

@@ -8,6 +8,10 @@
         <div class="block-content">
             <div class="list list--page-list">
                 {{ include('block/message.html.twig') }}
+                <div class="field field-info">
+                    <span class="info-title">Users:</span> {{ count_users }}
+                </div>
+                <br>
                 <div class="admin-list-article">
                     <table>
                         <thead>

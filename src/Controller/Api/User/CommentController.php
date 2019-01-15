@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Controller\Api;
+namespace App\Controller\Api\User;
 
 use App\Entity\Comment;
 use App\Exception\NotFoundException;

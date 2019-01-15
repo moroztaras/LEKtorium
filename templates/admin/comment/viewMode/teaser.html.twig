@@ -5,9 +5,9 @@
     <td>{{ comment.createdAt ? comment.createdAt|date('d-m-Y H:i') : '' }}</td>
     <td>
         {% if comment.approved == true %}
-            Yes
+            <div class="field-approved-yes">Yes</div>
         {% else %}
-            No
+            <div class="field-approved-no">No</div>
         {% endif %}
     </td>
     <td>

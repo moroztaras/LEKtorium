@@ -66,3 +66,7 @@
 .user-profile-avatar { padding-right: 15px; vertical-align: top; }
 .user-profile-avatar img { max-width: 200px; -moz-border-radius: 3px; -webkit-border-radius: 3px; border-radius: 3px; }
 .user-profile-info { vertical-align: top; margin-left: 5px; }
+
+.field-approved-yes { text-align: center; -moz-border-radius: 3px; -webkit-border-radius: 3px; border-radius: 3px; color: #145214; background-color: #99e699; border: 1px solid #6fdc6f; }
+
+.field-approved-no { text-align: center; -moz-border-radius: 3px; -webkit-border-radius: 3px; border-radius: 3px; color: #ff6666; background-color: #ffb3b3; border: 1px solid #ff6666; }

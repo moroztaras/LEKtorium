@@ -1,8 +1,8 @@
 nelmio_api_doc:
     documentation:
         info:
-            title: LektoriymBlog API Doc
-            description: LektoriymBlog using Symfony framework
+            title: Lektoriym Blog API Doc
+            description: Lektoriym Blog using Symfony framework
             version: 1.0.1
         securityDefinitions:
             ApiAuth:

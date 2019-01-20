@@ -406,9 +406,14 @@ class Article implements \JsonSerializable
           'id' => $this->getId(),
           'title' => $this->getTitle(),
           'text' => $this->getText(),
+          'image' => $this->getImageName(),
           'createdAt' => $this->getCreatedAt(),
           'approved' => $this->getApproved(),
-          'user' => $this->getUser()->getId(),
+          'user' => [
+            'id' => $this->getUser()->getId(),
+            'firstName' => $this->getUser()->getFirstName(),
+            'lastName' => $this->getUser()->getLastName(),
+          ],
         ];
     }
 }

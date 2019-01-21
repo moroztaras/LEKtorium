@@ -12,6 +12,7 @@
         "friendsofphp/php-cs-fixer": "^2.13",
         "fzaninotto/faker": "^1.8",
         "knplabs/knp-paginator-bundle": "^2.8",
+        "nelmio/api-doc-bundle": "^3.3",
         "ramsey/uuid": "^3.8",
         "sensio/framework-extra-bundle": "^5.2",
         "symfony/asset": "*",

@@ -22,6 +22,7 @@ security:
             pattern: ^/(_(profiler|wdt)|css|images|js)/
             security: false
         api:
+            anonymous: true
             pattern: ^/api/
             guard:
                 authenticators:
@@ -54,5 +55,4 @@ security:
          - { path: ^/login, roles: IS_AUTHENTICATED_ANONYMOUSLY }
          - { path: ^/admin, roles: ROLE_BLOGGER }
          - { path: ^/admin/user, roles: ROLE_SUPER_ADMIN }
-         - { path: ^/api, roles: IS_AUTHENTICATED_ANONYMOUSLY }
          - { path: ^/profile, roles: [ROLE_BLOGGER, ROLE_READER, ROLE_SUPER_ADMIN] }

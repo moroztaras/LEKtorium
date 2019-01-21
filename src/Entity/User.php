@@ -16,7 +16,7 @@ use Vich\UploaderBundle\Mapping\Annotation as Vich;
  * @UniqueEntity("email")
  * @Vich\Uploadable
  */
-class User implements UserInterface
+class User implements UserInterface, \JsonSerializable
 {
     /**
      * @var int
@@ -448,5 +448,18 @@ class User implements UserInterface
         $this->apiToken = $apiToken;
 
         return $this;
+    }
+
+    public function jsonSerialize()
+    {
+        return [
+          'id' => $this->getId(),
+          'username' => $this->getUsername(),
+          'email' => $this->getEmail(),
+          'roles' => $this->getRoles(),
+          'avatar' => $this->getAvatarName(),
+          'api_token' => $this->getApiToken(),
+          'create_at' => $this->getCreatedAt(),
+        ];
     }
 }

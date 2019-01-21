@@ -8,6 +8,7 @@ use App\Services\UserService;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\HttpFoundation\Session\Flash\FlashBagInterface;
 
 /**
  * Class UserController.
@@ -20,12 +21,18 @@ class UserController extends AbstractController
     private $userService;
 
     /**
+     * @var FlashBagInterface
+     */
+    private $flashBag;
+
+    /**
      * UserController constructor.
      *
      * @param UserService $userService
      */
-    public function __construct(UserService $userService)
+    public function __construct(UserService $userService, FlashBagInterface $flashBag)
     {
+        $this->flashBag = $flashBag;
         $this->userService = $userService;
     }
 
@@ -47,5 +54,26 @@ class UserController extends AbstractController
         return $this->render('user/registration.html.twig', [
           'user_registration' => $form->createView(),
         ]);
+    }
+
+    /**
+     * @Route("/profile", methods={"GET", "POST"}, name="app_profile")
+     */
+    public function profileAction()
+    {
+        /** @var User $user */
+        $user = $this->getUser();
+        $count_articles = count($user->getArticles());
+
+        if ($user) {
+            return $this->render('user/profile.html.twig', [
+              'user' => $user,
+              'count_articles' => $count_articles,
+            ]);
+        } else {
+            $this->flashBag->add('error', 'User is not logged in');
+
+            return $this->redirectToRoute('app_login');
+        }
     }
 }

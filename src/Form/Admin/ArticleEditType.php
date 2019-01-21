@@ -34,8 +34,8 @@ class ArticleEditType extends AbstractType
           ])
           ->add('approved', ChoiceType::class, [
               'choices' => [
-              'enabled' => true,
-              'disable' => false,
+              'Yes' => true,
+              'No' => false,
               ],
               'multiple' => false, 'expanded' => true,
            ]);

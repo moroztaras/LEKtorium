@@ -8,6 +8,11 @@
         <div class="block-content">
             <div class="list list--page-list">
                 {{ include('block/message.html.twig') }}
+                <div class="field field-info">
+                    <span class="info-title">Comments:</span> {{ count_comments }}
+                    <span class="info-title">| Published comments:</span> {{ published_comments }}</a>
+                </div>
+                <br>
                 <div class="admin-list-article">
                     <table>
                         <thead>
@@ -15,6 +20,7 @@
                                 <th>Id</th>
                                 <th>Comment</th>
                                 <th>CreatedAt</th>
+                                <th>Approved</th>
                                 <th>Action</th>
                             </tr>
                         </thead>

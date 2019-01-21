@@ -9,14 +9,30 @@ use App\Entity\Tag;
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Common\Persistence\ObjectManager;
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
+use Symfony\Component\Security\Csrf\TokenGenerator\TokenGeneratorInterface;
 
 class UserFixtures extends Fixture
 {
+    /**
+     * @var UserPasswordEncoderInterface
+     */
     private $passwordEncoder;
 
-    public function __construct(UserPasswordEncoderInterface $passwordEncoder)
+    /**
+     * @var TokenGeneratorInterface
+     */
+    private $tokenGenerator;
+
+    /**
+     * UserFixtures constructor.
+     *
+     * @param UserPasswordEncoderInterface $passwordEncoder
+     * @param TokenGeneratorInterface      $tokenGenerator
+     */
+    public function __construct(UserPasswordEncoderInterface $passwordEncoder, TokenGeneratorInterface $tokenGenerator)
     {
         $this->passwordEncoder = $passwordEncoder;
+        $this->tokenGenerator = $tokenGenerator;
     }
 
     public function load(ObjectManager $manager)
@@ -27,7 +43,11 @@ class UserFixtures extends Fixture
           ->setLastName('Moroz')
           ->setRoles(['ROLE_SUPER_ADMIN'])
           ->setEmail('moroztaras@i.ua')
-          ->setPassword($this->passwordEncoder->encodePassword($admin, 'moroztaras'));
+          ->setPassword($this->passwordEncoder->encodePassword($admin, 'moroztaras'))
+          ->setRegion('UA')
+          ->setApiToken($this->tokenGenerator->generateToken())
+          ->setAvatarName('user_avatar.png')
+        ;
 
         $manager->persist($admin);
 
@@ -37,7 +57,11 @@ class UserFixtures extends Fixture
           ->setLastName('ReaderLastName')
           ->setRoles(['ROLE_READER'])
           ->setEmail('reader@mail.ua')
-          ->setPassword($this->passwordEncoder->encodePassword($user_reader, 'reader'));
+          ->setPassword($this->passwordEncoder->encodePassword($user_reader, 'reader'))
+          ->setRegion('UA')
+          ->setApiToken($this->tokenGenerator->generateToken())
+          ->setAvatarName('user_avatar.png')
+        ;
 
         $manager->persist($user_reader);
 
@@ -47,7 +71,11 @@ class UserFixtures extends Fixture
           ->setLastName('BloggerLastName')
           ->setRoles(['ROLE_BLOGGER'])
           ->setEmail('blogger@mail.ua')
-          ->setPassword($this->passwordEncoder->encodePassword($user_blogger, 'blogger'));
+          ->setPassword($this->passwordEncoder->encodePassword($user_blogger, 'blogger'))
+          ->setRegion('UA')
+          ->setApiToken($this->tokenGenerator->generateToken())
+          ->setAvatarName('user_avatar.png')
+        ;
 
         $manager->persist($user_blogger);
 
@@ -64,6 +92,7 @@ class UserFixtures extends Fixture
                 $comment
                   ->setUser($admin)
                   ->setComment('Comment '.$j.' for "Title article '.$i.'"')
+                  ->setApproved(true)
                   ->setArticle($article);
 
                 $manager->persist($comment);

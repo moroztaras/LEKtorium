@@ -43,9 +43,13 @@ class CommentController extends Controller
     public function listAction(Request $request)
     {
         $comments = $this->commentService->list($request);
+        $count_comments = $this->commentService->countAdminListComments();
+        $published_comments = $this->commentService->countPublishedComments();
 
         return $this->render('admin/comment/list.html.twig', [
           'comments' => $comments,
+          'count_comments' => $count_comments,
+          'published_comments' => $published_comments,
         ]);
     }
 

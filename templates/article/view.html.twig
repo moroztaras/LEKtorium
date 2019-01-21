@@ -8,14 +8,14 @@
         <div class="block-content">
             <div class="fields fields-top">
                 <div class="field fields-info">
-                    <span class="info-title">Author:</span> {{ article.user.lastName }} {{ article.user.firstName }} <span class="info-title">| CreatedAt:</span> {{ article.createdAt ? article.createdAt|date('Y-m-d H:i') : '' }} <span class="info-title">| Comments:</span> {{ comments | length }} <span class="info-title">| Reviews:</span> {{ article.reviews }}
+                    <span class="info-title">Author:</span> {{ article.user.lastName }} {{ article.user.firstName }} <span class="info-title">| CreatedAt:</span> {{ article.createdAt ? article.createdAt|date('d-m-Y H:i') : '' }} <span class="info-title">| Comments:</span> {{ count_comments }} <span class="info-title">| Reviews:</span> {{ article.reviews }}
                 </div>
                 <div class="field field-image">
                     <img id="img-article" src="{{ asset('images/articles')}}/{{ article.imageName }}"/>
                 </div>
                 <div class="field field-body">{{ article.text }}</div>
                 <div class="field field-like">
-                    <a href="{{ path('article_like_add', {id:article.id}) }}">like</a> ({{ article.likes |length }}) |
+                    <a href="{{ path('article_like_add', {id:article.id}) }}">like</a> ({{ count_likes }}) |
                     {{ include('tag/list.html.twig', {'tags' : article.tags}) }}
                 </div>
             </div>

@@ -62,3 +62,11 @@
 .messages .message--error { color: #b94a48; background-color: #f2dede; border-color: #eed3d7; }
 .messages .message--success { color: #468847; background-color: #dff0d8; border-color: #d6e9c6; }
 .messages .message--help { color: #3a87ad; background-color: #d9edf7; border-color: #bce8f1; }
+
+.user-profile-avatar { padding-right: 15px; vertical-align: top; }
+.user-profile-avatar img { max-width: 200px; -moz-border-radius: 3px; -webkit-border-radius: 3px; border-radius: 3px; }
+.user-profile-info { vertical-align: top; margin-left: 5px; }
+
+.field-approved-yes { text-align: center; -moz-border-radius: 3px; -webkit-border-radius: 3px; border-radius: 3px; color: #145214; background-color: #99e699; border: 1px solid #6fdc6f; }
+
+.field-approved-no { text-align: center; -moz-border-radius: 3px; -webkit-border-radius: 3px; border-radius: 3px; color: #ff6666; background-color: #ffb3b3; border: 1px solid #ff6666; }

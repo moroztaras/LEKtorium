@@ -63,10 +63,14 @@ class ArticleController extends Controller
         $this->articleService->addReviewForArticle($article);
 
         $comments = $this->commentService->getCommentsForArticle($article);
+        $count_comments = count($comments);
+        $count_likes = count($article->getLikes());
 
         return $this->render('article/view.html.twig', [
           'article' => $article,
           'comments' => $comments,
+          'count_comments' => $count_comments,
+          'count_likes' => $count_likes,
         ]);
     }
 }

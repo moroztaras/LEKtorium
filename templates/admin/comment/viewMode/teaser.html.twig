@@ -2,7 +2,14 @@
     {% set path = path('article_view', {id:comment.article.id}) %}
     <td>{{ comment.id }}</td>
     <td><a href="{{ path }}#comment-{{ comment.id }}">{{ comment.comment }}</a></td>
-    <td>{{ comment.createdAt ? comment.createdAt|date('Y-m-d H:i') : '' }}</td>
+    <td>{{ comment.createdAt ? comment.createdAt|date('d-m-Y H:i') : '' }}</td>
+    <td>
+        {% if comment.approved == true %}
+            <div class="field-approved-yes">Yes</div>
+        {% else %}
+            <div class="field-approved-no">No</div>
+        {% endif %}
+    </td>
     <td>
         <div class="admin-link-action action">
             <a href="{{ path('admin_comment_edit', {'id': comment.id}) }}">Edit</a>

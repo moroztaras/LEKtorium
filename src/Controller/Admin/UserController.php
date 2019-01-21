@@ -43,9 +43,11 @@ class UserController extends Controller
     public function listAction(Request $request)
     {
         $users = $this->userService->list($request);
+        $count_users = $this->userService->countUsers();
 
         return $this->render('admin/user/list.html.twig', [
           'users' => $users,
+          'count_users' => $count_users,
         ]);
     }
 

@@ -20,3 +20,8 @@
         </div>
     </div>
 {% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+    <script src="{{ asset('js/ajax_like.js') }}"></script>
+{% endblock %}

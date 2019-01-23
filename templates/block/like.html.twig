@@ -1,0 +1,11 @@
+<button class="ajax-like btn btn-light text-primary"
+        role="button"
+        data-link="{{ path('article_like_add', {'id': article.id}) }}"
+        data-id="{{ article.id }}">
+            <span id="likes-count-{{ article.id }}">
+                {% if article.likes|length > 0 %}
+                    {{ article.likes|length }}
+                {% endif %}
+            </span>
+    <i class="fa fa-heart"></i>
+</button>

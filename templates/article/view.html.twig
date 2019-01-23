@@ -15,7 +15,7 @@
                 </div>
                 <div class="field field-body">{{ article.text }}</div>
                 <div class="field field-like">
-                    <a href="{{ path('article_like_add', {id:article.id}) }}">like</a> ({{ count_likes }}) |
+                    {{ include('block/like.html.twig', {'article' : article}) }}
                     {{ include('tag/list.html.twig', {'tags' : article.tags}) }}
                 </div>
             </div>
@@ -33,4 +33,9 @@
             </div>
         </div>
     </article>
+{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+    <script src="{{ asset('js/ajax_like.js') }}"></script>
 {% endblock %}

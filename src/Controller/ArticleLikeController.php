@@ -9,6 +9,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\HttpFoundation\Session\Flash\FlashBagInterface;
+use Symfony\Component\HttpFoundation\JsonResponse;
 
 /**
  * Class ArticleLikeController.
@@ -39,14 +40,13 @@ class ArticleLikeController extends Controller
      */
     public function addAction(Request $request, Article $article)
     {
-        $referer = $request->headers->get('referer');
         $articleLike = new ArticleLike();
         $user = $this->getUser();
 
         if ($user) {
             $this->articleLikeService->status($user, $article, $articleLike);
 
-            return $this->redirect($referer);
+            return new JsonResponse(count($article->getLikes()));
         } else {
             $this->flashBag->add('error', 'User is not logged in');
 

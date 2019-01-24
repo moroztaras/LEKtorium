@@ -106,7 +106,7 @@ class CommentController extends AbstractController
     }
 
     /**
-     * @Route("/{id_article}/add", methods={"POST"}, name="api_comment_add")
+     * @Route("/{article}/add", methods={"POST"}, name="api_comment_add")
      *
      * @throws \Exception
      *
@@ -131,7 +131,7 @@ class CommentController extends AbstractController
      *     description="Comment object used for create comment",
      *     @SWG\Schema(
      *            type="object",
-     *            @SWG\Property(property="comment", type="string"),
+     *            @SWG\Property(property="comment", type="string", example="New fake comment"),
      *         )
      * )
      * @SWG\Tag(name="Comment Add API")

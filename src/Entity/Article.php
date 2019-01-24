@@ -409,6 +409,7 @@ class Article implements \JsonSerializable
           'image' => $this->getImageName(),
           'createdAt' => $this->getCreatedAt(),
           'approved' => $this->getApproved(),
+          'likes' => count($this->getLikes()),
           'user' => [
             'id' => $this->getUser()->getId(),
             'firstName' => $this->getUser()->getFirstName(),

@@ -1,4 +1,7 @@
 nelmio_api_doc:
+    areas:
+        path_patterns:
+            - ^/api(?!/doc$)
     documentation:
         info:
             title: Lektoriym Blog API Doc
@@ -9,6 +12,116 @@ nelmio_api_doc:
                 type: apiKey
                 in: header
                 name: x-api-key
-    areas:
-        path_patterns:
-            - ^/api(?!/doc$)
+        paths:
+            /api/user/registration:
+                post:
+                    tags:
+                        - User API
+                    description: Registration new user
+                    produces:
+                        - application/json
+                    parameters:
+                        - name: user
+                          description: User to be registered
+                          in: body
+                          required: true
+                          schema:
+                              type: object
+                              properties:
+                                  firstName:
+                                      type: string
+                                      example: fake_firstName
+                                  lastName:
+                                      type: string
+                                      example: fake_lastName
+                                  email:
+                                      type: string
+                                      example: fake_mail@mail.ua
+                                  plainPassword:
+                                      type: string
+                                      example: fake_password
+                                  region:
+                                      type: string
+                                      example: UA
+                                  avatar_name:
+                                      type: string
+                                      example: default_avatar.jpg
+                    responses:
+                        '200':
+                            description: Registration successful
+                            schema:
+                                type: object
+                                properties:
+                                    id:
+                                      type: string
+                                      example: 1
+                                    firstName:
+                                      type: string
+                                      example: firstName
+                                    lastName:
+                                      type: string
+                                      example: lastName
+                                    email:
+                                      type: string
+                                      example: email@mail.ua
+                                    region:
+                                      type: string
+                                      example: UA
+                                    avatar_name:
+                                      type: string
+                                      example: default_avatar.jpg
+                                    api-token:
+                                        type: string
+                                        example: xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx
+                        '400':
+                            description: Bad request
+            /api/user/login:
+                post:
+                    tags:
+                        - User API
+                    description: Login into the api
+                    produces:
+                        - application/json
+                    parameters:
+                        - name: user
+                          description: User object used for user authentication
+                          in: body
+                          required: true
+                          schema:
+                              type: object
+                              properties:
+                                  email:
+                                      type: string
+                                      example: moroztaras@i.ua
+                                  plainPassword:
+                                      type: string
+                                      example: moroztaras
+                    responses:
+                        '200':
+                            description: Login successful. Returns user profile
+                            schema:
+                                type: object
+                                properties:
+                                    id:
+                                      type: string
+                                      example: 1
+                                    firstName:
+                                      type: string
+                                      example: firstName
+                                    lastName:
+                                      type: string
+                                      example: lastName
+                                    email:
+                                      type: string
+                                      example: email@mail.ua
+                                    region:
+                                      type: string
+                                      example: UA
+                                    avatar_name:
+                                      type: string
+                                      example: default_avatar.jpg
+                                    api-token:
+                                        type: string
+                                        example: xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx
+                        '400':
+                            description: Bad request or credentials

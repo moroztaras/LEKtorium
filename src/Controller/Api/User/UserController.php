@@ -45,33 +45,6 @@ class UserController extends Controller
 
     /**
      * @Route("/user/registration", methods={"POST"}, name="api_user_registration")
-     *
-     * @throws \Exception
-     *
-     * @SWG\Response(
-     *     response=200,
-     *     description="Returns user profile"
-     * )
-     * @SWG\Response(
-     *     response=400,
-     *     description="Invalid request"
-     * )
-     * @SWG\Parameter(
-     *     name="user",
-     *     in="body",
-     *     type="json",
-     *     description="User object used for user registration",
-     *     @SWG\Schema(
-     *            type="object",
-     *            @SWG\Property(property="firstName", type="string", example="fake_firstName"),
-     *            @SWG\Property(property="lastName", type="string", example="fake_lastName"),
-     *            @SWG\Property(property="email", type="string", example="fake_mail@mail.ua"),
-     *            @SWG\Property(property="region", type="string", example="UA"),
-     *            @SWG\Property(property="avatar_name", type="string", example="default_avatar.jpg"),
-     *            @SWG\Property(property="plainPassword", type="string", example="fake_password"),
-     *         )
-     * )
-     * @SWG\Tag(name="User API")
      */
     public function registrationUserAction(Request $request)
     {
@@ -98,29 +71,6 @@ class UserController extends Controller
 
     /**
      * @Route("/user/login", methods={"POST"}, name="api_user_login")
-     *
-     * @throws \Exception
-     *
-     * @SWG\Response(
-     *     response=200,
-     *     description="Returns user profile"
-     * )
-     * @SWG\Response(
-     *     response=400,
-     *     description="Invalid request or credentials"
-     * )
-     * @SWG\Parameter(
-     *     name="user",
-     *     in="body",
-     *     type="json",
-     *     description="User object used for user authentication",
-     *     @SWG\Schema(
-     *            type="object",
-     *            @SWG\Property(property="email", type="string", example="moroztaras@i.ua"),
-     *            @SWG\Property(property="plainPassword", type="string", example="moroztaras"),
-     *         )
-     * )
-     * @SWG\Tag(name="User API")
      */
     public function loginUserAction(Request $request, UserPasswordEncoderInterface $passwordEncoder)
     {

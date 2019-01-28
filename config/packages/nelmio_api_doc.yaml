@@ -405,7 +405,7 @@ nelmio_api_doc:
                                                 example: 1
                                             comment:
                                                 type: string
-                                                example: Comment 1 for "Title article 1"
+                                                example: New comment for article
                                             aricle:
                                                 type: object
                                                 properties:
@@ -440,3 +440,77 @@ nelmio_api_doc:
                             description: Bad request
                         '404':
                             description: Comment not found
+            /api/comments/{article}/add:
+                post:
+                    tags:
+                        - Comments API
+                    description: Comments New comment for article
+                    produces:
+                        - application/json
+                    parameters:
+                        - name:  x-api-key
+                          description: X-APPI-KEY
+                          in: header
+                          required: true
+                        - name: article
+                          description: Article ID which in comment will be add
+                          in: path
+                          required: true
+                          type: string
+                        - name: comment
+                          description: Comment object used for create comment
+                          in: body
+                          required: true
+                          schema:
+                              type: object
+                              properties:
+                                  comment:
+                                      type: string
+                                      example: New comment for article
+                    responses:
+                        '200':
+                            description: Create new comment successful
+                            schema:
+                                type: object
+                                properties:
+                                    comment:
+                                        type: object
+                                        properties:
+                                            id:
+                                                type: string
+                                                example: 1
+                                            comment:
+                                                type: string
+                                                example: New comment for article
+                                            aricle:
+                                                type: object
+                                                properties:
+                                                    id:
+                                                        type: string
+                                                        example: 1
+                                                    title:
+                                                        type: string
+                                                        example: Title artile 1
+                                                    text:
+                                                        type: string
+                                                        example: Text artile 1
+                                                    imageName:
+                                                        type: string
+                                                        example: article_image.jpg
+                                                    likes:
+                                                        type: string
+                                                        example: 1
+                                                    createdAt:
+                                                        type: string
+                                                        example: "2019-01-24T14:22:51+02:00"
+                                                    approved:
+                                                        type: string
+                                                        example: true
+                                            createdAt:
+                                                 type: string
+                                                 example: "2019-01-24T14:22:51+02:00"
+                                            approved:
+                                                 type: string
+                                                 example: true
+                        '404':
+                            description: Article not found

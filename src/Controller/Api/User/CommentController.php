@@ -74,36 +74,6 @@ class CommentController extends AbstractController
 
     /**
      * @Route("/{article}/add", name="api_comment_add", methods={"POST"})
-     *
-     * @throws \Exception
-     *
-     * @SWG\Response(
-     *     response=200,
-     *     description="Returns created comment object"
-     * )
-     * @SWG\Response(
-     *     response=400,
-     *     description="Invalid api token"
-     * )
-     * @SWG\Parameter(
-     *     name="article",
-     *     in="path",
-     *     type="integer",
-     *     description="Article ID which in comment will be add"
-     * )
-     * @SWG\Parameter(
-     *     name="comment",
-     *     in="body",
-     *     type="json",
-     *     description="Comment object used for create comment",
-     *     @SWG\Schema(
-     *            type="object",
-     *            @SWG\Property(property="comment", type="string", example="New fake comment"),
-     *         )
-     * )
-     * @SWG\Tag(name="Comment Add API")
-     *
-     * @Security(name="ApiAuth")
      */
     public function addCommentAction(Request $request, Article $article)
     {

@@ -81,33 +81,7 @@ class ArticleController extends Controller
     }
 
     /**
-     * @Route("/api/articles", name="api_articles_add", methods={"POST"})
-     *
-     * @throws \Exception
-     *
-     * @SWG\Response(
-     *     response=200,
-     *     description="Returns created comment object"
-     * )
-     * @SWG\Response(
-     *     response=400,
-     *     description="Invalid api token"
-     * )
-     * @SWG\Parameter(
-     *     name="comment",
-     *     in="body",
-     *     type="json",
-     *     description="Article object used for create article",
-     *     @SWG\Schema(
-     *            type="object",
-     *            @SWG\Property(property="title", type="string", example="New title for new articles"),
-     *            @SWG\Property(property="text", type="string", example="New fake text for new articles"),
-     *            @SWG\Property(property="imageName", type="string", example="article_image.jpg"),
-     *         )
-     * )
-     * @SWG\Tag(name="Article New API")
-     *
-     * @Security(name="ApiAuth")
+     * @Route("", name="api_articles_add", methods={"POST"})
      */
     public function addArticleAction(Request $request)
     {
@@ -126,7 +100,6 @@ class ArticleController extends Controller
         /* @var Article $article */
         $article = $this->serializer->deserialize($request->getContent(), Article::class, 'json');
         $article->setUser($user)
-        //  ->setArticle($article)
           ->setCreatedAt(new \DateTime())
           ->setApproved(true);
 

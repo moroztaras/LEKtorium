@@ -125,7 +125,6 @@ nelmio_api_doc:
                                         example: xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx
                         '400':
                             description: Authentication error
-
             /api/user/profile:
                 get:
                     tags:
@@ -165,6 +164,66 @@ nelmio_api_doc:
                                     api-token:
                                         type: string
                                         example: xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx
+                        '400':
+                            description: Authentication error
+            /api/articles:
+                post:
+                    tags:
+                        - Articles API
+                    description: Create new article
+                    produces:
+                        - application/json
+                    parameters:
+                        - name:  x-api-key
+                          description: X-APPI-KEY
+                          in: header
+                          required: true
+                        - name: article
+                          description: Article object used for create article
+                          in: body
+                          required: true
+                          schema:
+                              type: object
+                              properties:
+                                  title:
+                                      type: string
+                                      example: New title for new articles
+                                  text:
+                                      type: string
+                                      example: New fake text for new articles
+                                  imageName:
+                                      type: string
+                                      example: article_image.jpg
+                    responses:
+                        '200':
+                            description: New article successful
+                            schema:
+                                type: object
+                                properties:
+                                    article:
+                                        type: object
+                                        properties:
+                                            id:
+                                                type: string
+                                                example: 1
+                                            title:
+                                                type: string
+                                                example: New title for new articles
+                                            text:
+                                                 type: string
+                                                 example: New fake text for new articles
+                                            image:
+                                                 type: string
+                                                 example: article_image.jpg
+                                            createdAt:
+                                                 type: string
+                                                 example: "2019-01-24T14:22:51+02:00"
+                                            approved:
+                                                 type: string
+                                                 example: true
+                                            likes:
+                                                 type: string
+                                                 example: 0
                         '400':
                             description: Authentication error
             /api/articles/page={page}:

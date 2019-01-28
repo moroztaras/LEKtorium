@@ -48,23 +48,7 @@ class CommentController extends AbstractController
     }
 
     /**
-     * @Route("/page={page}", name="api_comment_list")
-     * @Method({"GET"})
-     * @SWG\Response(
-     *     response=200,
-     *     description="Returns comment object array"
-     * )
-     * @SWG\Response(
-     *     response=404,
-     *     description="Page not found"
-     * )
-     * @SWG\Parameter(
-     *     name="page",
-     *     in="path",
-     *     type="integer",
-     *     description="Comments page"
-     * )
-     * @SWG\Tag(name="Comments list API")
+     * @Route("/page={page}", name="api_comment_list", methods={"GET"})
      */
     public function listComment(Request $request, string $page, $limit = 5)
     {
@@ -77,8 +61,7 @@ class CommentController extends AbstractController
     }
 
     /**
-     * @Route("/{id}", name="api_comment_show")
-     * @Method({"GET"})
+     * @Route("/{id}", name="api_comment_show", methods={"GET"})
      *
      * @SWG\Response(
      *     response=200,
@@ -106,7 +89,7 @@ class CommentController extends AbstractController
     }
 
     /**
-     * @Route("/{article}/add", methods={"POST"}, name="api_comment_add")
+     * @Route("/{article}/add", name="api_comment_add", methods={"POST"})
      *
      * @throws \Exception
      *

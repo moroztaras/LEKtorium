@@ -257,7 +257,7 @@ nelmio_api_doc:
                                             text:
                                                  type: string
                                                  example: Text artile 1
-                                            image:
+                                            imageName:
                                                  type: string
                                                  example: article_image.jpg
                                             createdAt:
@@ -302,7 +302,7 @@ nelmio_api_doc:
                                             text:
                                                  type: string
                                                  example: Text artile 1
-                                            image:
+                                            imageName:
                                                  type: string
                                                  example: article_image.jpg
                                             createdAt:
@@ -318,3 +318,63 @@ nelmio_api_doc:
                             description: Bad request
                         '404':
                             description: Article not found
+            /api/comments/page={page}:
+                get:
+                    tags:
+                        - Comments API
+                    description: Comments list
+                    produces:
+                        - application/json
+                    parameters:
+                        - name: page
+                          description: Page for list comments
+                          in: path
+                          required: true
+                          type: string
+                    responses:
+                        '200':
+                            description: Comments list successful
+                            schema:
+                                type: object
+                                properties:
+                                    comments:
+                                        type: object
+                                        properties:
+                                            id:
+                                                type: string
+                                                example: 1
+                                            comment:
+                                                type: string
+                                                example: Comment 1 for "Title article 1"
+                                            aricle:
+                                                type: object
+                                                properties:
+                                                    id:
+                                                        type: string
+                                                        example: 1
+                                                    title:
+                                                        type: string
+                                                        example: Title artile 1
+                                                    text:
+                                                        type: string
+                                                        example: Text artile 1
+                                                    imageName:
+                                                        type: string
+                                                        example: article_image.jpg
+                                                    likes:
+                                                        type: string
+                                                        example: 1
+                                                    createdAt:
+                                                        type: string
+                                                        example: "2019-01-24T14:22:51+02:00"
+                                                    approved:
+                                                        type: string
+                                                        example: true
+                                            createdAt:
+                                                 type: string
+                                                 example: "2019-01-24T14:22:51+02:00"
+                                            approved:
+                                                 type: string
+                                                 example: true
+                        '400':
+                            description: Bad request

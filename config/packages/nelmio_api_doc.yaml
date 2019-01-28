@@ -124,4 +124,46 @@ nelmio_api_doc:
                                         type: string
                                         example: xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx
                         '400':
-                            description: Bad request or credentials
+                            description: Authentication error
+
+            /api/user/profile:
+                get:
+                    tags:
+                        - User API
+                    description: Profile user into the api
+                    produces:
+                        - application/json
+                    parameters:
+                        - name:  x-api-key
+                          description: X-APPI-KEY
+                          in: header
+                          required: true
+                    responses:
+                        '200':
+                            description: Returns user profile
+                            schema:
+                                type: object
+                                properties:
+                                    id:
+                                      type: string
+                                      example: 1
+                                    firstName:
+                                      type: string
+                                      example: firstName
+                                    lastName:
+                                      type: string
+                                      example: lastName
+                                    email:
+                                      type: string
+                                      example: email@mail.ua
+                                    region:
+                                      type: string
+                                      example: UA
+                                    avatar_name:
+                                      type: string
+                                      example: default_avatar.jpg
+                                    api-token:
+                                        type: string
+                                        example: xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx
+                        '400':
+                            description: Authentication error

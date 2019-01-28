@@ -17,7 +17,7 @@ use Nelmio\ApiDocBundle\Annotation\Security;
 /**
  * Class UserController.
  *
- * @Route("api")
+ * @Route("api/user")
  */
 class UserController extends Controller
 {
@@ -44,7 +44,7 @@ class UserController extends Controller
     }
 
     /**
-     * @Route("/user/registration", methods={"POST"}, name="api_user_registration")
+     * @Route("/registration", methods={"POST"}, name="api_user_registration")
      */
     public function registrationUserAction(Request $request)
     {
@@ -70,7 +70,7 @@ class UserController extends Controller
     }
 
     /**
-     * @Route("/user/login", methods={"POST"}, name="api_user_login")
+     * @Route("/login", methods={"POST"}, name="api_user_login")
      */
     public function loginUserAction(Request $request, UserPasswordEncoderInterface $passwordEncoder)
     {
@@ -101,23 +101,9 @@ class UserController extends Controller
     }
 
     /**
-     * @Route("/user/profile", methods={"GET"}, name="api_user_profile")
-     *
-     * @throws \Exception
-     *
-     * @SWG\Response(
-     *     response=200,
-     *     description="Returns user profile"
-     * )
-     * @SWG\Response(
-     *     response=400,
-     *     description="Invalid api token"
-     * )
-     * @SWG\Tag(name="User API")
-     *
-     * @Security(name="ApiAuth")
+     * @Route("/profile", methods={"GET"}, name="api_user_profile")
      */
-    public function showProfileAction(Request $request)
+    public function profileUserAction(Request $request)
     {
         $apiToken = $request->headers->get('x-api-key');
 

@@ -56,21 +56,6 @@ class ArticleController extends Controller
     /**
      * @Route("/page={page}", name="api_articles_list")
      * @Method({"GET"})
-     * @SWG\Response(
-     *     response=200,
-     *     description="Returns article object array"
-     * )
-     * @SWG\Response(
-     *     response=404,
-     *     description="Page not found"
-     * )
-     * @SWG\Parameter(
-     *     name="page",
-     *     in="path",
-     *     type="integer",
-     *     description="Articles page"
-     * )
-     * @SWG\Tag(name="Articles list API")
      */
     public function listArticle(Request $request, string $page, $limit = 5)
     {

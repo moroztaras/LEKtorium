@@ -212,3 +212,50 @@ nelmio_api_doc:
                                                  example: 1
                         '400':
                             description: Bad request
+            /api/articles/{id}:
+                get:
+                    tags:
+                        - Articles API
+                    description: Articles show
+                    produces:
+                        - application/json
+                    parameters:
+                        - name: id
+                          description: Id for show article
+                          in: path
+                          required: true
+                          type: string
+                    responses:
+                        '200':
+                            description: Article show successful
+                            schema:
+                                type: object
+                                properties:
+                                    article:
+                                        type: object
+                                        properties:
+                                            id:
+                                                type: string
+                                                example: 1
+                                            title:
+                                                type: string
+                                                example: Title artile 1
+                                            text:
+                                                 type: string
+                                                 example: Text artile 1
+                                            image:
+                                                 type: string
+                                                 example: article_image.jpg
+                                            createdAt:
+                                                 type: string
+                                                 example: "2019-01-24T14:22:51+02:00"
+                                            approved:
+                                                 type: string
+                                                 example: true
+                                            likes:
+                                                 type: string
+                                                 example: 1
+                        '400':
+                            description: Bad request
+                        '404':
+                            description: Article not found

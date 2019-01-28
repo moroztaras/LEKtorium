@@ -70,21 +70,6 @@ class ArticleController extends Controller
     /**
      * @Route("/{id}", name="api_articles_show")
      * @Method({"GET"})
-     * @SWG\Response(
-     *     response=200,
-     *     description="Returns article object"
-     * )
-     * @SWG\Response(
-     *     response=404,
-     *     description="Article not found"
-     * )
-     * @SWG\Parameter(
-     *     name="id",
-     *     in="path",
-     *     type="integer",
-     *     description="Article ID"
-     * )
-     * @SWG\Tag(name="Article show API")
      */
     public function showArticle(Article $article)
     {

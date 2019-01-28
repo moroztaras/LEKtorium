@@ -61,23 +61,7 @@ class CommentController extends AbstractController
     }
 
     /**
-     * @Route("/{id}", name="api_comment_show", methods={"GET"})
-     *
-     * @SWG\Response(
-     *     response=200,
-     *     description="Returns comment object"
-     * )
-     * @SWG\Response(
-     *     response=404,
-     *     description="Comment not found"
-     * )
-     * @SWG\Parameter(
-     *     name="id",
-     *     in="path",
-     *     type="integer",
-     *     description="Comment ID"
-     * )
-     * @SWG\Tag(name="Comment show API")
+     * @Route("/{id}", name="api_comment_show", methods={"GET"}))
      */
     public function showComment(Comment $comment)
     {

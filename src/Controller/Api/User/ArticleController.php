@@ -54,8 +54,7 @@ class ArticleController extends Controller
     }
 
     /**
-     * @Route("/page={page}", name="api_articles_list")
-     * @Method({"GET"})
+     * @Route("/page={page}", name="api_articles_list", methods={"GET"})
      */
     public function listArticle(Request $request, string $page, $limit = 5)
     {
@@ -68,8 +67,7 @@ class ArticleController extends Controller
     }
 
     /**
-     * @Route("/{id}", name="api_articles_show")
-     * @Method({"GET"})
+     * @Route("/{id}", name="api_articles_show", methods={"GET"})
      */
     public function showArticle(Article $article)
     {

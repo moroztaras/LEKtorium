@@ -48,7 +48,7 @@ class CommentController extends AbstractController
     }
 
     /**
-     * @Route("/page={page}", name="api_comment_list", methods={"GET"}, requirements={"page": "\d+"})
+     * @Route("/page={page}", name="api_comments_list", methods={"GET"}, requirements={"page": "\d+"})
      */
     public function listComment(Request $request, string $page, $limit = 5)
     {
@@ -61,7 +61,7 @@ class CommentController extends AbstractController
     }
 
     /**
-     * @Route("/{id}", name="api_comment_show", methods={"GET"}, requirements={"id": "\d+"} )
+     * @Route("/{id}", name="api_comments_show", methods={"GET"}, requirements={"id": "\d+"} )
      */
     public function showComment(Comment $comment)
     {
@@ -73,7 +73,7 @@ class CommentController extends AbstractController
     }
 
     /**
-     * @Route("/{article}/add", name="api_comment_add", methods={"POST"}, requirements={"article": "\d+"})
+     * @Route("/{article}/add", name="api_comments_add", methods={"POST"}, requirements={"article": "\d+"})
      */
     public function addCommentAction(Request $request, Article $article)
     {
@@ -105,4 +105,37 @@ class CommentController extends AbstractController
 
         return $this->json(['comment' => $comment]);
     }
+
+    /**
+     * @Route("/{id}", name="api_comments_delete", methods={"DELETE"}, requirements={"id": "\d+"})
+     */
+    public function removeComment(Request $request, Comment $comment)
+    {
+        if (!$comment) {
+            throw new NotFoundException(Response::HTTP_NOT_FOUND, 'Not Found.');
+        }
+        if (!$content = $request->getContent()) {
+            throw new JsonHttpException(Response::HTTP_BAD_REQUEST, 'Bad Request');
+        }
+        $em = $this->getDoctrine()->getManager();
+        $apiToken = $request->headers->get('x-api-key');
+
+        /** @var User $user */
+        $user = $em->getRepository(User::class)
+          ->findOneBy(['apiToken' => $apiToken]);
+        if (!$user) {
+            throw new JsonHttpException(Response::HTTP_BAD_REQUEST, 'Authentication error');
+        }
+
+        $this->getDoctrine()->getManager()->remove($comment);
+        $this->getDoctrine()->getManager()->flush();
+
+        return $this->json([
+          'success' => [
+            'code' => Response::HTTP_OK,
+            'message' => 'Comment was deleted'
+          ]
+        ], Response::HTTP_OK);
+    }
+
 }

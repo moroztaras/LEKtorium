@@ -52,7 +52,7 @@ class CommentController extends Controller
     }
 
     /**
-     * @Route("/comment/{id}", name="comment_create")
+     * @Route("/comment/{id}", name="comment_create", requirements={"id": "\d+"})
      */
     public function createAction(Request $request, $id)
     {

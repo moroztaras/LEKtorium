@@ -48,7 +48,7 @@ class CommentController extends AbstractController
     }
 
     /**
-     * @Route("/page={page}", name="api_comment_list", methods={"GET"})
+     * @Route("/page={page}", name="api_comment_list", methods={"GET"}, requirements={"page": "\d+"})
      */
     public function listComment(Request $request, string $page, $limit = 5)
     {
@@ -61,7 +61,7 @@ class CommentController extends AbstractController
     }
 
     /**
-     * @Route("/{id}", name="api_comment_show", methods={"GET"}))
+     * @Route("/{id}", name="api_comment_show", methods={"GET"}, requirements={"id": "\d+"} )
      */
     public function showComment(Comment $comment)
     {
@@ -73,7 +73,7 @@ class CommentController extends AbstractController
     }
 
     /**
-     * @Route("/{article}/add", name="api_comment_add", methods={"POST"})
+     * @Route("/{article}/add", name="api_comment_add", methods={"POST"}, requirements={"article": "\d+"})
      */
     public function addCommentAction(Request $request, Article $article)
     {

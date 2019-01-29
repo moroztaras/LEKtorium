@@ -36,7 +36,7 @@ class ArticleLikeController extends Controller
     }
 
     /**
-     * @Route("/article/{id}/like", methods={"GET","POST"}, name="article_like_add")
+     * @Route("/article/{id}/like", methods={"GET","POST"}, name="article_like_add", requirements={"id": "\d+"})
      */
     public function addAction(Request $request, Article $article)
     {

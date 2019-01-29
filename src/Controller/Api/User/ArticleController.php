@@ -58,7 +58,7 @@ class ArticleController extends Controller
     }
 
     /**
-     * @Route("/page={page}", name="api_articles_list", methods={"GET"})
+     * @Route("/page={page}", name="api_articles_list", methods={"GET"}, requirements={"page": "\d+"})
      */
     public function listArticle(Request $request, string $page, $limit = 5)
     {
@@ -71,7 +71,7 @@ class ArticleController extends Controller
     }
 
     /**
-     * @Route("/{id}", name="api_articles_show", methods={"GET"})
+     * @Route("/{id}", name="api_articles_show", methods={"GET"}, requirements={"id": "\d+"})
      */
     public function showArticle(Article $article)
     {
@@ -83,7 +83,7 @@ class ArticleController extends Controller
     }
 
     /**
-     * @Route("/{id}/comments", name="api_articles_show_comments_all", methods={"GET"})
+     * @Route("/{id}/comments", name="api_articles_show_comments_all", methods={"GET"}, requirements={"id": "\d+"})
      */
     public function showArticleAllComments(Article $article)
     {
@@ -101,7 +101,7 @@ class ArticleController extends Controller
     public function addArticleAction(Request $request)
     {
         if (!$content = $request->getContent()) {
-            throw new JsonHttpException(400, 'Bad Request');
+            throw new JsonHttpException(Response::HTTP_BAD_REQUEST, 'Bad Request');
         }
         $em = $this->getDoctrine()->getManager();
         $apiToken = $request->headers->get('x-api-key');
@@ -110,7 +110,7 @@ class ArticleController extends Controller
         $user = $em->getRepository(User::class)
           ->findOneBy(['apiToken' => $apiToken]);
         if (!$user) {
-            throw new JsonHttpException(400, 'Authentication error');
+            throw new JsonHttpException(Response::HTTP_BAD_REQUEST, 'Authentication error');
         }
         /* @var Article $article */
         $article = $this->serializer->deserialize($request->getContent(), Article::class, 'json');
@@ -120,11 +120,43 @@ class ArticleController extends Controller
 
         $errors = $this->validator->validate($article);
         if (count($errors)) {
-            throw new JsonHttpException(400, (string) $errors->get(0)->getPropertyPath().': '.(string) $errors->get(0)->getMessage());
+            throw new JsonHttpException(Response::HTTP_BAD_REQUEST, (string) $errors->get(0)->getPropertyPath().': '.(string) $errors->get(0)->getMessage());
         }
         $this->getDoctrine()->getManager()->persist($article);
         $this->getDoctrine()->getManager()->flush();
 
         return $this->json(['article' => $article]);
+    }
+
+    /**
+     * @Route("/{id}", name="api_articles_delete", methods={"DELETE"}, requirements={"id": "\d+"})
+     */
+    public function removeArticle(Request $request, Article $article)
+    {
+        if (!$article) {
+            throw new NotFoundException(Response::HTTP_NOT_FOUND, 'Not Found.');
+        }
+        if (!$content = $request->getContent()) {
+            throw new JsonHttpException(Response::HTTP_BAD_REQUEST, 'Bad Request');
+        }
+        $em = $this->getDoctrine()->getManager();
+        $apiToken = $request->headers->get('x-api-key');
+
+        /** @var User $user */
+        $user = $em->getRepository(User::class)
+          ->findOneBy(['apiToken' => $apiToken]);
+        if (!$user) {
+            throw new JsonHttpException(Response::HTTP_BAD_REQUEST, 'Authentication error');
+        }
+
+        $this->getDoctrine()->getManager()->remove($article);
+        $this->getDoctrine()->getManager()->flush();
+
+        return $this->json([
+          'success' => [
+            'code' => Response::HTTP_OK,
+            'message' => 'Article was deleted'
+          ]
+        ], Response::HTTP_OK);
     }
 }

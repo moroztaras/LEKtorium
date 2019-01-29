@@ -4,6 +4,7 @@ namespace App\Controller\Api\User;
 
 use App\Entity\Article;
 use App\Entity\User;
+use App\Services\CommentService;
 use App\Exception\JsonHttpException;
 use App\Exception\NotFoundException;
 use Knp\Component\Pager\PaginatorInterface;
@@ -13,10 +14,7 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Serializer\SerializerInterface;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Symfony\Component\Validator\Validator\ValidatorInterface;
-use Swagger\Annotations as SWG;
-use Nelmio\ApiDocBundle\Annotation\Security;
 
 /**
  * Class ArticleController.
@@ -41,16 +39,22 @@ class ArticleController extends Controller
     private $router;
 
     /**
+     * @var CommentService
+     */
+    public $commentService;
+
+    /**
      * @var PaginatorInterface
      */
     private $paginator;
 
-    public function __construct(SerializerInterface $serializer, ValidatorInterface $validator, RouterInterface $router, PaginatorInterface $paginator)
+    public function __construct(SerializerInterface $serializer, CommentService $commentService, ValidatorInterface $validator, RouterInterface $router, PaginatorInterface $paginator)
     {
         $this->serializer = $serializer;
         $this->validator = $validator;
         $this->router = $router;
         $this->paginator = $paginator;
+        $this->commentService = $commentService;
     }
 
     /**
@@ -76,6 +80,19 @@ class ArticleController extends Controller
         }
 
         return $this->json(['article' => $article], Response::HTTP_OK);
+    }
+
+    /**
+     * @Route("/{id}/comments", name="api_articles_show_comments_all", methods={"GET"})
+     */
+    public function showArticleAllComments(Article $article)
+    {
+        if (!$article) {
+            throw new NotFoundException(Response::HTTP_NOT_FOUND, 'Not Found.');
+        }
+        $comments = $this->commentService->getCommentsForArticle($article);
+
+        return $this->json(['comments' => $comments], Response::HTTP_OK);
     }
 
     /**

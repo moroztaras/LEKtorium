@@ -318,6 +318,25 @@ nelmio_api_doc:
                             description: Bad request
                         '404':
                             description: Article not found
+                delete:
+                    tags:
+                        - Articles API
+                    description: Articles delete
+                    produces:
+                        - application/json
+                    parameters:
+                        - name: id
+                          description: Article ID
+                          in: path
+                          required: true
+                          type: string
+                    responses:
+                        '200':
+                            description: Article was deleted
+                        '400':
+                            description: Bad request
+                        '404':
+                            description: Article not found
             /api/articles/{id}/comments:
                 get:
                     tags:

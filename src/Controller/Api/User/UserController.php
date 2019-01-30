@@ -11,8 +11,6 @@ use Symfony\Component\Serializer\SerializerInterface;
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 use Ramsey\Uuid\Uuid;
 use Symfony\Component\Validator\Validator\ValidatorInterface;
-use Swagger\Annotations as SWG;
-use Nelmio\ApiDocBundle\Annotation\Security;
 
 /**
  * Class UserController.

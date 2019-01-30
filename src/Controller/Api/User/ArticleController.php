@@ -155,8 +155,8 @@ class ArticleController extends Controller
         return $this->json([
           'success' => [
             'code' => Response::HTTP_OK,
-            'message' => 'Article was deleted'
-          ]
+            'message' => 'Article was deleted',
+          ],
         ], Response::HTTP_OK);
     }
 }

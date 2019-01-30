@@ -13,10 +13,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Serializer\SerializerInterface;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Symfony\Component\Validator\Validator\ValidatorInterface;
-use Swagger\Annotations as SWG;
-use Nelmio\ApiDocBundle\Annotation\Security;
 
 /**
  * Class CommentController.
@@ -133,9 +130,8 @@ class CommentController extends AbstractController
         return $this->json([
           'success' => [
             'code' => Response::HTTP_OK,
-            'message' => 'Comment was deleted'
-          ]
+            'message' => 'Comment was deleted',
+          ],
         ], Response::HTTP_OK);
     }
-
 }

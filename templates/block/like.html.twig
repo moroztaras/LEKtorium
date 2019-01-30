@@ -1,7 +1,9 @@
 <button class="ajax-like btn btn-light text-primary"
         role="button"
-        data-link="{{ path('article_like_add', {'id': article.id}) }}"
-        data-id="{{ article.id }}">
+            {% if is_granted("IS_AUTHENTICATED_REMEMBERED") %}
+                data-link="{{ path('article_like_add', {'id': article.id}) }}"
+                data-id="{{ article.id }}">
+            {% endif %}
             <span id="likes-count-{{ article.id }}">
                 {% if article.likes|length > 0 %}
                     {{ article.likes|length }}

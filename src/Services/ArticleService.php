@@ -37,7 +37,7 @@ class ArticleService
     {
         $article
           ->setTitle($article->getTitle())
-          ->setText($article->getTitle())
+          ->setText($article->getText())
           ->setUser($user);
 
         $tags = $this->generateTags($article->getTagsInput(), $article);

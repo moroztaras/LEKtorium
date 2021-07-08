@@ -1,4 +1,7 @@
 nelmio_api_doc:
+    areas:
+        path_patterns:
+            - ^/api(?!/doc$)
     documentation:
         info:
             title: Lektoriym Blog API Doc
@@ -9,6 +12,698 @@ nelmio_api_doc:
                 type: apiKey
                 in: header
                 name: x-api-key
-    areas:
-        path_patterns:
-            - ^/api(?!/doc$)
+        paths:
+            /api/user/registration:
+                post:
+                    tags:
+                        - User API
+                    description: Registration new user
+                    produces:
+                        - application/json
+                    parameters:
+                        - name: user
+                          description: User to be registered
+                          in: body
+                          required: true
+                          schema:
+                              type: object
+                              properties:
+                                  firstName:
+                                      type: string
+                                      example: fake_firstName
+                                  lastName:
+                                      type: string
+                                      example: fake_lastName
+                                  email:
+                                      type: string
+                                      example: fake_mail@mail.ua
+                                  plainPassword:
+                                      type: string
+                                      example: fake_password
+                                  region:
+                                      type: string
+                                      example: UA
+                                  avatar_name:
+                                      type: string
+                                      example: default_avatar.jpg
+                    responses:
+                        '200':
+                            description: Registration successful
+                            schema:
+                                type: object
+                                properties:
+                                    id:
+                                      type: string
+                                      example: 1
+                                    firstName:
+                                      type: string
+                                      example: firstName
+                                    lastName:
+                                      type: string
+                                      example: lastName
+                                    email:
+                                      type: string
+                                      example: email@mail.ua
+                                    region:
+                                      type: string
+                                      example: UA
+                                    avatar_name:
+                                      type: string
+                                      example: default_avatar.jpg
+                                    api-token:
+                                        type: string
+                                        example: xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx
+                        '400':
+                            description: Bad request
+            /api/user/login:
+                post:
+                    tags:
+                        - User API
+                    description: Login into the api
+                    produces:
+                        - application/json
+                    parameters:
+                        - name: user
+                          description: User object used for user authentication
+                          in: body
+                          required: true
+                          schema:
+                              type: object
+                              properties:
+                                  email:
+                                      type: string
+                                      example: moroztaras@i.ua
+                                  plainPassword:
+                                      type: string
+                                      example: moroztaras
+                    responses:
+                        '200':
+                            description: Login successful. Returns user profile
+                            schema:
+                                type: object
+                                properties:
+                                    id:
+                                      type: string
+                                      example: 1
+                                    firstName:
+                                      type: string
+                                      example: firstName
+                                    lastName:
+                                      type: string
+                                      example: lastName
+                                    email:
+                                      type: string
+                                      example: email@mail.ua
+                                    region:
+                                      type: string
+                                      example: UA
+                                    avatar_name:
+                                      type: string
+                                      example: default_avatar.jpg
+                                    api-token:
+                                        type: string
+                                        example: xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx
+                        '400':
+                            description: Authentication error
+            /api/user/profile:
+                get:
+                    tags:
+                        - User API
+                    description: Profile user into the api
+                    produces:
+                        - application/json
+                    parameters:
+                        - name:  x-api-key
+                          description: X-APPI-KEY
+                          in: header
+                          required: true
+                    responses:
+                        '200':
+                            description: Returns user profile
+                            schema:
+                                type: object
+                                properties:
+                                    id:
+                                      type: string
+                                      example: 1
+                                    firstName:
+                                      type: string
+                                      example: firstName
+                                    lastName:
+                                      type: string
+                                      example: lastName
+                                    email:
+                                      type: string
+                                      example: email@mail.ua
+                                    region:
+                                      type: string
+                                      example: UA
+                                    avatar_name:
+                                      type: string
+                                      example: default_avatar.jpg
+                                    api-token:
+                                        type: string
+                                        example: xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx
+                        '400':
+                            description: Authentication error
+            /api/articles:
+                post:
+                    tags:
+                        - Articles API
+                    description: Create new article
+                    produces:
+                        - application/json
+                    parameters:
+                        - name:  x-api-key
+                          description: X-APPI-KEY
+                          in: header
+                          required: true
+                        - name: article
+                          description: Article object used for create article
+                          in: body
+                          required: true
+                          schema:
+                              type: object
+                              properties:
+                                  title:
+                                      type: string
+                                      example: New title for new articles
+                                  text:
+                                      type: string
+                                      example: New fake text for new articles
+                                  imageName:
+                                      type: string
+                                      example: article_image.jpg
+                    responses:
+                        '200':
+                            description: New article successful
+                            schema:
+                                type: object
+                                properties:
+                                    article:
+                                        type: object
+                                        properties:
+                                            id:
+                                                type: string
+                                                example: 1
+                                            title:
+                                                type: string
+                                                example: New title for new articles
+                                            text:
+                                                 type: string
+                                                 example: New fake text for new articles
+                                            image:
+                                                 type: string
+                                                 example: article_image.jpg
+                                            createdAt:
+                                                 type: string
+                                                 example: "2019-01-24T14:22:51+02:00"
+                                            approved:
+                                                 type: string
+                                                 example: true
+                                            likes:
+                                                 type: string
+                                                 example: 0
+                        '400':
+                            description: Authentication error
+            /api/articles/page={page}:
+                get:
+                    tags:
+                        - Articles API
+                    description: Articles list
+                    produces:
+                        - application/json
+                    parameters:
+                        - name: page
+                          description: Article page
+                          in: path
+                          required: true
+                          type: string
+                    responses:
+                        '200':
+                            description: Articles list successful
+                            schema:
+                                type: object
+                                properties:
+                                    articles:
+                                        type: object
+                                        properties:
+                                            id:
+                                                type: string
+                                                example: 1
+                                            title:
+                                                type: string
+                                                example: Title artile 1
+                                            text:
+                                                 type: string
+                                                 example: Text artile 1
+                                            imageName:
+                                                 type: string
+                                                 example: article_image.jpg
+                                            createdAt:
+                                                 type: string
+                                                 example: "2019-01-24T14:22:51+02:00"
+                                            approved:
+                                                 type: string
+                                                 example: true
+                                            likes:
+                                                 type: string
+                                                 example: 1
+                        '400':
+                            description: Bad request
+            /api/articles/{id}:
+                get:
+                    tags:
+                        - Articles API
+                    description: Articles show
+                    produces:
+                        - application/json
+                    parameters:
+                        - name: id
+                          description: Article ID
+                          in: path
+                          required: true
+                          type: string
+                    responses:
+                        '200':
+                            description: Article show successful
+                            schema:
+                                type: object
+                                properties:
+                                    article:
+                                        type: object
+                                        properties:
+                                            id:
+                                                type: string
+                                                example: 1
+                                            title:
+                                                type: string
+                                                example: Title artile 1
+                                            text:
+                                                 type: string
+                                                 example: Text artile 1
+                                            imageName:
+                                                 type: string
+                                                 example: article_image.jpg
+                                            createdAt:
+                                                 type: string
+                                                 example: "2019-01-24T14:22:51+02:00"
+                                            approved:
+                                                 type: string
+                                                 example: true
+                                            likes:
+                                                 type: string
+                                                 example: 1
+                        '400':
+                            description: Bad request
+                        '404':
+                            description: Article not found
+                delete:
+                    tags:
+                        - Articles API
+                    description: Articles delete
+                    produces:
+                        - application/json
+                    parameters:
+                        - name:  x-api-key
+                          description: X-APPI-KEY
+                          in: header
+                          required: true
+                        - name: id
+                          description: Article ID
+                          in: path
+                          required: true
+                          type: string
+                    responses:
+                        '200':
+                            description: Article was deleted
+                        '400':
+                            description: Bad request
+                        '404':
+                            description: Article not found
+            /api/articles/{id}/comments:
+                get:
+                    tags:
+                        - Articles API
+                    description: Show all comments for article
+                    produces:
+                        - application/json
+                    parameters:
+                        - name: id
+                          description: Article ID
+                          in: path
+                          required: true
+                          type: string
+                    responses:
+                        '200':
+                            description: Show all comments for article successful
+                            schema:
+                                type: object
+                                properties:
+                                    comments:
+                                        type: object
+                                        properties:
+                                            id:
+                                                type: string
+                                                example: 1
+                                            comment:
+                                                type: string
+                                                example: Comment 1 for "Title article 1"
+                                            article:
+                                                type: object
+                                                properties:
+                                                    id:
+                                                        type: string
+                                                        example: 1
+                                                    title:
+                                                        type: string
+                                                        example: Title artile 1
+                                                    text:
+                                                        type: string
+                                                        example: Text artile 1
+                                                    imageName:
+                                                        type: string
+                                                        example: article_image.jpg
+                                                    createdAt:
+                                                        type: string
+                                                        example: "2019-01-24T14:22:49+02:00"
+                                                    approved:
+                                                        type: string
+                                                        example: true
+                                                    likes:
+                                                        type: string
+                                                        example: 1
+                                            createdAt:
+                                                 type: string
+                                                 example: "2019-01-24T14:22:51+02:00"
+                                            approved:
+                                                 type: string
+                                                 example: true
+                                            user:
+                                                type: object
+                                                properties:
+                                                    id:
+                                                        type: string
+                                                        example: 1
+                                                    firstName:
+                                                        type: string
+                                                        example: firstName
+                                                    lastName:
+                                                        type: string
+                                                        example: lastName
+                        '400':
+                            description: Bad request
+                        '404':
+                            description: Article not found
+            /api/article/{id}/like:
+                get:
+                    tags:
+                        - Like API
+                    description: Like article
+                    produces:
+                        - application/json
+                    parameters:
+                        - name:  x-api-key
+                          description: X-APPI-KEY
+                          in: header
+                          required: true
+                        - name: id
+                          description: Article ID which like need to be set
+                          in: path
+                          required: true
+                          type: integer
+                    responses:
+                        '200':
+                            description: Returns like object. If ID is not null like has been set. If ID is null like has been unset
+                            schema:
+                                type: object
+                                properties:
+                                    like:
+                                        type: object
+                                        properties:
+                                            id:
+                                                type: string
+                                                example: 1
+                                            article:
+                                                type: object
+                                                properties:
+                                                    id:
+                                                        type: string
+                                                        example: 1
+                                                    title:
+                                                        type: string
+                                                        example: Title artile 1
+                                                    text:
+                                                        type: string
+                                                        example: Text artile 1
+                                                    imageName:
+                                                        type: string
+                                                        example: article_image.jpg
+                                                    createdAt:
+                                                        type: string
+                                                        example: "2019-01-24T14:22:49+02:00"
+                                                    approved:
+                                                        type: string
+                                                        example: true
+                                                    likes:
+                                                        type: string
+                                                        example: 1
+                                            user:
+                                                type: object
+                                                properties:
+                                                    id:
+                                                        type: string
+                                                        example: 1
+                                                    firstName:
+                                                        type: string
+                                                        example: firstName
+                                                    lastName:
+                                                        type: string
+                                                        example: lastName
+                                                    email:
+                                                        type: string
+                                                        example: email@i.ua
+
+                        '400':
+                            description: Invalid api token
+                        '404':
+                            description: Article not found
+            /api/comments/page={page}:
+                get:
+                    tags:
+                        - Comments API
+                    description: Comments list
+                    produces:
+                        - application/json
+                    parameters:
+                        - name: page
+                          description: Comment Page
+                          in: path
+                          required: true
+                          type: string
+                    responses:
+                        '200':
+                            description: Comments list successful
+                            schema:
+                                type: object
+                                properties:
+                                    comments:
+                                        type: object
+                                        properties:
+                                            id:
+                                                type: string
+                                                example: 1
+                                            comment:
+                                                type: string
+                                                example: Comment 1 for "Title article 1"
+                                            aricle:
+                                                type: object
+                                                properties:
+                                                    id:
+                                                        type: string
+                                                        example: 1
+                                                    title:
+                                                        type: string
+                                                        example: Title artile 1
+                                                    text:
+                                                        type: string
+                                                        example: Text artile 1
+                                                    imageName:
+                                                        type: string
+                                                        example: article_image.jpg
+                                                    likes:
+                                                        type: string
+                                                        example: 1
+                                                    createdAt:
+                                                        type: string
+                                                        example: "2019-01-24T14:22:51+02:00"
+                                                    approved:
+                                                        type: string
+                                                        example: true
+                                            createdAt:
+                                                 type: string
+                                                 example: "2019-01-24T14:22:51+02:00"
+                                            approved:
+                                                 type: string
+                                                 example: true
+                        '400':
+                            description: Bad request
+            /api/comments/{id}:
+                get:
+                    tags:
+                        - Comments API
+                    description: Comments show
+                    produces:
+                        - application/json
+                    parameters:
+                        - name: id
+                          description: Comment ID
+                          in: path
+                          required: true
+                          type: string
+                    responses:
+                        '200':
+                            description: Comments show successful
+                            schema:
+                                type: object
+                                properties:
+                                    comment:
+                                        type: object
+                                        properties:
+                                            id:
+                                                type: string
+                                                example: 1
+                                            comment:
+                                                type: string
+                                                example: New comment for article
+                                            aricle:
+                                                type: object
+                                                properties:
+                                                    id:
+                                                        type: string
+                                                        example: 1
+                                                    title:
+                                                        type: string
+                                                        example: Title artile 1
+                                                    text:
+                                                        type: string
+                                                        example: Text artile 1
+                                                    imageName:
+                                                        type: string
+                                                        example: article_image.jpg
+                                                    likes:
+                                                        type: string
+                                                        example: 1
+                                                    createdAt:
+                                                        type: string
+                                                        example: "2019-01-24T14:22:51+02:00"
+                                                    approved:
+                                                        type: string
+                                                        example: true
+                                            createdAt:
+                                                 type: string
+                                                 example: "2019-01-24T14:22:51+02:00"
+                                            approved:
+                                                 type: string
+                                                 example: true
+                        '400':
+                            description: Bad request
+                        '404':
+                            description: Comment not found
+                delete:
+                    tags:
+                        - Comments API
+                    description: Comments delete
+                    produces:
+                        - application/json
+                    parameters:
+                        - name:  x-api-key
+                          description: X-APPI-KEY
+                          in: header
+                          required: true
+                        - name: id
+                          description: Comment ID
+                          in: path
+                          required: true
+                          type: string
+                    responses:
+                        '200':
+                            description: Comment was deleted
+                        '400':
+                            description: Bad request
+                        '404':
+                            description: Comment not found
+            /api/comments/{article}/add:
+                post:
+                    tags:
+                        - Comments API
+                    description: Comments New comment for article
+                    produces:
+                        - application/json
+                    parameters:
+                        - name:  x-api-key
+                          description: X-APPI-KEY
+                          in: header
+                          required: true
+                        - name: article
+                          description: Article ID which in comment will be add
+                          in: path
+                          required: true
+                          type: string
+                        - name: comment
+                          description: Comment object used for create comment
+                          in: body
+                          required: true
+                          schema:
+                              type: object
+                              properties:
+                                  comment:
+                                      type: string
+                                      example: New comment for article
+                    responses:
+                        '200':
+                            description: Create new comment successful
+                            schema:
+                                type: object
+                                properties:
+                                    comment:
+                                        type: object
+                                        properties:
+                                            id:
+                                                type: string
+                                                example: 1
+                                            comment:
+                                                type: string
+                                                example: New comment for article
+                                            aricle:
+                                                type: object
+                                                properties:
+                                                    id:
+                                                        type: string
+                                                        example: 1
+                                                    title:
+                                                        type: string
+                                                        example: Title artile 1
+                                                    text:
+                                                        type: string
+                                                        example: Text artile 1
+                                                    imageName:
+                                                        type: string
+                                                        example: article_image.jpg
+                                                    likes:
+                                                        type: string
+                                                        example: 1
+                                                    createdAt:
+                                                        type: string
+                                                        example: "2019-01-24T14:22:51+02:00"
+                                                    approved:
+                                                        type: string
+                                                        example: true
+                                            createdAt:
+                                                 type: string
+                                                 example: "2019-01-24T14:22:51+02:00"
+                                            approved:
+                                                 type: string
+                                                 example: true
+                        '404':
+                            description: Article not found

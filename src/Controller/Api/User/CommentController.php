@@ -13,10 +13,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Serializer\SerializerInterface;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Symfony\Component\Validator\Validator\ValidatorInterface;
-use Swagger\Annotations as SWG;
-use Nelmio\ApiDocBundle\Annotation\Security;
 
 /**
  * Class CommentController.
@@ -48,23 +45,7 @@ class CommentController extends AbstractController
     }
 
     /**
-     * @Route("/page={page}", name="api_comment_list")
-     * @Method({"GET"})
-     * @SWG\Response(
-     *     response=200,
-     *     description="Returns comment object array"
-     * )
-     * @SWG\Response(
-     *     response=404,
-     *     description="Page not found"
-     * )
-     * @SWG\Parameter(
-     *     name="page",
-     *     in="path",
-     *     type="integer",
-     *     description="Comments page"
-     * )
-     * @SWG\Tag(name="Comments list API")
+     * @Route("/page={page}", name="api_comments_list", methods={"GET"}, requirements={"page": "\d+"})
      */
     public function listComment(Request $request, string $page, $limit = 5)
     {
@@ -77,24 +58,7 @@ class CommentController extends AbstractController
     }
 
     /**
-     * @Route("/{id}", name="api_comment_show")
-     * @Method({"GET"})
-     *
-     * @SWG\Response(
-     *     response=200,
-     *     description="Returns comment object"
-     * )
-     * @SWG\Response(
-     *     response=404,
-     *     description="Comment not found"
-     * )
-     * @SWG\Parameter(
-     *     name="id",
-     *     in="path",
-     *     type="integer",
-     *     description="Comment ID"
-     * )
-     * @SWG\Tag(name="Comment show API")
+     * @Route("/{id}", name="api_comments_show", methods={"GET"}, requirements={"id": "\d+"} )
      */
     public function showComment(Comment $comment)
     {
@@ -106,37 +70,7 @@ class CommentController extends AbstractController
     }
 
     /**
-     * @Route("/{id_article}/add", methods={"POST"}, name="api_comment_add")
-     *
-     * @throws \Exception
-     *
-     * @SWG\Response(
-     *     response=200,
-     *     description="Returns created comment object"
-     * )
-     * @SWG\Response(
-     *     response=400,
-     *     description="Invalid api token"
-     * )
-     * @SWG\Parameter(
-     *     name="article",
-     *     in="path",
-     *     type="integer",
-     *     description="Article ID which in comment will be add"
-     * )
-     * @SWG\Parameter(
-     *     name="comment",
-     *     in="body",
-     *     type="json",
-     *     description="Comment object used for create comment",
-     *     @SWG\Schema(
-     *            type="object",
-     *            @SWG\Property(property="comment", type="string"),
-     *         )
-     * )
-     * @SWG\Tag(name="Comment Add API")
-     *
-     * @Security(name="ApiAuth")
+     * @Route("/{article}/add", name="api_comments_add", methods={"POST"}, requirements={"article": "\d+"})
      */
     public function addCommentAction(Request $request, Article $article)
     {
@@ -167,5 +101,37 @@ class CommentController extends AbstractController
         $this->getDoctrine()->getManager()->flush();
 
         return $this->json(['comment' => $comment]);
+    }
+
+    /**
+     * @Route("/{id}", name="api_comments_delete", methods={"DELETE"}, requirements={"id": "\d+"})
+     */
+    public function removeComment(Request $request, Comment $comment)
+    {
+        if (!$comment) {
+            throw new NotFoundException(Response::HTTP_NOT_FOUND, 'Not Found.');
+        }
+        if (!$content = $request->getContent()) {
+            throw new JsonHttpException(Response::HTTP_BAD_REQUEST, 'Bad Request');
+        }
+        $em = $this->getDoctrine()->getManager();
+        $apiToken = $request->headers->get('x-api-key');
+
+        /** @var User $user */
+        $user = $em->getRepository(User::class)
+          ->findOneBy(['apiToken' => $apiToken]);
+        if (!$user) {
+            throw new JsonHttpException(Response::HTTP_BAD_REQUEST, 'Authentication error');
+        }
+
+        $this->getDoctrine()->getManager()->remove($comment);
+        $this->getDoctrine()->getManager()->flush();
+
+        return $this->json([
+          'success' => [
+            'code' => Response::HTTP_OK,
+            'message' => 'Comment was deleted',
+          ],
+        ], Response::HTTP_OK);
     }
 }

@@ -8,6 +8,7 @@ use App\Services\CommentService;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\HttpFoundation\Session\Flash\FlashBagInterface;
 
 /**
  * Class CommentController.
@@ -20,12 +21,18 @@ class CommentController extends Controller
     public $commentService;
 
     /**
+     * @var FlashBagInterface
+     */
+    private $flashBag;
+
+    /**
      * CommentController constructor.
      *
      * @param CommentService $commentService
      */
-    public function __construct(CommentService $commentService)
+    public function __construct(CommentService $commentService, FlashBagInterface $flashBag)
     {
+        $this->flashBag = $flashBag;
         $this->commentService = $commentService;
     }
 
@@ -45,7 +52,7 @@ class CommentController extends Controller
     }
 
     /**
-     * @Route("/comment/{id}", name="comment_create")
+     * @Route("/comment/{id}", name="comment_create", requirements={"id": "\d+"})
      */
     public function createAction(Request $request, $id)
     {
@@ -56,6 +63,7 @@ class CommentController extends Controller
         $form->handleRequest($request);
         if ($form->isValid()) {
             $this->commentService->save($comment);
+            $this->flashBag->add('success', 'The comment has been sent to moderation and will be published after checking.');
 
             return $this->redirect($this->generateUrl('article_view',
               [
